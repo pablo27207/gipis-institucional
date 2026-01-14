@@ -1,0 +1,54 @@
+# Docker Compose para desarrollo LOCAL (sin SSL)
+# Usar este archivo para probar localmente antes de producción
+#
+# Ejecutar con: docker-compose -f docker-compose.local.yml up -d --build
+
+version: '3.8'
+
+services:
+  # Traefik sin SSL (para desarrollo local)
+  traefik:
+    image: traefik:v2.10
+    container_name: traefik-local
+    restart: unless-stopped
+    command:
+      - "--api.dashboard=true"
+      - "--api.insecure=true" # Dashboard sin auth en localhost:8080
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.network=traefik-local"
+      - "--entrypoints.web.address=:80"
+      - "--log.level=DEBUG"
+    ports:
+      - "80:80"
+      - "8080:8080" # Dashboard de Traefik
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - traefik-local
+
+  # Aplicación Flask
+  web:
+    build: .
+    container_name: gipis-web-local
+    restart: unless-stopped
+    volumes:
+      - ./instance:/app/instance
+      - ./app/static/img:/app/app/static/img
+    environment:
+      - FLASK_ENV=development
+      - SECRET_KEY=dev-secret-key-no-usar-en-produccion
+    expose:
+      - "5000"
+    networks:
+      - traefik-local
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.gipis-local.rule=Host(`localhost`)"
+      - "traefik.http.routers.gipis-local.entrypoints=web"
+      - "traefik.http.services.gipis-local.loadbalancer.server.port=5000"
+
+networks:
+  traefik-local:
+    name: traefik-local
+    driver: bridge

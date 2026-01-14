@@ -1,0 +1,135 @@
+{% extends "base.xhtml" %}
+
+{% block title %}Cooperación Científica e Industrial{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative h-[400px] flex items-center overflow-hidden">
+    <img alt="Campus Universitario" class="absolute inset-0 w-full h-full object-cover"
+        src="{{ url_for('static', filename='img/3.png') }}" />
+    <div class="absolute inset-0 hero-gradient"></div>
+    <div class="container mx-auto px-6 relative z-10 text-white">
+        <nav class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-300 mb-4">
+            <a class="hover:text-white transition-colors" href="{{ url_for('main.home') }}">Inicio</a>
+            <span class="material-symbols-outlined text-[10px]">chevron_right</span>
+            <span class="text-white">Cooperación</span>
+        </nav>
+        <h1 class="font-display text-4xl md:text-5xl font-bold leading-tight mb-6">
+            Cooperación Científica e Industrial
+        </h1>
+        <p class="text-xl text-slate-200 max-w-2xl">
+            Desarrollamos vinculaciones estratégicas con instituciones académicas, centros de investigación y el sector
+            productivo.
+        </p>
+    </div>
+</section>
+
+<!-- Cooperation Types -->
+<section class="py-24 bg-white dark:bg-slate-900 transition-colors duration-300">
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="text-center p-8">
+                <div class="w-20 h-20 mx-auto bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
+                    <span class="material-symbols-outlined text-primary text-4xl">school</span>
+                </div>
+                <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-4">Redes Académicas</h3>
+                <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Convenios de colaboración con
+                    universidades nacionales e internacionales para intercambio científico.</p>
+            </div>
+            <div class="text-center p-8">
+                <div class="w-20 h-20 mx-auto bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
+                    <span class="material-symbols-outlined text-primary text-4xl">factory</span>
+                </div>
+                <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-4">Transferencia Industrial
+                </h3>
+                <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Soluciones profesionales y
+                    asesoría técnica para empresas del sector energético y telecomunicaciones.</p>
+            </div>
+            <div class="text-center p-8">
+                <div class="w-20 h-20 mx-auto bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
+                    <span class="material-symbols-outlined text-primary text-4xl">handshake</span>
+                </div>
+                <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-4">Proyectos Conjuntos</h3>
+                <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Planificación y ejecución de
+                    proyectos I+D+i con financiamiento público, privado e institucional.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Collaboration Network -->
+<section class="py-24 bg-background-light dark:bg-slate-950 transition-colors duration-300">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="font-display text-3xl font-bold text-slate-900 dark:text-white mb-4">Red de Colaboración</h2>
+            <div class="h-1.5 w-24 bg-primary rounded-full mx-auto mb-6"></div>
+            <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Colaboramos con prestigiosas organizaciones
+                para potenciar el desarrollo tecnológico regional y nacional.</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div
+                class="bg-white dark:bg-slate-900 rounded-xl p-8 flex items-center justify-center h-24 border border-slate-100 dark:border-slate-800 hover:shadow-lg transition-shadow">
+                <span class="text-slate-400 font-semibold text-sm text-center">Universidad de Alcalá</span>
+            </div>
+            <div
+                class="bg-white dark:bg-slate-900 rounded-xl p-8 flex items-center justify-center h-24 border border-slate-100 dark:border-slate-800 hover:shadow-lg transition-shadow">
+                <span class="text-slate-400 font-semibold text-sm text-center">CONICET</span>
+            </div>
+            <div
+                class="bg-white dark:bg-slate-900 rounded-xl p-8 flex items-center justify-center h-24 border border-slate-100 dark:border-slate-800 hover:shadow-lg transition-shadow">
+                <span class="text-slate-400 font-semibold text-sm text-center">CIT Golfo San Jorge</span>
+            </div>
+            <div
+                class="bg-white dark:bg-slate-900 rounded-xl p-8 flex items-center justify-center h-24 border border-slate-100 dark:border-slate-800 hover:shadow-lg transition-shadow">
+                <span class="text-slate-400 font-semibold text-sm text-center">ANPCyT</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Opportunities -->
+<section class="py-24 bg-white dark:bg-slate-900 transition-colors duration-300">
+    <div class="container mx-auto px-6">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="font-display text-3xl font-bold text-slate-900 dark:text-white mb-6">Oportunidades de Cooperación
+            </h2>
+            <p class="text-slate-600 dark:text-slate-400 mb-12 text-lg">¿Su institución o empresa está interesada en
+                colaborar con nosotros? Buscamos constantemente nuevos socios para proyectos de investigación, tesis
+                doctorales y consultoría tecnológica.</p>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-3 text-slate-700 dark:text-slate-300">
+                            <span class="material-symbols-outlined text-primary">check_circle</span>
+                            Becas de postgrado conjuntas
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-700 dark:text-slate-300">
+                            <span class="material-symbols-outlined text-primary">check_circle</span>
+                            Prácticas profesionales
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-700 dark:text-slate-300">
+                            <span class="material-symbols-outlined text-primary">check_circle</span>
+                            I+D para el sector industrial
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-700 dark:text-slate-300">
+                            <span class="material-symbols-outlined text-primary">check_circle</span>
+                            Proyectos internacionales
+                        </li>
+                    </ul>
+                </div>
+                <div
+                    class="bg-background-light dark:bg-slate-800 rounded-xl p-8 border border-slate-100 dark:border-slate-700">
+                    <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-4">Iniciar una Propuesta
+                    </h3>
+                    <a href="{{ url_for('main.contacto') }}"
+                        class="w-full bg-primary hover:bg-blue-600 text-white px-6 py-3 rounded-md font-semibold transition-all inline-flex items-center justify-center gap-2">
+                        Contactar <span class="material-symbols-outlined">arrow_forward</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

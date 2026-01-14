@@ -1,0 +1,174 @@
+{% extends "base.xhtml" %}
+
+{% block title %}{{ line.title }}{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="bg-white dark:bg-slate-900 py-20 border-b border-slate-100 dark:border-slate-800">
+    <div class="container mx-auto px-6">
+        <div class="max-w-4xl">
+            <nav class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">
+                <a class="hover:text-primary transition-colors" href="{{ url_for('main.home') }}">Inicio</a>
+                <span class="material-symbols-outlined text-[10px]">chevron_right</span>
+                <a class="hover:text-primary transition-colors"
+                    href="{{ url_for('main.investigacion') }}">Investigación</a>
+                <span class="material-symbols-outlined text-[10px]">chevron_right</span>
+                <span class="text-primary">{{ line.title }}</span>
+            </nav>
+            <div class="flex items-center gap-4 mb-6">
+                <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center">
+                    <span class="material-symbols-outlined text-primary text-3xl">{{ line.icon or 'science' }}</span>
+                </div>
+                <h1 class="font-display text-4xl md:text-5xl font-bold text-slate-900 dark:text-white">{{ line.title }}
+                </h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Line Content -->
+<section class="py-24 bg-background-light dark:bg-slate-950 transition-colors duration-300">
+    <div class="container mx-auto px-6">
+        <div class="max-w-4xl mx-auto">
+            <!-- Description -->
+            <div
+                class="bg-white dark:bg-slate-900 rounded-2xl p-8 md:p-12 shadow-sm border border-slate-100 dark:border-slate-800 mb-8">
+                <h2 class="font-display text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary">description</span>
+                    Descripción
+                </h2>
+                <div class="prose prose-lg prose-slate dark:prose-invert max-w-none">
+                    {% if line.description %}
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{{ line.description }}</p>
+                    {% else %}
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Esta línea de investigación se enfoca en el desarrollo de soluciones innovadoras mediante
+                        técnicas avanzadas de procesamiento de señales y sistemas sensoriales. Nuestro enfoque
+                        multidisciplinario permite abordar problemas complejos en diversos contextos.
+                    </p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Objectives -->
+            <div
+                class="bg-white dark:bg-slate-900 rounded-2xl p-8 md:p-12 shadow-sm border border-slate-100 dark:border-slate-800 mb-8">
+                <h2 class="font-display text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary">flag</span>
+                    Objetivos
+                </h2>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3 text-slate-600 dark:text-slate-400">
+                        <span class="material-symbols-outlined text-primary mt-0.5">check_circle</span>
+                        <span>Desarrollar algoritmos y técnicas innovadoras para el procesamiento de señales en tiempo
+                            real.</span>
+                    </li>
+                    <li class="flex items-start gap-3 text-slate-600 dark:text-slate-400">
+                        <span class="material-symbols-outlined text-primary mt-0.5">check_circle</span>
+                        <span>Implementar prototipos funcionales para validar los resultados teóricos.</span>
+                    </li>
+                    <li class="flex items-start gap-3 text-slate-600 dark:text-slate-400">
+                        <span class="material-symbols-outlined text-primary mt-0.5">check_circle</span>
+                        <span>Formar recursos humanos especializados en el área.</span>
+                    </li>
+                    <li class="flex items-start gap-3 text-slate-600 dark:text-slate-400">
+                        <span class="material-symbols-outlined text-primary mt-0.5">check_circle</span>
+                        <span>Transferir conocimientos y tecnologías al sector productivo.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Methodologies & Technologies -->
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div
+                    class="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-sm border border-slate-100 dark:border-slate-800">
+                    <h2
+                        class="font-display text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3">
+                        <span class="material-symbols-outlined text-primary">precision_manufacturing</span>
+                        Metodologías
+                    </h2>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                            <span class="w-2 h-2 bg-primary rounded-full"></span>
+                            Modelado matemático y simulación
+                        </li>
+                        <li class="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                            <span class="w-2 h-2 bg-primary rounded-full"></span>
+                            Prototipado rápido
+                        </li>
+                        <li class="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                            <span class="w-2 h-2 bg-primary rounded-full"></span>
+                            Validación experimental
+                        </li>
+                        <li class="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                            <span class="w-2 h-2 bg-primary rounded-full"></span>
+                            Transferencia tecnológica
+                        </li>
+                    </ul>
+                </div>
+                <div
+                    class="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-sm border border-slate-100 dark:border-slate-800">
+                    <h2
+                        class="font-display text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3">
+                        <span class="material-symbols-outlined text-primary">build</span>
+                        Tecnologías
+                    </h2>
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="px-3 py-1 bg-primary/10 text-primary text-xs font-medium rounded-full">MATLAB/Simulink</span>
+                        <span
+                            class="px-3 py-1 bg-primary/10 text-primary text-xs font-medium rounded-full">Python</span>
+                        <span class="px-3 py-1 bg-primary/10 text-primary text-xs font-medium rounded-full">FPGA</span>
+                        <span class="px-3 py-1 bg-primary/10 text-primary text-xs font-medium rounded-full">DSP</span>
+                        <span
+                            class="px-3 py-1 bg-primary/10 text-primary text-xs font-medium rounded-full">LabVIEW</span>
+                        <span
+                            class="px-3 py-1 bg-primary/10 text-primary text-xs font-medium rounded-full">Arduino</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Applications -->
+            <div
+                class="bg-white dark:bg-slate-900 rounded-2xl p-8 md:p-12 shadow-sm border border-slate-100 dark:border-slate-800 mb-8">
+                <h2 class="font-display text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary">apps</span>
+                    Aplicaciones
+                </h2>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="text-center p-4">
+                        <div class="w-12 h-12 mx-auto bg-primary/10 rounded-xl flex items-center justify-center mb-3">
+                            <span class="material-symbols-outlined text-primary">factory</span>
+                        </div>
+                        <h3 class="font-semibold text-slate-900 dark:text-white text-sm mb-1">Industria</h3>
+                        <p class="text-xs text-slate-500">Automatización y control</p>
+                    </div>
+                    <div class="text-center p-4">
+                        <div class="w-12 h-12 mx-auto bg-primary/10 rounded-xl flex items-center justify-center mb-3">
+                            <span class="material-symbols-outlined text-primary">waves</span>
+                        </div>
+                        <h3 class="font-semibold text-slate-900 dark:text-white text-sm mb-1">Oceanografía</h3>
+                        <p class="text-xs text-slate-500">Monitoreo marino</p>
+                    </div>
+                    <div class="text-center p-4">
+                        <div class="w-12 h-12 mx-auto bg-primary/10 rounded-xl flex items-center justify-center mb-3">
+                            <span class="material-symbols-outlined text-primary">bolt</span>
+                        </div>
+                        <h3 class="font-semibold text-slate-900 dark:text-white text-sm mb-1">Energía</h3>
+                        <p class="text-xs text-slate-500">Redes inteligentes</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Back Button -->
+            <div class="mt-8">
+                <a href="{{ url_for('main.investigacion') }}"
+                    class="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-primary transition-colors font-medium">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                    Volver a Líneas de Investigación
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

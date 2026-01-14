@@ -1,0 +1,143 @@
+{% extends "base.xhtml" %}
+
+{% block title %}Editar Perfil{% endblock %}
+
+{% block content %}
+<section class="py-24 bg-background-light dark:bg-slate-950 min-h-[70vh]">
+    <div class="container mx-auto px-6">
+        <div class="max-w-2xl mx-auto">
+            <!-- Header -->
+            <div class="mb-8">
+                <a href="{{ url_for('auth.dashboard') }}"
+                    class="inline-flex items-center gap-2 text-slate-500 hover:text-primary transition-colors text-sm mb-4">
+                    <span class="material-symbols-outlined text-sm">arrow_back</span>
+                    Volver al dashboard
+                </a>
+                <h1 class="font-display text-3xl font-bold text-slate-900 dark:text-white">Editar Perfil</h1>
+            </div>
+
+            <!-- Flash messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div
+                class="mb-6 px-4 py-3 rounded-lg {% if category == 'error' %}bg-red-50 text-red-700 border border-red-200{% elif category == 'success' %}bg-green-50 text-green-700 border border-green-200{% else %}bg-blue-50 text-blue-700 border border-blue-200{% endif %} text-sm">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+            <!-- Edit Form -->
+            <form action="{{ url_for('auth.edit_profile') }}" method="post"
+                class="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-sm border border-slate-100 dark:border-slate-800">
+
+                <!-- Basic Info -->
+                <h2 class="font-display text-lg font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">badge</span>
+                    Información básica
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <div>
+                        <label for="name" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                            Nombre completo *
+                        </label>
+                        <input type="text" id="name" name="name" required value="{{ current_user.name }}"
+                            class="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" />
+                    </div>
+                    <div>
+                        <label for="degree" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                            Título / Grado académico
+                        </label>
+                        <input type="text" id="degree" name="degree" value="{{ current_user.degree or '' }}"
+                            placeholder="Ej: Dr. en Ingeniería"
+                            class="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" />
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <label for="position" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                        Cargo / Posición
+                    </label>
+                    <input type="text" id="position" name="position" value="{{ current_user.position or '' }}"
+                        placeholder="Ej: Investigador Principal"
+                        class="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" />
+                </div>
+
+                <div class="mb-8">
+                    <label for="bio" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                        Biografía
+                    </label>
+                    <textarea id="bio" name="bio" rows="4"
+                        placeholder="Contanos sobre tu trayectoria, áreas de interés, etc."
+                        class="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary resize-none">{{ current_user.bio or '' }}</textarea>
+                </div>
+
+                <div class="mb-8">
+                    <label for="linkedin" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                        LinkedIn (URL completa)
+                    </label>
+                    <input type="url" id="linkedin" name="linkedin" value="{{ current_user.linkedin or '' }}"
+                        placeholder="https://linkedin.com/in/tu-perfil"
+                        class="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" />
+                </div>
+
+                <hr class="border-slate-100 dark:border-slate-800 my-8" />
+
+                <!-- Password Change -->
+                <h2 class="font-display text-lg font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">lock</span>
+                    Cambiar contraseña
+                    <span class="text-xs font-normal text-slate-400">(opcional)</span>
+                </h2>
+
+                <div class="mb-8">
+                    <label for="new_password"
+                        class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                        Nueva contraseña
+                    </label>
+                    <div class="relative">
+                        <input type="password" id="new_password" name="new_password"
+                            placeholder="Dejá en blanco para no cambiarla"
+                            class="w-full px-4 py-3 pr-12 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" />
+                        <button type="button" onclick="togglePassword('new_password', this)"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors">
+                            <span class="material-symbols-outlined">visibility</span>
+                        </button>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-2">Mínimo 6 caracteres. Hacé click en el ojo para ver la
+                        contraseña.</p>
+                </div>
+
+                <script>
+                    function togglePassword(inputId, btn) {
+                        var input = document.getElementById(inputId);
+                        var icon = btn.querySelector('.material-symbols-outlined');
+                        if (input.type === 'password') {
+                            input.type = 'text';
+                            icon.textContent = 'visibility_off';
+                        } else {
+                            input.type = 'password';
+                            icon.textContent = 'visibility';
+                        }
+                    }
+                </script>
+
+                <!-- Submit -->
+                <div class="flex items-center gap-4">
+                    <button type="submit"
+                        class="bg-primary hover:bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold transition-all flex items-center gap-2">
+                        <span class="material-symbols-outlined">save</span>
+                        Guardar cambios
+                    </button>
+                    <a href="{{ url_for('auth.dashboard') }}"
+                        class="px-6 py-3 text-slate-500 hover:text-slate-700 font-medium transition-colors">
+                        Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

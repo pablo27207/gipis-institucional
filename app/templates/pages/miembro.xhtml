@@ -1,0 +1,101 @@
+{% extends "base.xhtml" %}
+
+{% block title %}{{ member.name }}{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="bg-white dark:bg-slate-900 py-20 border-b border-slate-100 dark:border-slate-800">
+    <div class="container mx-auto px-6">
+        <nav class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">
+            <a class="hover:text-primary transition-colors" href="{{ url_for('main.home') }}">Inicio</a>
+            <span class="material-symbols-outlined text-[10px]">chevron_right</span>
+            <a class="hover:text-primary transition-colors" href="{{ url_for('main.equipo') }}">Equipo</a>
+            <span class="material-symbols-outlined text-[10px]">chevron_right</span>
+            <span class="text-primary">{{ member.name }}</span>
+        </nav>
+    </div>
+</section>
+
+<!-- Member Profile -->
+<section class="py-24 bg-background-light dark:bg-slate-950 transition-colors duration-300">
+    <div class="container mx-auto px-6">
+        <div class="max-w-4xl mx-auto">
+            <div
+                class="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800">
+                <div class="md:flex">
+                    <!-- Photo -->
+                    <div class="md:w-1/3">
+                        {% if member.photo %}
+                        <img alt="{{ member.name }}" class="w-full h-full object-cover aspect-square"
+                            src="{{ url_for('static', filename='img/profiles/' ~ member.photo) }}"
+                            onerror="this.onerror=null; this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23e2e8f0%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22%2394a3b8%22>👤</text></svg>'" />
+                        {% else %}
+                        <div
+                            class="w-full h-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center aspect-square">
+                            <span
+                                class="material-symbols-outlined text-8xl text-slate-300 dark:text-slate-700">account_circle</span>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Info -->
+                    <div class="md:w-2/3 p-8 md:p-12">
+                        <h1 class="font-display text-3xl font-bold text-slate-900 dark:text-white mb-2">{{ member.name
+                            }}</h1>
+                        <p class="text-primary font-semibold text-lg mb-2 uppercase tracking-wide">
+                            {{ member.position or member.degree or 'CARGO' }}
+                        </p>
+                        {% if member.degree and member.position %}
+                        <p class="text-slate-500 dark:text-slate-400 text-sm mb-6">{{ member.degree }}</p>
+                        {% endif %}
+
+                        <div class="h-px bg-slate-100 dark:bg-slate-800 my-6"></div>
+
+                        <div class="prose prose-slate dark:prose-invert max-w-none">
+                            {% if member.bio %}
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{{ member.bio }}</p>
+                            {% else %}
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            </p>
+                            {% endif %}
+                        </div>
+
+                        <!-- Contact Links -->
+                        <div class="mt-8 flex flex-wrap gap-4">
+                            {% if member.email %}
+                            <a href="mailto:{{ member.email }}"
+                                class="inline-flex items-center gap-2 bg-primary hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold transition-all">
+                                <span class="material-symbols-outlined">mail</span>
+                                Contactar
+                            </a>
+                            {% endif %}
+                            {% if member.linkedin %}
+                            <a href="{{ member.linkedin }}" target="_blank" rel="noopener"
+                                class="inline-flex items-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 px-6 py-3 rounded-lg font-semibold transition-all">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                                </svg>
+                                LinkedIn
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Back Button -->
+            <div class="mt-8">
+                <a href="{{ url_for('main.equipo') }}"
+                    class="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-primary transition-colors font-medium">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                    Volver al equipo
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

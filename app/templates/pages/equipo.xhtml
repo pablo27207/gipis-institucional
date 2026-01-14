@@ -1,0 +1,101 @@
+{% extends "base.xhtml" %}
+
+{% block title %}Nuestro Equipo{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="bg-white dark:bg-slate-900 py-20 border-b border-slate-100 dark:border-slate-800">
+    <div class="container mx-auto px-6">
+        <div class="max-w-3xl">
+            <nav class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">
+                <a class="hover:text-primary transition-colors" href="{{ url_for('main.home') }}">Inicio</a>
+                <span class="material-symbols-outlined text-[10px]">chevron_right</span>
+                <span class="text-primary">Nuestro Equipo</span>
+            </nav>
+            <h1 class="font-display text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">Nuestro Equipo
+            </h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+                Contamos con un equipo multidisciplinario de investigadores, docentes y becarios comprometidos con la
+                excelencia académica y la innovación tecnológica en el procesamiento de señales y sistemas sensoriales.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Team Sections -->
+<section class="py-24 bg-background-light dark:bg-slate-950 transition-colors duration-300">
+    <div class="container mx-auto px-6">
+        {% if categories %}
+        {% for category in categories %}
+        <div class="{% if not loop.first %}mt-24{% endif %}">
+            <div class="mb-16">
+                <h2 class="font-display text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+                    <span class="w-8 h-1 bg-primary rounded-full"></span>
+                    {{ category.name }}
+                </h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                {% for member in category.members %}
+                <a href="{{ url_for('main.miembro_detalle', slug=member.slug) }}"
+                    class="bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 dark:border-slate-800 flex flex-col group">
+                    <div class="aspect-square overflow-hidden relative">
+                        {% if member.photo %}
+                        <img alt="{{ member.name }}"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            src="{{ url_for('static', filename='img/profiles/' ~ member.photo) }}"
+                            onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'w-full h-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center\'><span class=\'material-symbols-outlined text-6xl text-slate-300 dark:text-slate-700\'>account_circle</span></div>';" />
+                        {% else %}
+                        <div class="w-full h-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                            <span
+                                class="material-symbols-outlined text-6xl text-slate-300 dark:text-slate-700">account_circle</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="p-6 flex-grow">
+                        <h3
+                            class="font-display text-lg font-bold text-slate-900 dark:text-white mb-1 group-hover:text-primary transition-colors">
+                            {{ member.name }}</h3>
+                        <p class="text-primary font-semibold text-sm mb-4 uppercase tracking-wide">
+                            {{ member.position or member.degree or 'CARGO' }}
+                        </p>
+                        <p class="text-slate-500 dark:text-slate-400 text-xs mb-6 line-clamp-2">
+                            {% if member.bio %}{{ member.bio[:100] }}...{% else %}Lorem ipsum dolor sit amet,
+                            consectetur adipiscing elit.{% endif %}
+                        </p>
+                        <div
+                            class="flex items-center gap-2 pt-4 border-t border-slate-50 dark:border-slate-800 text-primary text-xs font-semibold">
+                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                            Ver perfil
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <!-- Placeholder -->
+        <div class="mb-16">
+            <h2 class="font-display text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+                <span class="w-8 h-1 bg-primary rounded-full"></span>
+                Dirección e Investigación Senior
+            </h2>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div
+                class="bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 flex flex-col">
+                <div class="aspect-square bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                    <span
+                        class="material-symbols-outlined text-6xl text-slate-300 dark:text-slate-700">account_circle</span>
+                </div>
+                <div class="p-6 flex-grow">
+                    <h3 class="font-display text-lg font-bold text-slate-900 dark:text-white mb-1">Dr. Ejemplo</h3>
+                    <p class="text-primary font-semibold text-sm mb-4 uppercase tracking-wide">Director</p>
+                    <p class="text-slate-500 dark:text-slate-400 text-xs mb-6">Datos próximamente disponibles.</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

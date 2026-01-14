@@ -1,0 +1,58 @@
+# ===========================================
+# GIPIS Institucional - .gitignore
+# ===========================================
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+.venv/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment variables (IMPORTANTE: no subir secretos)
+.env
+
+# Instance folder (base de datos SQLite local)
+instance/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker (ignorar volúmenes locales)
+docker-compose.override.yml
+
+# Temporary files
+*.tmp
+*.temp

@@ -40,6 +40,11 @@ ENV/
 # Environment variables (IMPORTANTE: no subir secretos)
 .env
 
+# Certificados SSL (NUNCA subir al repo)
+certs/*.pem
+certs/*.key
+certs/*.crt
+
 # Instance folder (base de datos SQLite local)
 instance/
 

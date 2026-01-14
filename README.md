@@ -76,8 +76,8 @@ nano .env
 
 Editar `.env`:
 ```
-DOMAIN=gipis.unpata.edu.ar
-ACME_EMAIL=admin@unpata.edu.ar
+DOMAIN=gipis.unp.edu.ar
+ACME_EMAIL=admin@unp.edu.ar
 SECRET_KEY=tu-clave-secreta-de-32-caracteres
 ```
 

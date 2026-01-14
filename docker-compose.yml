@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   # ============================================
-  # TRAEFIK - Reverse Proxy + SSL Automático
+  # TRAEFIK - Reverse Proxy con SSL manual
   # ============================================
   traefik:
     image: traefik:v2.10
@@ -13,23 +13,21 @@ services:
       - "--api.dashboard=true"
       - "--api.insecure=false"
 
-      # Docker provider - auto-descubre contenedores
+      # Docker provider
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
       - "--providers.docker.network=traefik-public"
 
-      # Entrypoints (puertos de entrada)
+      # File provider para certificados manuales
+      - "--providers.file.filename=/certs/traefik-tls.yml"
+
+      # Entrypoints
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
 
       # Redirección HTTP -> HTTPS
       - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
       - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
-
-      # Let's Encrypt - SSL automático
-      - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
-      - "--certificatesresolvers.letsencrypt.acme.email=${ACME_EMAIL:-admin@example.com}"
-      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
 
       # Logs
       - "--log.level=INFO"
@@ -40,22 +38,11 @@ services:
       - "443:443"
 
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro # Docker socket
-      - traefik-certificates:/letsencrypt # Certificados SSL
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./certs:/certs:ro # Certificados SSL manuales
 
     networks:
       - traefik-public
-
-    labels:
-      # Dashboard de Traefik (opcional, accesible en traefik.tudominio.com)
-      - "traefik.enable=true"
-      - "traefik.http.routers.dashboard.rule=Host(`traefik.${DOMAIN:-localhost}`)"
-      - "traefik.http.routers.dashboard.service=api@internal"
-      - "traefik.http.routers.dashboard.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.dashboard.middlewares=auth"
-      # Autenticación básica para el dashboard (usuario: admin, password: admin)
-      # Generar nuevo hash: echo $(htpasswd -nb usuario password) | sed -e s/\\$/\\$\\$/g
-      - "traefik.http.middlewares.auth.basicauth.users=admin:$$apr1$$H6uskkkW$$IgXLP6ewTrSuBkTrqE8wj/"
 
   # ============================================
   # GIPIS WEB - Aplicación Flask
@@ -65,8 +52,8 @@ services:
     container_name: gipis-web
     restart: unless-stopped
     volumes:
-      - ./instance:/app/instance # Base de datos SQLite
-      - ./app/static/img:/app/app/static/img # Imágenes
+      - ./instance:/app/instance
+      - ./app/static/img:/app/app/static/img
     environment:
       - FLASK_ENV=production
       - SECRET_KEY=${SECRET_KEY:-cambia-esta-clave-en-produccion}
@@ -76,20 +63,15 @@ services:
       - traefik-public
     labels:
       - "traefik.enable=true"
-      # Router - Define la URL del sitio
-      - "traefik.http.routers.gipis.rule=Host(`${DOMAIN:-localhost}`)"
+      # HTTP -> HTTPS redirect ya está en entrypoints
+      # HTTPS router
+      - "traefik.http.routers.gipis.rule=Host(`${DOMAIN:-gipis.unp.edu.ar}`)"
       - "traefik.http.routers.gipis.entrypoints=websecure"
-      - "traefik.http.routers.gipis.tls.certresolver=letsencrypt"
-      # Service - Puerto del contenedor
+      - "traefik.http.routers.gipis.tls=true"
+      # Service
       - "traefik.http.services.gipis.loadbalancer.server.port=5000"
 
-# ============================================
-# REDES Y VOLÚMENES
-# ============================================
 networks:
   traefik-public:
     name: traefik-public
     driver: bridge
-
-volumes:
-  traefik-certificates:

@@ -1,0 +1,486 @@
+{
+    "home": {
+        "carousel": [
+            {
+                "src": "img\/slideshow\/slideshow0.jpg",
+                "caption": "Universidad Nacional de la Patagonia San Juan Bosco"
+            },
+            {
+                "src": "img\/slideshow\/slideshow1.jpg",
+                "caption": "Universidad Nacional de la Patagonia San Juan Bosco"
+            },
+            {
+                "src": "img\/slideshow\/slideshow2.jpg",
+                "caption": "Universidad Nacional de la Patagonia San Juan Bosco"
+            },
+            {
+                "src": "img\/slideshow\/slideshow3.jpg",
+                "caption": "Universidad Nacional de la Patagonia San Juan Bosco"
+            }
+        ],
+        "sections": [
+            {
+                "title": "Misi\u00f3n",
+                "content": "<p>Este grupo busca fortalecer la vinculaci\u00f3n entre el sistema cient\u00edfico-tecnol\u00f3gico y la estructura productiva en el \u00e1mbito de la inform\u00e1tica y las telecomunicaciones para afrontar los nuevos desaf\u00edos que se proponen con la transformaci\u00f3n digital, buscando generar con ello un impacto positivo en las actividades de la Cuenca del Golfo San Jorge.<\/p><p>Sus l\u00edneas de investigaci\u00f3n se centran en el procesamiento digital de se\u00f1ales que utilizan los sistemas sensoriales desplegados en espacios inteligentes, redes el\u00e9ctricas y entornos subacu\u00e1ticos para percibir el estado del entorno y las entidades con las cuales se interact\u00faa en estos.<\/p><p>En el caso de redes el\u00e9ctricas las investigaciones se enfocan en el procesamiento de se\u00f1ales para sistemas de comunicaciones por l\u00ednea el\u00e9ctrica (PLC), particularmente  las t\u00e9cnicas de sincronizaci\u00f3n de tramas y estimaci\u00f3n de canal en esquemas de modulacion de multiplexaci\u00f3n por divisi\u00f3n de frecuencia ortogonal (OFDM). Esta l\u00ednea incluye adem\u00e1s el dise\u00f1o de s\u00edmbolos piloto que permitan reducir la complejidad computacional en comparaci\u00f3n con los esquemas actuales de sincronizaci\u00f3n y estimaci\u00f3n.<\/p> <p>En el caso de los espacios inteligentes y entornos ac\u00fasticos subacu\u00e1ticos poco profundos, las investigaciones se centran en el  procesamiento de se\u00f1ales ac\u00fasticas codificadas. Se enfocan los esfuerzos en el dise\u00f1o de esquemas de codificaci\u00f3n que aporten robustez frente al ruido, que permitan que m\u00faltiples usuarios coexistan en un mismo entorno e incrementar la precisi\u00f3n en la determinaci\u00f3n de los instantes de llegada de las se\u00f1ales. Este tipo de sistemas son utilizados en redes de sensores subacu\u00e1ticos para el monitoreo costero, y tambi\u00e9n por veh\u00edculos aut\u00f3nomos subacu\u00e1ticos (AUVs).<\/p> <p>Otras de las lineas de investigaci\u00f3n esta orientada al desarrollo de soluciones utilizando herramientas TICs (hardware y software) para el monitoreo oceanogr\u00e1fico y el an\u00e1lisis de los datos que se obtienen a trav\u00e9s de diferentes sistemas sensoriales, campa\u00f1as oceanogr\u00e1ficas y relevamientos costeros.<\/p><p>Adem\u00e1s, las actividades del grupo incluyen la evaluaci\u00f3n e implementaci\u00f3n en dispositivos programables, como las FPGA, de nuevos banco de filtros de transceptores de modulaci\u00f3n multiportadora de \u00faltima generaci\u00f3n para sistemas PLC, as\u00ed como los mencionados algoritmos para el esquema OFDM con se\u00f1ales ac\u00fasticas. <\/p>"
+            }
+        ]
+    },
+    "group": {
+        "members": {
+            "cdemarziani": {
+                "name": "Carlos De Marziani",
+                "degree": "Doctor",
+                "position": "Profesor Titular UNPSJB, Inv. Adjunto CONICET",
+                "pic": "img\/profiles\/cdemarziani.jpg",
+                "desc": "El Dr. Carlos De Marziani obtuvo, en el a\u00f1o 2001, el t\u00edtulo de Ingeniero Electr\u00f3nico en la Universidad Nacional de la Patagonia San Juan Bosco (Argentina). En el a\u00f1o 2007, obtuvo el t\u00edtulo de Doctor en el Departamento de Electr\u00f3nica de la Universidad de Alcal\u00e1 (Espa\u00f1a). Actualmente se desempe\u00f1a como Profesor Titular en el \u00e1rea de Sistemas Digitales en el Departamento de Electr\u00f3nica de la Universidad Nacional de la Patagonia San Juan Bosco. Adem\u00e1s es Investigador Adjunto en el Consejo Nacional de Investigaciones Cient\u00edficas y T\u00e9cnicas (CONICET). Sus \u00e1reas de investigaci\u00f3n son redes de sensores, integraci\u00f3n multisensorial, sistemas electr\u00f3nicos para robots y procesamiento digital de se\u00f1ales. Participa en diferentes proyectos de investigaci\u00f3n cient\u00edfica con financiamiento p\u00fablico de entidades nacionales. Actualmente dirige dos tesis doctorales. Ha publicado numerosos art\u00edculos en congresos cient\u00edficos a nivel nacional e internacional; como as\u00ed tambi\u00e9n art\u00edculos en revistas indexadas con alto \u00edndice de impacto.",
+                "contact": {
+                    "email": "marziani@unpata.edu.ar",
+                    "linkedin": ""
+                }
+            },
+            "mcolombo": {
+                "name": "Mart\u00edn Colombo",
+                "degree": "Doctor",
+                "position": "Profesor Adjunto",
+                "pic": "img\/profiles\/mcolombo.jpg",
+                "desc": "El Dr. Mart\u00edn Colombo obtuvo el t\u00edtulo de Ingeniero Electr\u00f3nico en la Universidad Nacional de la Patagonia San Juan Bosco (Argentina) en el a\u00f1o 2014. En el a\u00f1o 2021 obtuvo el t\u00edtulo de Doctor en Ingenier\u00eda por la Universidad Nacional de La Plata (Argentina) y Doctor en Electr\u00f3nica: Sistemas Electr\u00f3nicos Avanzados, Sistemas Inteligentes por la Universidad de Alcal\u00e1 de Henares (Espa\u00f1a) en cotutela. Actualmente se desempe\u00f1a como Profesor Adjunto en el \u00e1rea de Sistemas de Comunicaciones en el Departamento de Electr\u00f3nica de la Universidad Nacional de la Patagonia San Juan Bosco. Sus \u00e1reas de investigaci\u00f3n actuales son sistemas de comunicaciones digitales, comunicaciones por la red el\u00e9ctrica, y procesamiento digital de se\u00f1ales para sistemas de comunicaciones.",
+                "contact": {
+                    "email": "mcolombo@ing.unp.edu.ar",
+                    "linkedin": ""
+                }
+            },
+            "smurano": {
+                "name": "Santiago Murano",
+                "degree": "ffffffffff",
+                "position": "Jefe de Trabajos Pr\u00e1cticos PRUEBA",
+                "pic": "img\/profiles\/smurano.jpg",
+                "desc": "Santiago obtuvo el t\u00edtulo de Ingeniero Electr\u00f3nico en la Universidad Nacional de la Patagonia San Juan Bosco en 2012, el t\u00edtulo de M\u00e1ster en Sistemas Electr\u00f3nica Avanzados. Sistemas Inteligentes en la Universidad de Alcal\u00e1 (Espa\u00f1a), y el hom\u00f3nimo ",
+                "contact": {
+                    "email": "smurano@unpata.edu.ar",
+                    "linkedin": "https:\/\/www.linkedin.com\/company\/google\/?originalSubdomain=ar"
+                }
+            },
+            "droldos": {
+                "name": "Dario Roldos",
+                "degree": "pruebap",
+                "position": "",
+                "pic": "img\/profiles\/droldos.jpg",
+                "desc": ".....",
+                "contact": {
+                    "email": "roldos.dario@gmail.com",
+                    "linkedin": ""
+                }
+            },
+            "ralcoleas": {
+                "name": "R\u00f3mulo Alcoleas",
+                "degree": "",
+                "position": "",
+                "pic": "img\/profiles\/ralcoleas.jpg",
+                "desc": ".....",
+                "contact": {
+                    "email": "romuloalcoleas@yahoo.com",
+                    "linkedin": ""
+                }
+            },
+            "acolombo": {
+                "name": "Alejandro Colombo",
+                "degree": "Hola",
+                "position": "",
+                "pic": "img\/profiles\/acolombo.jpg",
+                "desc": ".....",
+                "contact": {
+                    "email": "acolombo1958@gmail.com",
+                    "linkedin": ""
+                }
+            },
+            "jaskenazi": {
+                "name": "Javier Askenazi",
+                "degree": "",
+                "position": "",
+                "pic": "img\/profiles\/jaskenazi.jpg",
+                "desc": "Inserto cosas ac\u00e1 para probar",
+                "contact": {
+                    "email": "javier.askenazi@gmail.com",
+                    "linkedin": ""
+                }
+            },
+            "jgallardo": {
+                "name": "Jos\u00e9 Gallardo",
+                "degree": "PRUEBAS",
+                "position": "Prof. titular regular",
+                "pic": "img\/profiles\/jgallardo.jpg",
+                "desc": "Jos\u00e9 I. Gallardo naci\u00f3 en Paran\u00e1, Argentina en 1957. Ingeniero Electr\u00f3nico de la Univ. Nac. Rosario (1981), Posgrado de Ingenier\u00eda en Telecomunicaciones- Escuela Superior T\u00e9cnica Gral. Savio (Actual IESE), Bs Aires (1983) y de Ingenier\u00eda en Comunicaciones Digitales de J.I.C.A.-Jap\u00f3n en Inictel, Lima-Per\u00fa (1986). Curs\u00f3 adem\u00e1s Maestr\u00eda Redes Datos en Univ. Nac. de La Plata. Desempe\u00f1\u00f3 funciones t\u00e9cnicas en proyectos de obras en ENTel \/ Telef\u00f3nica Arg. en diferentes zonas del pa\u00eds (1981-1996). Jefe del Centro O&M\/Patagonia de Telef\u00f3nica Arg., responsable aceptaciones, puesta en marcha y mantenimiento de las primeras centrales digitales en la regi\u00f3n (1990-1996). Profesor Titular por Concurso en dos asignaturas e Investigador Cat.3 en Deptos. Inform\u00e1tica y Electr\u00f3nica-Fac.Ingenier\u00eda-UNPSJB desde 1985. Evaluador de CONEAU en \u00c1rea Inform\u00e1tica desde 2010. Ha dirigido varios proyectos de investigaci\u00f3n en las \u00e1reas de inform\u00e1tica y comunicaciones ac\u00fasticas subacu\u00e1ticas desde 1987 a la fecha, con publicaciones en congresos nacionales e internacionales. Asesor en proyectos de teleinform\u00e1tica, redes de VC en la regi\u00f3n. Ha sido participante y disertante en numerosas conferencias, en temas como Teleinform\u00e1tica, Comunicaciones por Fibra \u00d3ptica, Redes de Computadoras y TCP\/IP. Sus principales campos de inter\u00e9s son comunicaciones digitales, redes de computadoras \/sensores y tecnolog\u00eda inform\u00e1tica aplicada en educaci\u00f3n.",
+                "contact": {
+                    "email": "jgallardo@ing.unp.edu.ar",
+                    "linkedin": ""
+                }
+            },
+            "prosales": {
+                "name": "Pablo Rosales",
+                "degree": "Intentos",
+                "position": "",
+                "pic": "img\/profiles\/prosales.jpg",
+                "desc": ".....",
+                "contact": {
+                    "email": "pablo27207@gmail.com",
+                    "linkedin": ""
+                }
+            },
+            "dberns": {
+                "name": "Daniel Berns",
+                "degree": "Doctor ",
+                "position": "xd",
+                "pic": "img\/profiles\/dberns.jpg",
+                "desc": "xd",
+                "contact": {
+                    "email": "daniel.w.berns@gmail.com",
+                    "linkedin": ""
+                }
+            },
+            "mmicheletto": {
+                "name": "Mat\u00edas Micheletto",
+                "degree": "Doctor en Ingenier\u00eda",
+                "position": "Intentos",
+                "pic": "img\/profiles\/mmicheletto.jpg",
+                "desc": "Mat\u00edas Micheletto obtuvo el t\u00edtulo de Ingeniero Electr\u00f3nico y Doctor en Ingenier\u00eda en la Universidad Nacional del Sur en 2016 y en 2020 respectivamente. Se desempe\u00f1\u00f3 como Ayudante y m\u00e1s tarde como Asistente de C\u00e1tedra en las asignaturas Dise\u00f1o de Circuitos L\u00f3gicos y T\u00e9cnicas Digitales en el Departamento de Ingenier\u00eda El\u00e9ctrica y Computadoras entre los a\u00f1os 2016 a 2021. Actualmente se encuentra realizando una Beca Interna Posdoctoral CONICET en el Centro de Investigaciones y Transferencias Golfo San Jorge.",
+                "contact": {
+                    "email": "matias.micheletto@uns.edu.ar",
+                    "linkedin": "https:\/\/www.linkedin.com\/in\/matiasmicheletto"
+                }
+            },
+            "colaborador1": {
+                "name": "Colaborador",
+                "degree": "Colaborador",
+                "position": "Colaborador",
+                "pic": "",
+                "desc": "Descripci\u00f3n del colaborador",
+                "contact": {
+                    "email": "colaborador@uns.edu.ar",
+                    "linkedin": "https:\/\/www.linkedin.com\/in\/matiasmicheletto"
+                }
+            }
+        },
+        "categories": [
+            {
+                "name": "Miembros del grupo",
+                "members": [
+                    "cdemarziani",
+                    "mcolombo",
+                    "smurano",
+                    "droldos",
+                    "ralcoleas",
+                    "acolombo",
+                    "jaskenazi",
+                    "prosales",
+                    "jgallardo",
+                    "dberns",
+                    "mmicheletto"
+                ]
+            },
+            {
+                "name": "Colaboradores del grupo",
+                "members": [
+                    "colaborador1"
+                ]
+            }
+        ]
+    },
+    "research": {
+        "items": {
+            "ir01": {
+                "title": "Titulo del trabajo (completar)",
+                "authors": "Autores del trabajo (completar)",
+                "year": "2022",
+                "desc": "",
+                "authors_ref": [],
+                "section": "internal",
+                "links": []
+            },
+            "mt01": {
+                "title": "Titulo de maestria (completar)",
+                "authors": "Autores de la maestria (completar)",
+                "year": "2022",
+                "desc": "Supervised by.....",
+                "authors_ref": [],
+                "section": "master",
+                "links": []
+            },
+            "pro01": {
+                "title": "Titulo de proyecto (completar)",
+                "authors": "Autores del proyecto",
+                "year": "2022",
+                "desc": "",
+                "authors_ref": [],
+                "section": "projects",
+                "links": []
+            },
+            "transf01": {
+                "title": "Titulo de proyecto (completar)",
+                "authors": "Autores del proyecto (completar)",
+                "year": "2022",
+                "desc": "",
+                "authors_ref": [],
+                "section": "transfers",
+                "links": []
+            },
+            "publ01": {
+                "title": " Evaluation of Zadoff-Chu, Kasami and Chirp based  encoding schemes for Acoustic Local Positioning  Systems",
+                "authors": " Santiago Murano, Carmen P\u00e9rez-Rubio, David Gualda, Fernando J. \u00c1lvarez,  Teodoro Aguilera y Carlos De Marziani",
+                "year": "2020",
+                "desc": "The task of determining the physical coordinates of a target in indoor environments is still a key factor for many applications including people and robot navigation, user tracking, location-based advertising, augmented reality, gaming, emergency response or ambient assisted living environments. Among the different possibilities for indoor positioning, Acoustic Local Positioning Systems (ALPS) have the potential for centimeter level positioning accuracy with coverage distances up to tens of meters. In addition, acoustic transducers are small, low cost and reliable thanks to the room constrained propagation of these mechanical waves. Waveform design (coding and modulation) is usually incorporated into these systems to facilitate the detection of the transmitted signals at the receiver. The aperiodic correlation properties of the emitted signals have a large impact on how the ALPS cope with common impairment factors such as multipath propagation, multiple access interference, Doppler shifting, near-far effect or ambient noise. This work analyzes three of the most promising families of codes found in the literature for ALPS: Kasami codes, Zadoff-Chu and Orthogonal Chirp signals. The performance of these codes is evaluated in terms of time of arrival accuracy and characterized by means of model simulation under realistic conditions and by means of experimental tests in controlled environments. The results derived from this study can be of interest for other applications based on spreading sequences, such as underwater acoustic systems, ultrasonic imaging or even Code Division Multiple Access (CDMA) communications systems.",
+                "authors_ref": "",
+                "section": "publications",
+                "links": [
+                    "https:\/\/ieeexplore.ieee.org\/document\/8932677"
+                ]
+            },
+            "dt01": {
+                "title": "DISE\u00d1O DE SE\u00d1AL BASADO EN C\u00d3DIGOS ZADOFF-CHU PARA SISTEMAS DE POSICIONAMIENTO A\u00c9REOS Y SUBACU\u00c1TICOS AFECTADOS POR DOPPLERDISE\u00d1O DE SE\u00d1AL BASADO EN C\u00d3DIGOS ZADOFF-CHU PARA SISTEMAS DE POSICIONAMIENTO A\u00c9REOS Y SUBACU\u00c1TICOS AFECTADOS POR DOPPLER",
+                "authors": "Santiago Murano",
+                "year": "2022",
+                "desc": "Esta tesis se enfoca al dise\u00f1o de se\u00f1al basado en c\u00f3digos Zadoff-Chu para la mejora de las prestaciones y la robustez de sistemas de posicionamiento ultras\u00f3nicos basados en la medida de tiempos de vuelo, tanto en espacios interiores a\u00e9reos como en entornos subacu\u00e1ticos. El uso de estos c\u00f3digos resulta de especial inter\u00e9s en entornos perjudicados por el efecto Doppler, debido al movimiento relativo entre emisor y receptor, ya que la correlaci\u00f3n con estas secuencias aporta mayor robustez a los desplazamientos en frecuencia que los esquemas tradicionales. El m\u00e9todo empleado por este tipo de sistemas de posicionamiento, basados en la medida del tiempo de propagaci\u00f3n de se\u00f1ales ac\u00fasticas, resulta adecuado en entornos donde las se\u00f1ales GNSS (Global Navigation Satellite Systems) sufren una mayor atenuaci\u00f3n, como en el interior de edificios o en entornos subacu\u00e1ticos. As\u00ed, el sistema aqu\u00ed planteado da soluci\u00f3n a varios tipos de aplicaciones, como el guiado de veh\u00edculos, drones o personas en espacios interiores; o veh\u00edculos subacu\u00e1ticos, sensores o buzos debajo del agua. La mayor\u00eda de sistemas de posicionamiento en entornos subacu\u00e1ticos, est\u00e1n basados en la emisi\u00f3n de se\u00f1ales ultras\u00f3nicas debido a la baja atenuaci\u00f3n que presentan, en comparaci\u00f3n con las ondas electromagn\u00e9ticas. En entornos a\u00e9reos, el uso de se\u00f1ales ac\u00fasticas permite obtener precisiones centim\u00e9tricas a un bajo costo, aunque reduciendo el \u00e1rea de trabajo de los sistemas de posicionamiento. La codificaci\u00f3n de estas se\u00f1ales, aporta adem\u00e1s robustez frente al ruido, la multiemisi\u00f3n, y el incremento en la precisi\u00f3n en la medida de tiempos de vuelo. En este sentido, tras el an\u00e1lisis y comparaci\u00f3n pormenorizado de los c\u00f3digos m\u00e1s favorables para este tipo de aplicaciones, se ha enfocado el estudio en los c\u00f3digos Zadoff-Chu por sus propiedades de autocorrelaci\u00f3n (AC) y correlaci\u00f3n cruzada (CC) y su robustez frente al Doppler. Para completar el dise\u00f1o de la se\u00f1al a transmitir, se requiere de un esquema de modulaci\u00f3n que no degrade las propiedades de las secuencias, o bien que su combinaci\u00f3n las mejore. En este sentido, se ha propuesto el uso de cuatro esquemas de modulaci\u00f3n para permitir el acceso al medio de las secuencias: modulaci\u00f3n por desplazamiento de fase (PSK, Phase Shift Keying), por divisi\u00f3n de frecuencias ortogonales (OFDM), por saltos de frecuencia (FH) o incluso un novedoso esquema a partir de s\u00edmbolos chirp ortogonales (OCDM). Para la evaluaci\u00f3n del desempe\u00f1o de los esquemas de codificaci\u00f3n\/modulaci\u00f3n mencionados, se han utilizado modelos matem\u00e1ticos que describen el comportamiento de diversos efectos en estos entornos de inter\u00e9s, lo que ha permitido simular las emisiones en diferentes situaciones, y comparar los resultados obtenidos en cada esquema a partir del an\u00e1lisis de m\u00e9tricas espec\u00edficas. Adem\u00e1s, se ha contribuido al desarrollo de dos aplicaciones con interfaz gr\u00e1fica para el usuario, que facilitan las tareas de investigaci\u00f3n en el uso de estos modelos de simulaci\u00f3n, uno en espacios interiores, y otro considerando los efectos del entorno subacu\u00e1tico. Entre los aportes y\/o contribuciones mas importantes de esta tesis se pueden enumerar: a) Estudio pormenorizado y clasificaci\u00f3n de distintos esquemas de codificaci\u00f3n y modulaci\u00f3n, para el dise\u00f1o de una se\u00f1al robusta frente a las interferencias t\u00edpicas que afectan los sistemas de posicionamiento basados en la medida de tiempos de vuelo. As\u00ed, se ha propuesto el uso de secuencias Zadoff-Chu por sus propiedades de AC, CC y robustez al Doppler, y se han analizado cuatro esquemas de modulaci\u00f3n para su aplicaci\u00f3n en estos sistemas. b) Propuesta de un novedoso esquema de modulaci\u00f3n para secuencias Zadoff-Chu empleando simbolos chirp. c) Nuevo m\u00e9todo de selecci\u00f3n de semillas favoritas para la obtenci\u00f3n de secuencias que mejoran las propiedades de AC y CC. d) Estudio exhaustivo del desempe\u00f1o de estos esquemas en sistemas de posicionamiento basados en la medida de tiempos de vuelo aperi\u00f3dicos, tanto en espacios a\u00e9reos como en entornos subacu\u00e1ticos. Para el estudio se han modelado los efectos t\u00edpicos de estos entornos, los cuales adem\u00e1s han servido como base para el desarrollo de dos aplicaciones de simulaci\u00f3n con interfaz de usuario. e) Dise\u00f1o de un nuevo algoritmo de detecci\u00f3n de picos para la mejora de la medida de tiempos de vuelo en entornos afectados por multicamino. Finalmente, se ha podido comprobar y validar el comportamiento de los esquemas propuestos, tanto por los modelos de simulaci\u00f3n, como por las pruebas experimentales realizadas en diferentes entornos, en est\u00e1tico y en movimiento.",
+                "authors_ref": "",
+                "section": "doctoral",
+                "links": [
+                    "https:\/\/gestion-doctorado.uah.es\/tesis\/1137"
+                ]
+            },
+            "publ02": {
+                "title": "Relative Positioning System Using Acoustic Sensors for Ubiquitous Computing Applications",
+                "authors": "Carlos De Marziani, Jes\u00fas Ure\u00f1a, \u00c1lvaro Hern\u00e1ndez, Manuel Mazo, Ana Jim\u00e9nez, Fernando Alvarez y J. Manuel Villadangos",
+                "year": "2005",
+                "desc": "Systems that characterize the state of an entity or object are very important in the \u201csmart spaces\u201d and \u201cubiquitous computing\u201d; this information is\nusually known as the entity\u2019s \"context\". Those applications, which describe or\ncharacterize these entities and interact with it, are often referred as \"contextaware computing\". One of the most important information is the position of an\nobject with the purpose of offering the most suitable services to him. The\nmechanisms and techniques that determine these space relations are named \u201clocation\"; and the computing applications, based on the position, are called \u201clocation-aware computing\u201d. This article presents an indoor localization system in\norder to make a relative positioning among entities, fixed or mobile, without\nuse an external infrastructure and only using acoustic transducers for their use\nin ubiquitous computing applications. Also, an analysis of the positioning algorithm, based on multidimensional scaling technique (MDS), is carried out in\norder to verify the errors in the position estimation when there are errors in the\nmechanism of ranging distances. ",
+                "authors_ref": "",
+                "section": "publications",
+                "links": [
+                    "https:\/\/ceur-ws.org\/Vol-132\/paper04.pdf"
+                ]
+            },
+            "publ03": {
+                "title": "Advanced sensorial system for an acoustic LPS",
+                "authors": "J. Ure\u00f1a, A. Hern\u00e1ndez, A. Jim\u00e9nez, J.M. Villadangos, M. Mazo, J.C. Garc\u00eda, J.J. Garc\u00eda, F.J. \u00c1lvarez, C. De Marziani, M.C. P\u00e9rez, J.A. Jim\u00e9nez, A.R. Jim\u00e9nez, F. Seco",
+                "year": "2007",
+                "desc": "This work presents the development and implementation of a Local Positioning System (LPS) based on the transmission of ultrasonic signals, proposed for indoor positioning of mobile robots. The LPS consists of several ultrasonic beacons located in the environment, all of them emitting periodically and simultaneously. A portable receiver collects all the transmissions and autonomously computes its position. Neither infrared nor radiofrequency are required for synchronization in the localization process, compared to other related works. Direct Sequence Code Division Multiple Access (DS-CDMA) techniques are used to allow simultaneous emission from several beacons; each one transmitting a different 255-bit Kasami code. The portable receiver can detect the time of arrival for the different signals coming from the beacons, by carrying out all the correlations with the emitted codes. Absolute position of the receiver is determined by hyperbolic trilateration, using the Differences in Times-of-Arrival (DTOA) between a reference beacon and the other ones. The main advantage of this proposal is to permit the coexistence of an unlimited number of portable receivers, what is useful in applications like multirobot cooperation.",
+                "authors_ref": "",
+                "section": "publications",
+                "links": [
+                    "https:\/\/www.sciencedirect.com\/science\/article\/abs\/pii\/S0141933107000385"
+                ]
+            },
+            "publ04": {
+                "title": "High Reliability Outdoor Sonar Prototype based on Efficient Signal Coding",
+                "authors": "Fernando J. Alvarez, Jesus Urena, Manuel Mazo, Alvaro Hernandez, Juan J. Garcia, Carlos De Marziani",
+                "year": "2006",
+                "desc": "Many mobile robots and autonomous vehicles designed for outdoor operation have incorporated ultrasonic sensors in their navigation systems, whose function is mainly to avoid possible collisions with very close obstacles. The use of these systems in more precise tasks requires signal encoding and the incorporation of pulse compression techniques that have already been used with success in the design of high-performance indoor sonars. However, the transmission of ultrasonic encoded signals outdoors entails a new challenge because of the effects of atmospheric turbulence. This phenomenon causes random fluctuations in the phase and amplitude of traveling acoustic waves, a fact that can make the encoded signal completely unrecognizable by its matched receiver. Atmospheric turbulence is investigated in this work, with the aim of determining the conditions under which it is possible to assure the reliable outdoor operation of an ultrasonic pulse compression system. As a result of this analysis, a novel sonar prototype based on complementary sequences coding is developed and experimentally tested. This encoding scheme provides the system with very useful additional features, namely, high robustness to noise, multi-mode operation capability (simultaneous emissions with minimum cross talk interference), and the possibility of applying an efficient detection algorithm that notably decreases the hardware resource requirements.",
+                "authors_ref": "",
+                "section": "publications",
+                "links": [
+                    "https:\/\/ieeexplore.ieee.org\/document\/4012870"
+                ]
+            },
+            "publ05": {
+                "title": "Hardware Implementation of an Efficient Correlator for Interleaved Complementary Sets of Sequences",
+                "authors": "Mar\u00eda Carmen P\u00e9rez, Jes\u00fas Ure\u00f1a, Alvaro Hern\u00e1ndez, Carlos De Marziani, Ana Jim\u00e9nez, William P. Marnane",
+                "year": "2007",
+                "desc": "Some sensor systems are characterized by multiple simultaneous aperiodic emissions, with low signal-to-noise ratio and asynchronous detection. In these systems, complementary sets of sequences can be used to encode emissions, due to their suitable auto-correlation and cross-correlation properties. The transmission of a complementary set can be accomplished by interleaving the sequences of the set, generating a macro-sequence which is easily transmitted by a BPSK modulation. The detection of the macrosequence can be performed by means of efficient correlation algorithms with a notably decreased computational load and hardware complexity. This work presents a new hardware design in configurable logic of an efficient correlator for macrosequences generated from complementary sets of sequences. A generic implementation has  been achieved, so the configuration can be changed according to the requirements of the application. The developed correlator has been tested in an ultrasonic pulse compression system in which real-time is needed. However, it is applicable in any multi-sensor or communication system where the goal is to make simultaneous emissions from different independent sources, minimizing mutual interference.",
+                "authors_ref": "",
+                "section": "publications",
+                "links": [
+                    "https:\/\/lib.jucs.org\/article\/28752\/"
+                ]
+            },
+            "publ06": {
+                "title": "Modular Architecture for Efficient Generation and Correlation of Complementary Set of Sequences",
+                "authors": "Carlos De Marziani, Jes\u00fas Ure\u00f1a, \u00c1lvaro Hern\u00e1ndez, Manuel Mazo, Fernando J. \u00c1lvarez, Juan Jes\u00fas Garc\u00eda, Patricio Donato",
+                "year": "2007",
+                "desc": "Golay sequences and complementary sets of sequences have been long studied for their application in multisensor and communication systems. The feasibility of these systems strongly depends on the design of an efficient generator and correlator with the aim of reducing the computational load and hardware complexity. Recursive algorithms, which allow efficient architectures, are available in the case of complementary pairs of sequences and complementary sets of four sequences. This work presents a generalization of these algorithms with the purpose of obtaining complementary sets of M sequences with length L, the number of sequences M being a power of two (M=2 m ), and the length L a power of M (L=2 mN ) with m,Nisin N-{0}. This fact allows an ideal Kroumlnecker delta function of weight MmiddotL in the addition of the autocorrelation functions of the M sequences of the set. Furthermore, the generation of M different mutually orthogonal sets can be obtained. This fact makes their application suitable in simultaneous multiemission systems. With the proposed algorithm, an effective reduction in the number of operations necessary to implement the correlator can be obtained, if it is compared with the straightforward implementation. Also, a regular structure is provided that allows implementation of the generator and\/or the correlator for complementary sets of M sequences, based on the structure for complementary sets of M\/2 sequences The sequence length can also be easily extended to any multiple of M. Finally, the generation and correlation of M different mutually orthogonal complementary sets of M sequences can be immediately derived",
+                "authors_ref": "",
+                "section": "publications",
+                "links": [
+                    "https:\/\/ieeexplore.ieee.org\/document\/4156375\/authors"
+                ]
+            },
+            "dt02": {
+                "title": "Dise\u00f1o de estrategias de sincronizaci\u00f3n y estimaci\u00f3n de canal para la mejora de comunicaciones multiportadora en redes inteligentes de energ\u00eda",
+                "authors": "Mart\u00edn Alejandro Colombo",
+                "year": "2021",
+                "desc": "En las \u00faltimas d\u00e9cadas se ha despertado un creciente inter\u00e9s en los sistemas de comunicaciones por la red el\u00e9ctrica (Power-Line Communications \u2013 PLC) debido a su importante rol en el desarrollo de las redes el\u00e9ctricas inteligentes. Los canales PLC presentan una marcada selectividad de frecuencia debido al efecto multicamino y diversas fuentes de ruido, lo que conforma un escenario desafiante para el desarrollo de sistemas de comunicaciones confiables. La multiplexaci\u00f3n por divisi\u00f3n de frecuencias ortogonales (Orthogonal Frequency Division Multiplexing - OFDM) se ha propuesto como una soluci\u00f3n eficiente para los sistemas PLC debido a su robustez frente a los canales de desvanecimiento selectivo en frecuencia. Sin embargo, los sistemas OFDM requieren de una sincronizaci\u00f3n adecuada, en conjunto con la estimaci\u00f3n y ecualizaci\u00f3n del canal PLC para un desempe\u00f1o apropiado. La presente tesis contribuye en el desarrollo de estrategias eficientes de sincronizaci\u00f3n y estimaci\u00f3n de canal para sistemas OFDM-PLC, que representen una disminuci\u00f3n en la complejidad asociada respecto a variantes existentes en la literatura, y a su vez mantengan un desempe\u00f1o competitivo. En primer lugar, se realiza el dise\u00f1o de un s\u00edmbolo piloto novedoso construido a partir de pares de secuencias complementarias, bajo el criterio de presentar adecuadas propiedades de correlaci\u00f3n, un procesamiento de reducida complejidad, y la flexibilidad necesaria para poder aplicar t\u00e9cnicas de sincronizaci\u00f3n gruesa basadas en autocorrelaci\u00f3n (AC) y correlaci\u00f3n cruzada (CC), y efectuar una sincronizaci\u00f3n fina y estimaci\u00f3n de canal a partir de esta \u00faltima. Con respecto a la sincronizaci\u00f3n gruesa, se realiza una comparaci\u00f3n exhaustiva entre las t\u00e9cnicas basadas en AC y CC en las condiciones particulares del canal PLC. Luego, se desarrolla un algoritmo de sincronizaci\u00f3n fina a partir de la CC eficiente del s\u00edmbolo piloto propuesto, en el que los c\u00f3mputos realizados pueden reutilizarse posteriormente para obtener una estimaci\u00f3n de la respuesta al impulso del canal, reduciendo la complejidad del conjunto respecto a un enfoque individual de cada etapa. Se realiza un an\u00e1lisis estad\u00edstico de las m\u00e9tricas planteadas en la etapa de sincronizaci\u00f3n gruesa as\u00ed como aquellas planteadas en la etapa de sincronizaci\u00f3n fina, y se derivan umbrales de detecci\u00f3n apropiados para los algoritmos de sincronizaci\u00f3n en cada caso. Finalmente, se eval\u00faa la propuesta de sincronizaci\u00f3n y estimaci\u00f3n de canal conjunta en un escenario de transmisi\u00f3n en el que se limita el n\u00famero de subportadoras activas a partir de una m\u00e1scara espectral de compatibilidad electromagn\u00e9tica. Se eval\u00faa la degradaci\u00f3n de las propiedades del s\u00edmbolo piloto propuesto, y a partir de ello se redefinen los umbrales de detecci\u00f3n utilizados en las etapas de sincronizaci\u00f3n gruesa y fina. Se plantea la modificaci\u00f3n de la correlaci\u00f3n cruzada en el receptor para completar las subportadoras inactivas de manera tal de contrarrestar el efecto nocivo de la m\u00e1scara espectral en la estrategia de estimaci\u00f3n de canal. A lo largo del trabajo se lleva a cabo un an\u00e1lisis de la complejidad asociada al c\u00f3mputo de los algoritmos propuestos en los distintos escenarios planteados, y se verifica que la propuesta representa una opci\u00f3n de reducida complejidad gracias al dise\u00f1o del s\u00edmbolo piloto propuesto y su arquitectura de correlaci\u00f3n eficiente.",
+                "authors_ref": "",
+                "section": "doctoral",
+                "links": [
+                    "https:\/\/ebuah.uah.es\/dspace\/handle\/10017\/54631"
+                ]
+            },
+            "publ07": {
+                "title": "EMFi-based ultrasonic transducer for robotics applications",
+                "authors": "Ana Jim\u00e9nez, \u00c1lvaro Hern\u00e1ndez, Jes\u00fas Ure\u00f1a, Mar\u00eda Carmen P\u00e9rez, Fernando J. \u00c1lvarez, Carlos De Marziani, Juan Jes\u00fas Garc\u00eda, J. Manuel Villadangos",
+                "year": "2008",
+                "desc": "A prototype of an ultrasonic transducer based on electromechanical film (EMFi) is presented, as well as its electronic driving and receiving blocks. The electromechanical film provides a wide bandwidth response, showing enough of a level of sensitivity to allow echo-pulse measurement in the most frequency ranges for robotics applications. Emission patterns are obtained, verifying the correspondence between experimental data and the theoretical piston model. Experimental results show that the EMFi-based transducer can be used as a broadband ultrasonic transducer, allowing transmission from 20 to 200 kHz. The wide bandwidth provided by the transducer is a remarkable advantage for sensor systems using encoded ultrasonic signals with wideband modulation schemes, which require considerably more bandwidth than what conventional transducers allow. In this way, main lobes can be discriminated more easily from sidelobes and crosstalk interference can be reduced.",
+                "authors_ref": "",
+                "section": "publications",
+                "links": [
+                    "https:\/\/www.sciencedirect.com\/science\/article\/pii\/S0924424708004160"
+                ]
+            },
+            "publ08": {
+                "title": "Efficient Correlator for LS Codes Generated from Orthogonal CSS",
+                "authors": "Mar\u00eda Carmen P\u00e9rez, Jes\u00fas Ure\u00f1a, \u00c1lvaro Hern\u00e1ndez, Fernando J. \u00c1lvarez, Ana Jim\u00e9nez, Carlos De Marziani",
+                "year": "2008",
+                "desc": "This paper presents a novel method to correlate loosely synchronized (LS) codes generated from mutually orthogonal complementary sets of sequences (CSS). The proposed correlator significantly reduces the total number of multiplications and additions to be performed, in comparison with straightforward correlators. This fast correlator, together with the interference free window that LS codes exhibit, make them a good choice for next generation of Wireless communications.",
+                "authors_ref": "",
+                "section": "publications",
+                "links": [
+                    "https:\/\/ieeexplore.ieee.org\/document\/4640947"
+                ]
+            },
+            "publ09": {
+                "title": "Efficient Generation and Correlation of Sequence Pairs With Three Zero-Correlation Zones",
+                "authors": "Mar\u00eda Carmen P\u00e9rez, Jes\u00fas Ure\u00f1a, \u00c1lvaro Hern\u00e1ndez, Ana Jim\u00e9nez, Carlos De Marziani",
+                "year": "2009",
+                "desc": "This paper presents three novel methods to efficiently generate and correlate sequence pairs with three zero correlation zones in the sum of their aperiodic correlation functions. These sequences have achieved great importance in communications systems when the maximum transmission delay is less than the length of these zones, because the multiple access interference (MAI) and the intersymbol interference (ISI) can be removed. The proposed algorithms are based on the properties of complementary sets of sequences (CSS) and they offer an efficient hardware implementation of the corresponding generators and correlators that reduces the total number of operations to be performed in comparison with straightforward implementations. That makes possible real-time operation as well as the use of very long sequences.",
+                "authors_ref": "",
+                "section": "publications",
+                "links": [
+                    "https:\/\/ieeexplore.ieee.org\/abstract\/document\/4813245"
+                ]
+            },
+            "publ010": {
+                "title": "Characterization of an Underwater Positioning System Based on GPS Surface Nodes and Encoded Acoustic Signals",
+                "authors": "Joaqu\u00edn Aparicio, Ana Jim\u00e9nez, Fernando J. \u00c1lvarez, Daniel Ruiz, Carlos De Marziani, Jes\u00fas Ure\u00f1a, ",
+                "year": "2016",
+                "desc": "This paper presents a characterization of an underwater positioning system based on surface nodes equipped with GPS and acoustic transducers. The positioning system calculates the coordinates of an underwater vehicle in one of the surface nodes or beacons, by the emission, detection, and reply of acoustic encoded signals. The characterization of the system has been performed by means of a statistical study, considering different numbers of beacons, beacons' position and physical phenomena, such as noise, multipath, and Doppler spread. The error propagation caused by these phenomena and the geometrical configuration of the system has been quantitatively assessed in different positioning algorithms, based on trilateration and iterative procedures. The results show how the different phenomena affect the vehicle estimated position errors for the different positioning algorithms. In addition, the obtained errors inside the projected area of the beacons are ~1 m or lower, rising to a few meters for the worst case scenario, showing the feasibility of the acoustic positioning system.",
+                "authors_ref": "",
+                "section": "publications",
+                "links": [
+                    "https:\/\/ieeexplore.ieee.org\/abstract\/document\/7469873"
+                ]
+            },
+            "publ011": {
+                "title": "Accurate detection of spread-spectrum modulated signals in reverberant underwater environments",
+                "authors": "Joaqu\u00edn Aparicio, Ana Jim\u00e9nez, Fernando J. \u00c1lvarez,  Jes\u00fas Ure\u00f1a,  Carlos De Marziani, Daniel De Diego, Nuno Cruz, Helder Campos",
+                "year": "2015",
+                "desc": "In those positioning systems based on the detection of acoustic signals, an accurate detection of the arrival times is crucial for a correct estimation of the distance between nodes, and therefore, for the precise estimation of the node that wants to be located. In order to obtain this arrival time more accurately, acoustic signals can be coded using pseudorandom noise, but these coded signals are still affected by underwater channel phenomena. In this work, the detection of spread-spectrum modulated signals is analyzed in underwater environments that are highly affected by multipath and reverberation. A spread-spectrum signal, which consist of a modulated Kasami code, has been emitted through two different pools, reaching a receiver where it has been captured after following several line-of-sight and non-line-of-sight paths. Then, a correlation process has been performed offline to provide information about the arrival times (times-of-flight) that form the multipath structure. These times-of-flight are compared with those provided by an underwater acoustic propagation model, in order to test the performance of this model and its capacity to predict the outcome of signal detection in underwater environments with a strong multipath and reverberation component. That way, the validated propagation model could be later used in future studies to predict the detection of spread-spectrum signals and the performance of systems that use them in these adverse environments.",
+                "authors_ref": "",
+                "section": "publications",
+                "links": [
+                    "https:\/\/www.sciencedirect.com\/science\/article\/pii\/S0003682X14002096"
+                ]
+            },
+            "publ012": {
+                "title": "EMFi-Based Ultrasonic Sensory Array for 3D Localization of Reflectors Using Positioning Algorithms",
+                "authors": "Ana Jim\u00e9nez Mart\u00edn, \u00c1lvaro Hern\u00e1ndez Alonso, Daniel Ru\u00edz, Isaac Gude, Carlos de Marziani, Mar\u00eda Carmen P\u00e9rez, Fernando J. \u00c1lvarez, C\u00e9sar Guiti\u00e9rrez, Jes\u00fas Ure\u00f1a",
+                "year": "2015",
+                "desc": "This paper describes a first prototype of an airborne ultrasonic array that combines pulse-compression techniques with positioning algorithms in order to achieve accurate determination of the position of the reflectors placed in front of the array. The new sensory system is based on an array with four independently controlled emitters and a receiver. The emitters are made of ferroelectrets as active material, leveraging their features to produce broadband air-coupled ultrasonic transducers at low cost. The ultrasonic emissions are encoded with an orthogonal Kasami sequence for each transducer, making possible to transmit simultaneously from each one. Furthermore, one of the main novelties of the proposal is that reflectors are located by means of a spherical trilateration algorithm that uses the time-of-flight of the ultrasonic signals from each transmitter to the receiver, bounced back by the reflector.",
+                "authors_ref": "",
+                "section": "publications",
+                "links": [
+                    "https:\/\/ieeexplore.ieee.org\/document\/6994821"
+                ]
+            }
+        },
+        "sections": [
+            {
+                "title": "Publicaciones",
+                "id": "publications",
+                "headers": {
+                    "year": true,
+                    "title": true,
+                    "desc": true,
+                    "authors": true,
+                    "links": true
+                },
+                "content": [
+                    "publ01",
+                    "publ02",
+                    "publ03",
+                    "publ04",
+                    "publ05",
+                    "publ06",
+                    "publ07",
+                    "publ08",
+                    "publ09",
+                    "publ010",
+                    "publ011",
+                    "publ012"
+                ]
+            },
+            {
+                "title": "Proyectos",
+                "id": "projects",
+                "headers": {
+                    "year": true,
+                    "title": true,
+                    "desc": false,
+                    "authors": false,
+                    "links": true
+                },
+                "content": [
+                    "pro01"
+                ]
+            },
+            {
+                "title": "Transferencias",
+                "id": "transfers",
+                "headers": {
+                    "year": true,
+                    "title": true,
+                    "desc": true,
+                    "authors": true
+                },
+                "content": [
+                    "transf01"
+                ]
+            },
+            {
+                "title": "Reportes internos",
+                "id": "internal",
+                "headers": {
+                    "year": true,
+                    "title": true,
+                    "desc": false,
+                    "authors": true
+                },
+                "content": [
+                    "ir01"
+                ]
+            },
+            {
+                "id": "divider"
+            },
+            {
+                "title": "Tesis de maestr\u00eda",
+                "id": "master",
+                "headers": {
+                    "year": true,
+                    "title": true,
+                    "desc": true,
+                    "authors": true
+                },
+                "content": [
+                    "mt01"
+                ]
+            },
+            {
+                "title": "Tesis doctorales",
+                "id": "doctoral",
+                "headers": {
+                    "year": true,
+                    "title": true,
+                    "desc": true,
+                    "authors": true,
+                    "links": true
+                },
+                "content": [
+                    "dt01",
+                    "dt02"
+                ]
+            }
+        ]
+    },
+    "recent": {
+        "projects": [],
+        "sections": {
+            "sec1": []
+        }
+    }
+}

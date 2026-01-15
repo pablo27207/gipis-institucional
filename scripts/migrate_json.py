@@ -19,7 +19,6 @@ def migrate_data():
     # Cargar JSON
     json_path = os.path.join(
         os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-        'web vieja',
         'database.json'
     )
     

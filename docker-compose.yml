@@ -2,7 +2,25 @@ version: '3.8'
 
 services:
   # ============================================
-  # TRAEFIK - Reverse Proxy con SSL manual
+  # NGINX - Frontend con OCSP Stapling
+  # ============================================
+  nginx:
+    image: nginx:alpine
+    container_name: nginx-ocsp
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./certs:/certs:ro
+    networks:
+      - traefik-public
+    depends_on:
+      - traefik
+
+  # ============================================
+  # TRAEFIK - Reverse Proxy (solo interno)
   # ============================================
   traefik:
     image: traefik:v2.10
@@ -18,28 +36,19 @@ services:
       - "--providers.docker.exposedbydefault=false"
       - "--providers.docker.network=traefik-public"
 
-      # File provider para certificados manuales
-      - "--providers.file.filename=/certs/traefik-tls.yml"
-
-      # Entrypoints
+      # Entrypoints (solo HTTP interno, HTTPS lo maneja nginx)
       - "--entrypoints.web.address=:80"
-      - "--entrypoints.websecure.address=:443"
-
-      # Redirección HTTP -> HTTPS
-      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
-      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
 
       # Logs
       - "--log.level=INFO"
       - "--accesslog=true"
 
-    ports:
-      - "80:80"
-      - "443:443"
+    # Ya no exponemos puertos externos, nginx es el frontend
+    expose:
+      - "80"
 
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./certs:/certs:ro # Certificados SSL manuales
 
     networks:
       - traefik-public
@@ -63,11 +72,9 @@ services:
       - traefik-public
     labels:
       - "traefik.enable=true"
-      # HTTP -> HTTPS redirect ya está en entrypoints
-      # HTTPS router
+      # HTTP router (nginx maneja HTTPS y redirección)
       - "traefik.http.routers.gipis.rule=Host(`${DOMAIN:-gipis.unp.edu.ar}`)"
-      - "traefik.http.routers.gipis.entrypoints=websecure"
-      - "traefik.http.routers.gipis.tls=true"
+      - "traefik.http.routers.gipis.entrypoints=web"
       # Service
       - "traefik.http.services.gipis.loadbalancer.server.port=5000"
 

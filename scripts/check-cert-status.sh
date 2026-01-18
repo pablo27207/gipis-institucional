@@ -34,17 +34,38 @@ echo "=================================================="
 CERT_COUNT=$(grep -c "BEGIN CERTIFICATE" "$CERT_FILE")
 echo "Certificados en la cadena: $CERT_COUNT"
 
-# Extraer el segundo certificado (emisor/CA intermedio)
-csplit -s -f /tmp/cert- "$CERT_FILE" '/-----BEGIN CERTIFICATE-----/' '{*}'
-ISSUER_CERT="/tmp/cert-02"
+# Extraer certificados individualmente
+awk '/-----BEGIN CERTIFICATE-----/{n++}{print > "/tmp/cert-" n ".pem"}' "$CERT_FILE"
 
-if [ ! -f "$ISSUER_CERT" ]; then
-    echo "❌ Error: No se pudo extraer el certificado del emisor"
+# El certificado del servidor es el primero
+SERVER_CERT="/tmp/cert-1.pem"
+# El certificado del emisor es el segundo
+ISSUER_CERT="/tmp/cert-2.pem"
+
+if [ ! -f "$SERVER_CERT" ] || [ ! -f "$ISSUER_CERT" ]; then
+    echo "❌ Error: No se pudo extraer los certificados"
     rm -f /tmp/cert-*
     exit 1
 fi
 
-echo "✅ Certificado del emisor extraído"
+echo "✅ Certificados extraídos"
+
+# Mostrar información del servidor y emisor
+echo ""
+echo "Certificado del servidor:"
+openssl x509 -in "$SERVER_CERT" -noout -subject -issuer | sed 's/^/  /'
+
+echo ""
+echo "Certificado del emisor (CA):"
+openssl x509 -in "$ISSUER_CERT" -noout -subject | sed 's/^/  /'
+
+if [ "$CERT_COUNT" -lt 3 ]; then
+    echo ""
+    echo "⚠️  ADVERTENCIA: La cadena solo tiene $CERT_COUNT certificados"
+    echo "   Se esperan 3: [servidor] + [intermedio] + [raíz]"
+    echo "   Esto puede causar problemas de validación en algunos navegadores."
+fi
+
 echo ""
 
 # 4. Consulta OCSP DIRECTA (sin usar stapling del servidor)
@@ -55,9 +76,9 @@ echo ""
 
 OCSP_RESPONSE=$(openssl ocsp \
     -issuer "$ISSUER_CERT" \
-    -cert "$CERT_FILE" \
+    -cert "$SERVER_CERT" \
     -url "$OCSP_URL" \
-    -header "Host" "ocsp.sectigo.com" \
+    -no_nonce \
     2>&1)
 
 echo "$OCSP_RESPONSE"
@@ -97,7 +118,7 @@ echo ""
 echo "6. Verificando CRL (Certificate Revocation List):"
 echo "=================================================="
 
-CRL_URL=$(openssl x509 -in "$CERT_FILE" -noout -text | grep -A 4 "CRL Distribution" | grep "URI:" | sed 's/.*URI://')
+CRL_URL=$(openssl x509 -in "$SERVER_CERT" -noout -text | grep -A 4 "CRL Distribution" | grep "URI:" | head -1 | sed 's/.*URI://' | tr -d ' ')
 
 if [ -n "$CRL_URL" ]; then
     echo "CRL URL encontrada: $CRL_URL"
@@ -109,7 +130,7 @@ if [ -n "$CRL_URL" ]; then
 
     if [ -f "$CRL_FILE" ]; then
         # Extraer número de serie del certificado
-        SERIAL=$(openssl x509 -in "$CERT_FILE" -noout -serial | cut -d= -f2)
+        SERIAL=$(openssl x509 -in "$SERVER_CERT" -noout -serial | cut -d= -f2)
         echo "Número de serie del certificado: $SERIAL"
 
         # Convertir CRL a texto y buscar el número de serie

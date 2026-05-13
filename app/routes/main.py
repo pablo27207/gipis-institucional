@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request, flash, redirect, url_for
 from app.models import Member, Category, ResearchLine, ResearchSection, ResearchItem, News, SiteContent
 
 bp = Blueprint('main', __name__)
@@ -24,6 +24,66 @@ def miembro_detalle(slug):
     """Detalle de un miembro del equipo"""
     member = Member.query.filter_by(slug=slug).first_or_404()
     return render_template('pages/miembro.xhtml', member=member)
+
+
+@bp.route('/equipo/<slug>/vcard')
+def member_vcard(slug):
+    """Generar vCard (.vcf) para un miembro"""
+    import os
+    import base64
+    from flask import current_app, make_response
+    
+    member = Member.query.filter_by(slug=slug).first_or_404()
+    
+    # Separar nombre y apellido (aproximado)
+    name_parts = member.name.split()
+    first_name = name_parts[0] if name_parts else ''
+    last_name = ' '.join(name_parts[1:]) if len(name_parts) > 1 else ''
+    
+    lines = [
+        'BEGIN:VCARD',
+        'VERSION:3.0',
+        f'N:{last_name};{first_name};;;',
+        f'FN:{member.name}',
+        'ORG:GIPIS - UNPSJB;Facultad de Ingeniería',
+    ]
+    
+    if member.position:
+        lines.append(f'TITLE:{member.position}')
+    
+    if member.institutional_email and member.institutional_email_public:
+        lines.append(f'EMAIL;TYPE=WORK:{member.institutional_email}')
+    
+    if member.personal_email and member.personal_email_public:
+        lines.append(f'EMAIL;TYPE=HOME:{member.personal_email}')
+    
+    if member.phone and member.phone_public:
+        lines.append(f'TEL;TYPE=WORK:{member.phone}')
+    
+    if member.linkedin:
+        lines.append(f'URL:{member.linkedin}')
+    
+    # Foto embebida como base64
+    if member.photo:
+        photo_path = os.path.join(current_app.static_folder, 'img', 'profiles', member.photo)
+        if os.path.exists(photo_path):
+            ext = member.photo.rsplit('.', 1)[1].upper() if '.' in member.photo else 'PNG'
+            if ext == 'JPG':
+                ext = 'JPEG'
+            with open(photo_path, 'rb') as f:
+                photo_data = base64.b64encode(f.read()).decode('ascii')
+            # vCard 3.0 photo format with line folding
+            photo_line = f'PHOTO;ENCODING=b;TYPE={ext}:{photo_data}'
+            lines.append(photo_line)
+    
+    lines.append('END:VCARD')
+    
+    vcard_content = '\r\n'.join(lines)
+    
+    response = make_response(vcard_content)
+    response.headers['Content-Type'] = 'text/vcard; charset=utf-8'
+    response.headers['Content-Disposition'] = f'attachment; filename="{member.slug}.vcf"'
+    return response
 
 
 @bp.route('/investigacion')
@@ -65,7 +125,57 @@ def novedad_detalle(slug):
     return render_template('pages/novedad.xhtml', news=news_item)
 
 
-@bp.route('/contacto')
+@bp.route('/contacto', methods=['GET', 'POST'])
 def contacto():
     """Página de contacto"""
+    if request.method == 'POST':
+        # Honeypot anti-spam: si este campo tiene valor, es un bot
+        if request.form.get('website', ''):
+            flash('¡Mensaje enviado correctamente! Nos pondremos en contacto a la brevedad.', 'success')
+            return redirect(url_for('main.contacto'))
+        
+        nombre = request.form.get('nombre', '').strip()
+        email = request.form.get('email', '').strip()
+        asunto = request.form.get('asunto', '').strip()
+        mensaje = request.form.get('mensaje', '').strip()
+        
+        if not nombre or not email or not asunto or not mensaje:
+            flash('Por favor, completá todos los campos.', 'error')
+            return redirect(url_for('main.contacto'))
+        
+        try:
+            from flask_mail import Message
+            from app import mail
+            
+            msg = Message(
+                subject=f'[GIPIS Web] {asunto}',
+                recipients=['gipis.unp@gmail.com'],
+                reply_to=email
+            )
+            msg.body = (
+                f"Nuevo mensaje desde el formulario de contacto del sitio web GIPIS\n"
+                f"{'=' * 60}\n\n"
+                f"Nombre: {nombre}\n"
+                f"Email: {email}\n"
+                f"Asunto: {asunto}\n\n"
+                f"Mensaje:\n{mensaje}\n"
+            )
+            msg.html = (
+                f"<h2>Nuevo mensaje desde el sitio web GIPIS</h2>"
+                f"<hr>"
+                f"<p><strong>Nombre:</strong> {nombre}</p>"
+                f"<p><strong>Email:</strong> <a href='mailto:{email}'>{email}</a></p>"
+                f"<p><strong>Asunto:</strong> {asunto}</p>"
+                f"<hr>"
+                f"<p><strong>Mensaje:</strong></p>"
+                f"<p>{mensaje.replace(chr(10), '<br>')}</p>"
+            )
+            mail.send(msg)
+            flash('¡Mensaje enviado correctamente! Nos pondremos en contacto a la brevedad.', 'success')
+        except Exception as e:
+            print(f'Error enviando email de contacto: {e}')
+            flash('Hubo un error al enviar el mensaje. Por favor, intentá nuevamente o escribinos directamente a gipis.unp@gmail.com.', 'error')
+        
+        return redirect(url_for('main.contacto'))
+    
     return render_template('pages/contacto.xhtml')

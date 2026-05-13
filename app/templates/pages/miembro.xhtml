@@ -1,6 +1,7 @@
 {% extends "base.xhtml" %}
 
 {% block title %}{{ member.name }}{% endblock %}
+{% block meta_description %}{{ member.name }}{% if member.position %} — {{ member.position }}{% endif %}. Miembro del GIPIS, Grupo de Investigación en Procesamiento de la Información y Sensores, UNPSJB.{% endblock %}
 
 {% block content %}
 <!-- Page Header -->
@@ -26,12 +27,14 @@
                     <!-- Photo -->
                     <div class="md:w-1/3">
                         {% if member.photo %}
-                        <img alt="{{ member.name }}" class="w-full h-full object-cover aspect-square"
-                            src="{{ url_for('static', filename='img/profiles/' ~ member.photo) }}"
-                            onerror="this.onerror=null; this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23e2e8f0%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22%2394a3b8%22>👤</text></svg>'" />
+                        <div class="aspect-square overflow-hidden">
+                            <img alt="{{ member.name }}" class="w-full h-full object-cover"
+                                src="{{ url_for('static', filename='img/profiles/' ~ member.photo) }}"
+                                onerror="this.onerror=null; this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23e2e8f0%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22%2394a3b8%22>👤</text></svg>'" />
+                        </div>
                         {% else %}
                         <div
-                            class="w-full h-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center aspect-square">
+                            class="w-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center aspect-square">
                             <span
                                 class="material-symbols-outlined text-8xl text-slate-300 dark:text-slate-700">account_circle</span>
                         </div>
@@ -65,11 +68,25 @@
 
                         <!-- Contact Links -->
                         <div class="mt-8 flex flex-wrap gap-4">
-                            {% if member.email %}
-                            <a href="mailto:{{ member.email }}"
+                            {% if member.institutional_email and member.institutional_email_public %}
+                            <a href="mailto:{{ member.institutional_email }}"
                                 class="inline-flex items-center gap-2 bg-primary hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold transition-all">
                                 <span class="material-symbols-outlined">mail</span>
-                                Contactar
+                                Email institucional
+                            </a>
+                            {% endif %}
+                            {% if member.personal_email and member.personal_email_public %}
+                            <a href="mailto:{{ member.personal_email }}"
+                                class="inline-flex items-center gap-2 bg-primary hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold transition-all">
+                                <span class="material-symbols-outlined">mail</span>
+                                Email personal
+                            </a>
+                            {% endif %}
+                            {% if member.phone and member.phone_public %}
+                            <a href="tel:{{ member.phone }}"
+                                class="inline-flex items-center gap-2 bg-primary hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold transition-all">
+                                <span class="material-symbols-outlined">phone</span>
+                                {{ member.phone }}
                             </a>
                             {% endif %}
                             {% if member.linkedin %}
@@ -82,6 +99,11 @@
                                 LinkedIn
                             </a>
                             {% endif %}
+                            <a href="{{ url_for('main.member_vcard', slug=member.slug) }}"
+                                class="inline-flex items-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 px-6 py-3 rounded-lg font-semibold transition-all">
+                                <span class="material-symbols-outlined">contact_page</span>
+                                Descargar contacto
+                            </a>
                         </div>
                     </div>
                 </div>

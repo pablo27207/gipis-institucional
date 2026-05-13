@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="light" lang="es" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="utf-8" />
@@ -7,8 +7,27 @@
     <title>{% block title %}GIPIS{% endblock %} - Grupo de Investigación en Procesamiento de Información y Sensores
     </title>
     <meta name="description"
-        content="GIPIS - Grupo de Investigación en Procesamiento de la Información y Sensores - UNPSJB" />
+        content="{% block meta_description %}GIPIS - Grupo de Investigación en Procesamiento de la Información y Sensores. Facultad de Ingeniería, UNPSJB, Comodoro Rivadavia.{% endblock %}" />
     <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="{% block og_title %}{{ self.title() }} - GIPIS{% endblock %}" />
+    <meta property="og:description" content="{% block og_description %}{{ self.meta_description() }}{% endblock %}" />
+    <meta property="og:image" content="{% block og_image %}{{ url_for('static', filename='img/logo_gipis.png', _external=True) }}{% endblock %}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:site_name" content="GIPIS - UNPSJB" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Dark mode: apply before render to prevent flash -->
+    <script>
+        (function() {
+            var stored = localStorage.getItem('gipis-theme');
+            if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+    </script>
 
     <!-- Fonts -->
     <link
@@ -117,7 +136,7 @@
 
             <div class="flex items-center gap-4">
                 <button class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                    onclick="document.documentElement.classList.toggle('dark')">
+                    onclick="document.documentElement.classList.toggle('dark'); localStorage.setItem('gipis-theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light')">
                     <span class="material-symbols-outlined text-slate-500 dark:text-slate-400">dark_mode</span>
                 </button>
                 {% if current_user.is_authenticated %}
@@ -198,7 +217,7 @@
                             </svg>
                         </a>
                         <a class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-colors"
-                            href="mailto:gipis@ing.unp.edu.ar" title="Email">
+                            href="mailto:gipis.unp@gmail.com" title="Email">
                             <span class="material-symbols-outlined text-xl">mail</span>
                         </a>
                     </div>
@@ -221,7 +240,7 @@
                         </li>
                         <li class="flex gap-3">
                             <span class="material-symbols-outlined text-primary text-sm">email</span>
-                            <span>gipis@ing.unp.edu.ar</span>
+                            <span>gipis.unp@gmail.com</span>
                         </li>
                     </ul>
                 </div>
@@ -238,6 +257,12 @@
             document.getElementById('mobileMenu').classList.toggle('hidden');
         });
     </script>
+
+    <!-- Umami Analytics (privacy-friendly, self-hosted) -->
+    {% if config.get('UMAMI_WEBSITE_ID') %}
+    <script defer src="{{ config.get('UMAMI_SCRIPT_URL', '/umami/script.js') }}"
+        data-website-id="{{ config.get('UMAMI_WEBSITE_ID') }}"></script>
+    {% endif %}
 </body>
 
 </html>

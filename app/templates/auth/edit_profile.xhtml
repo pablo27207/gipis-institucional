@@ -29,8 +29,64 @@
             {% endwith %}
 
             <!-- Edit Form -->
-            <form action="{{ url_for('auth.edit_profile') }}" method="post"
+            <form action="{{ url_for('auth.edit_profile') }}" method="post" enctype="multipart/form-data"
                 class="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-sm border border-slate-100 dark:border-slate-800">
+
+                <!-- Photo Upload -->
+                <h2 class="font-display text-lg font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">photo_camera</span>
+                    Foto de perfil
+                </h2>
+
+                <div class="mb-8">
+                    <div class="flex items-start gap-6">
+                        <!-- Current Photo Preview -->
+                        <div class="flex-shrink-0">
+                            <div id="photo-preview-container" class="w-28 h-28 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 relative group">
+                                {% if current_user.photo %}
+                                <img id="photo-preview" src="{{ url_for('static', filename='img/profiles/' ~ current_user.photo) }}"
+                                    alt="{{ current_user.name }}" class="w-full h-full object-cover"
+                                    onerror="this.style.display='none'; document.getElementById('photo-placeholder').style.display='flex';" />
+                                <div id="photo-placeholder" class="w-full h-full items-center justify-center hidden">
+                                    <span class="material-symbols-outlined text-4xl text-slate-300 dark:text-slate-600">account_circle</span>
+                                </div>
+                                {% else %}
+                                <img id="photo-preview" src="" alt="" class="w-full h-full object-cover hidden" />
+                                <div id="photo-placeholder" class="w-full h-full flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-4xl text-slate-300 dark:text-slate-600">account_circle</span>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Upload Area -->
+                        <div class="flex-grow">
+                            <label id="photo-dropzone" for="photo"
+                                class="flex flex-col items-center justify-center w-full py-6 px-4 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl cursor-pointer hover:border-primary hover:bg-primary/5 dark:hover:bg-primary/5 transition-all group">
+                                <span class="material-symbols-outlined text-3xl text-slate-400 group-hover:text-primary mb-2 transition-colors">cloud_upload</span>
+                                <span class="text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-primary transition-colors">
+                                    Hacé click o arrastrá una imagen
+                                </span>
+                                <span class="text-xs text-slate-400 mt-1">PNG, JPG o WebP • Máximo 10 MB</span>
+                                <span id="photo-filename" class="text-xs text-primary font-medium mt-2 hidden"></span>
+                            </label>
+                            <input type="file" id="photo" name="photo" accept="image/png,image/jpeg,image/webp" class="hidden" />
+
+                            {% if current_user.photo %}
+                            <label class="flex items-center gap-3 mt-3 cursor-pointer select-none group">
+                                <input type="checkbox" name="remove_photo" value="1" id="remove_photo"
+                                    class="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-red-500 focus:ring-red-500/30 cursor-pointer" />
+                                <span class="text-sm text-slate-500 dark:text-slate-400 group-hover:text-red-500 transition-colors flex items-center gap-1.5">
+                                    <span class="material-symbols-outlined text-sm">delete</span>
+                                    Eliminar foto actual
+                                </span>
+                            </label>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="border-slate-100 dark:border-slate-800 my-8" />
 
                 <!-- Basic Info -->
                 <h2 class="font-display text-lg font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
@@ -85,6 +141,74 @@
 
                 <hr class="border-slate-100 dark:border-slate-800 my-8" />
 
+                <!-- Emails de contacto -->
+                <h2 class="font-display text-lg font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">mail</span>
+                    Emails de contacto
+                </h2>
+                <p class="text-sm text-slate-400 mb-6">Podés elegir qué emails se muestran en tu perfil público.</p>
+
+                <div class="space-y-6 mb-8">
+                    <!-- Email Personal -->
+                    <div class="p-5 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30">
+                        <label for="personal_email" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                            Email personal
+                        </label>
+                        <input type="email" id="personal_email" name="personal_email" value="{{ current_user.personal_email or '' }}"
+                            placeholder="tu.email@personal.com"
+                            class="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" />
+                        <label class="flex items-center gap-3 mt-3 cursor-pointer select-none group">
+                            <input type="checkbox" name="personal_email_public" value="1"
+                                {% if current_user.personal_email_public %}checked{% endif %}
+                                class="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary/30 cursor-pointer" />
+                            <span class="text-sm text-slate-500 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-sm">visibility</span>
+                                Mostrar en perfil público
+                            </span>
+                        </label>
+                    </div>
+
+                    <!-- Email Institucional -->
+                    <div class="p-5 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30">
+                        <label for="institutional_email" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                            Email institucional
+                        </label>
+                        <input type="email" id="institutional_email" name="institutional_email" value="{{ current_user.institutional_email or '' }}"
+                            placeholder="tu.email@universidad.edu.ar"
+                            class="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" />
+                        <label class="flex items-center gap-3 mt-3 cursor-pointer select-none group">
+                            <input type="checkbox" name="institutional_email_public" value="1"
+                                {% if current_user.institutional_email_public %}checked{% endif %}
+                                class="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary/30 cursor-pointer" />
+                            <span class="text-sm text-slate-500 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-sm">visibility</span>
+                                Mostrar en perfil público
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                    <!-- Teléfono -->
+                    <div class="p-5 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30">
+                        <label for="phone" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                            Teléfono de contacto
+                        </label>
+                        <input type="tel" id="phone" name="phone" value="{{ current_user.phone or '' }}"
+                            placeholder="+54 297 4550000"
+                            class="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" />
+                        <label class="flex items-center gap-3 mt-3 cursor-pointer select-none group">
+                            <input type="checkbox" name="phone_public" value="1"
+                                {% if current_user.phone_public %}checked{% endif %}
+                                class="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary/30 cursor-pointer" />
+                            <span class="text-sm text-slate-500 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-sm">visibility</span>
+                                Mostrar en perfil público
+                            </span>
+                        </label>
+                    </div>
+
+                <hr class="border-slate-100 dark:border-slate-800 my-8" />
+
                 <!-- Password Change -->
                 <h2 class="font-display text-lg font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
                     <span class="material-symbols-outlined text-primary">lock</span>
@@ -122,6 +246,64 @@
                             icon.textContent = 'visibility';
                         }
                     }
+
+                    // Photo upload preview and drag-and-drop
+                    (function() {
+                        var photoInput = document.getElementById('photo');
+                        var preview = document.getElementById('photo-preview');
+                        var placeholder = document.getElementById('photo-placeholder');
+                        var filenameSpan = document.getElementById('photo-filename');
+                        var dropzone = document.getElementById('photo-dropzone');
+
+                        function showPreview(file) {
+                            if (!file) return;
+                            if (file.size > 10 * 1024 * 1024) {
+                                alert('La imagen no puede superar los 10 MB.');
+                                photoInput.value = '';
+                                return;
+                            }
+                            var reader = new FileReader();
+                            reader.onload = function(e) {
+                                preview.src = e.target.result;
+                                preview.classList.remove('hidden');
+                                preview.style.display = '';
+                                placeholder.style.display = 'none';
+                                placeholder.classList.add('hidden');
+                            };
+                            reader.readAsDataURL(file);
+                            filenameSpan.textContent = file.name;
+                            filenameSpan.classList.remove('hidden');
+                        }
+
+                        photoInput.addEventListener('change', function() {
+                            if (this.files && this.files[0]) {
+                                showPreview(this.files[0]);
+                            }
+                        });
+
+                        // Drag and drop
+                        ['dragenter', 'dragover'].forEach(function(evt) {
+                            dropzone.addEventListener(evt, function(e) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                dropzone.classList.add('border-primary', 'bg-primary/5');
+                            });
+                        });
+                        ['dragleave', 'drop'].forEach(function(evt) {
+                            dropzone.addEventListener(evt, function(e) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                dropzone.classList.remove('border-primary', 'bg-primary/5');
+                            });
+                        });
+                        dropzone.addEventListener('drop', function(e) {
+                            var files = e.dataTransfer.files;
+                            if (files && files[0]) {
+                                photoInput.files = files;
+                                showPreview(files[0]);
+                            }
+                        });
+                    })();
                 </script>
 
                 <!-- Submit -->

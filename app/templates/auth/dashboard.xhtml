@@ -99,8 +99,32 @@
                                 </dd>
                             </div>
                             <div class="grid grid-cols-3 gap-4 py-3 border-b border-slate-100 dark:border-slate-800">
-                                <dt class="text-sm font-medium text-slate-500">Email</dt>
+                                <dt class="text-sm font-medium text-slate-500">Email (login)</dt>
                                 <dd class="col-span-2 text-sm text-slate-900 dark:text-white">{{ current_user.email }}
+                                </dd>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4 py-3 border-b border-slate-100 dark:border-slate-800">
+                                <dt class="text-sm font-medium text-slate-500">Email personal</dt>
+                                <dd class="col-span-2 text-sm text-slate-900 dark:text-white flex items-center gap-2">
+                                    {{ current_user.personal_email or '—' }}
+                                    {% if current_user.personal_email %}
+                                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium {% if current_user.personal_email_public %}bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-400{% else %}bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400{% endif %}">
+                                        <span class="material-symbols-outlined text-xs">{% if current_user.personal_email_public %}visibility{% else %}visibility_off{% endif %}</span>
+                                        {% if current_user.personal_email_public %}Público{% else %}Privado{% endif %}
+                                    </span>
+                                    {% endif %}
+                                </dd>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4 py-3 border-b border-slate-100 dark:border-slate-800">
+                                <dt class="text-sm font-medium text-slate-500">Email institucional</dt>
+                                <dd class="col-span-2 text-sm text-slate-900 dark:text-white flex items-center gap-2">
+                                    {{ current_user.institutional_email or '—' }}
+                                    {% if current_user.institutional_email %}
+                                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium {% if current_user.institutional_email_public %}bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-400{% else %}bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400{% endif %}">
+                                        <span class="material-symbols-outlined text-xs">{% if current_user.institutional_email_public %}visibility{% else %}visibility_off{% endif %}</span>
+                                        {% if current_user.institutional_email_public %}Público{% else %}Privado{% endif %}
+                                    </span>
+                                    {% endif %}
                                 </dd>
                             </div>
                             <div class="grid grid-cols-3 gap-4 py-3 border-b border-slate-100 dark:border-slate-800">
@@ -121,6 +145,18 @@
                                         class="text-primary hover:underline">{{ current_user.linkedin }}</a>
                                     {% else %}
                                     —
+                                    {% endif %}
+                                </dd>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4 py-3 border-b border-slate-100 dark:border-slate-800">
+                                <dt class="text-sm font-medium text-slate-500">Teléfono</dt>
+                                <dd class="col-span-2 text-sm text-slate-900 dark:text-white flex items-center gap-2">
+                                    {{ current_user.phone or '—' }}
+                                    {% if current_user.phone %}
+                                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium {% if current_user.phone_public %}bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-400{% else %}bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400{% endif %}">
+                                        <span class="material-symbols-outlined text-xs">{% if current_user.phone_public %}visibility{% else %}visibility_off{% endif %}</span>
+                                        {% if current_user.phone_public %}Público{% else %}Privado{% endif %}
+                                    </span>
                                     {% endif %}
                                 </dd>
                             </div>

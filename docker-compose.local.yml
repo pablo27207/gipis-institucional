@@ -8,7 +8,7 @@ version: '3.8'
 services:
   # Traefik sin SSL (para desarrollo local)
   traefik:
-    image: traefik:v2.10
+    image: traefik:v3
     container_name: traefik-local
     restart: unless-stopped
     command:
@@ -34,10 +34,20 @@ services:
     restart: unless-stopped
     volumes:
       - ./instance:/app/instance
-      - ./app/static/img:/app/app/static/img
+      - ./app:/app/app
+      - ./config.py:/app/config.py
+      - ./run.py:/app/run.py
+      - ./scripts:/app/scripts
+      - ./docker-entrypoint.sh:/app/docker-entrypoint.sh
+      - ./database.json:/app/database.json
     environment:
       - FLASK_ENV=development
+      - FLASK_DEBUG=1
       - SECRET_KEY=dev-secret-key-no-usar-en-produccion
+      - MAIL_USERNAME=gipis.unp@gmail.com
+      - MAIL_PASSWORD=${MAIL_PASSWORD:-}
+      - UMAMI_WEBSITE_ID=${UMAMI_WEBSITE_ID:-}
+      - UMAMI_SCRIPT_URL=${UMAMI_SCRIPT_URL:-/umami/script.js}
     expose:
       - "5000"
     networks:
@@ -48,7 +58,52 @@ services:
       - "traefik.http.routers.gipis-local.entrypoints=web"
       - "traefik.http.services.gipis-local.loadbalancer.server.port=5000"
 
+  # Umami Analytics
+  umami:
+    image: ghcr.io/umami-software/umami:postgresql-latest
+    container_name: gipis-umami-local
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://umami:umami_local@umami-db:5432/umami
+      APP_SECRET: umami-dev-secret
+      TRACKER_SCRIPT_NAME: script.js
+    depends_on:
+      umami-db:
+        condition: service_healthy
+    expose:
+      - "3000"
+    networks:
+      - traefik-local
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.umami-local.rule=Host(`localhost`) && PathPrefix(`/umami`)"
+      - "traefik.http.routers.umami-local.entrypoints=web"
+      - "traefik.http.middlewares.umami-local-strip.stripprefix.prefixes=/umami"
+      - "traefik.http.routers.umami-local.middlewares=umami-local-strip"
+      - "traefik.http.services.umami-local.loadbalancer.server.port=3000"
+
+  umami-db:
+    image: postgres:15-alpine
+    container_name: gipis-umami-db-local
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: umami
+      POSTGRES_USER: umami
+      POSTGRES_PASSWORD: umami_local
+    volumes:
+      - umami-db-local:/var/lib/postgresql/data
+    networks:
+      - traefik-local
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U umami"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
 networks:
   traefik-local:
     name: traefik-local
     driver: bridge
+
+volumes:
+  umami-db-local:

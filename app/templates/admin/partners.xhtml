@@ -1,0 +1,83 @@
+{% extends "base.xhtml" %}
+
+{% block title %}Red de Colaboración{% endblock %}
+
+{% block content %}
+<section class="py-24 bg-background-light dark:bg-slate-950 min-h-[70vh]">
+    <div class="container mx-auto px-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="flex items-center justify-between mb-8 flex-wrap gap-4">
+                <div>
+                    <h1 class="font-display text-3xl font-bold text-slate-900 dark:text-white mb-2">Red de Colaboración</h1>
+                    <p class="text-slate-500 dark:text-slate-400">Organizaciones que se muestran en la página de Cooperación.</p>
+                </div>
+                <a href="{{ url_for('auth.dashboard') }}"
+                    class="inline-flex items-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 px-4 py-2 rounded-lg text-sm font-medium transition-all">
+                    <span class="material-symbols-outlined text-sm">arrow_back</span>
+                    Volver al panel
+                </a>
+            </div>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div
+                class="mb-6 px-4 py-3 rounded-lg {% if category == 'error' %}bg-red-50 text-red-700 border border-red-200{% elif category == 'success' %}bg-green-50 text-green-700 border border-green-200{% else %}bg-blue-50 text-blue-700 border border-blue-200{% endif %} text-sm">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+            <!-- Agregar organización -->
+            <div class="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-sm border border-slate-100 dark:border-slate-800 mb-10">
+                <h2 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">add_business</span>
+                    Agregar organización
+                </h2>
+                <form method="post" action="{{ url_for('admin.partners') }}" class="flex gap-4 flex-wrap">
+                    <input type="text" name="name" required placeholder="Nombre de la organización *"
+                        class="flex-1 min-w-[200px] px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm" />
+                    <input type="url" name="url" placeholder="Sitio web (opcional)"
+                        class="flex-1 min-w-[200px] px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm" />
+                    <button type="submit"
+                        class="inline-flex items-center gap-2 bg-primary hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-medium transition-all">
+                        <span class="material-symbols-outlined">add</span>
+                        Agregar
+                    </button>
+                </form>
+            </div>
+
+            <!-- Listado -->
+            <div class="space-y-4">
+                {% for p in partners %}
+                <div class="bg-white dark:bg-slate-900 rounded-xl p-5 shadow-sm border border-slate-100 dark:border-slate-800">
+                    <form method="post" action="{{ url_for('admin.edit_partner', partner_id=p.id) }}"
+                        class="flex items-center gap-4 flex-wrap">
+                        <input type="number" name="order" value="{{ p.order }}" title="Orden"
+                            class="w-16 px-2 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm text-center" />
+                        <input type="text" name="name" value="{{ p.name }}" required
+                            class="flex-1 min-w-[160px] px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm" />
+                        <input type="url" name="url" value="{{ p.url or '' }}" placeholder="Sitio web"
+                            class="flex-1 min-w-[160px] px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm" />
+                        <button type="submit" title="Guardar"
+                            class="text-slate-400 hover:text-primary transition-colors">
+                            <span class="material-symbols-outlined">save</span>
+                        </button>
+                    </form>
+                    <form method="post" action="{{ url_for('admin.delete_partner', partner_id=p.id) }}" class="mt-2 text-right"
+                        onsubmit="return confirm('¿Quitar {{ p.name }} de la Red de Colaboración?');">
+                        <button type="submit"
+                            class="inline-flex items-center gap-1 text-red-500 hover:text-red-700 text-xs font-medium transition-colors">
+                            <span class="material-symbols-outlined text-sm">delete</span> Eliminar
+                        </button>
+                    </form>
+                </div>
+                {% else %}
+                <p class="text-slate-400 text-sm">No hay organizaciones cargadas.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

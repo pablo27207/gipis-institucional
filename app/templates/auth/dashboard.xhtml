@@ -72,6 +72,13 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="{{ url_for('auth.works') }}"
+                                    class="flex items-center gap-3 text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm">
+                                    <span class="material-symbols-outlined text-lg">library_books</span>
+                                    Mi producción / Importar SIGEVA
+                                </a>
+                            </li>
+                            <li>
                                 <a href="{{ url_for('main.equipo') }}"
                                     class="flex items-center gap-3 text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm">
                                     <span class="material-symbols-outlined text-lg">group</span>
@@ -80,6 +87,40 @@
                             </li>
                         </ul>
                     </div>
+
+                    {% if current_user.is_admin %}
+                    <!-- Administración -->
+                    <div
+                        class="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-sm border border-slate-100 dark:border-slate-800 mt-6">
+                        <h3 class="font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-purple-500 text-lg">shield_person</span>
+                            Administración
+                        </h3>
+                        <ul class="space-y-3">
+                            <li>
+                                <a href="{{ url_for('admin.members') }}"
+                                    class="flex items-center gap-3 text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm">
+                                    <span class="material-symbols-outlined text-lg">person_add</span>
+                                    Miembros
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('admin.research') }}"
+                                    class="flex items-center gap-3 text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm">
+                                    <span class="material-symbols-outlined text-lg">science</span>
+                                    Investigación
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('admin.partners') }}"
+                                    class="flex items-center gap-3 text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm">
+                                    <span class="material-symbols-outlined text-lg">hub</span>
+                                    Red de Colaboración
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    {% endif %}
                 </div>
 
                 <!-- Main Content -->

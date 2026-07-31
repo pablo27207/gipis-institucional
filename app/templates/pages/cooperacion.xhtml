@@ -69,22 +69,19 @@
         </div>
 
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {% for partner in partners %}
+            {% if partner.url %}
+            <a href="{{ partner.url }}" target="_blank" rel="noopener"
+                class="bg-white dark:bg-slate-900 rounded-xl p-8 flex items-center justify-center h-24 border border-slate-100 dark:border-slate-800 hover:shadow-lg transition-shadow">
+                <span class="text-slate-400 font-semibold text-sm text-center">{{ partner.name }}</span>
+            </a>
+            {% else %}
             <div
                 class="bg-white dark:bg-slate-900 rounded-xl p-8 flex items-center justify-center h-24 border border-slate-100 dark:border-slate-800 hover:shadow-lg transition-shadow">
-                <span class="text-slate-400 font-semibold text-sm text-center">Universidad de Alcalá</span>
+                <span class="text-slate-400 font-semibold text-sm text-center">{{ partner.name }}</span>
             </div>
-            <div
-                class="bg-white dark:bg-slate-900 rounded-xl p-8 flex items-center justify-center h-24 border border-slate-100 dark:border-slate-800 hover:shadow-lg transition-shadow">
-                <span class="text-slate-400 font-semibold text-sm text-center">CONICET</span>
-            </div>
-            <div
-                class="bg-white dark:bg-slate-900 rounded-xl p-8 flex items-center justify-center h-24 border border-slate-100 dark:border-slate-800 hover:shadow-lg transition-shadow">
-                <span class="text-slate-400 font-semibold text-sm text-center">CIT Golfo San Jorge</span>
-            </div>
-            <div
-                class="bg-white dark:bg-slate-900 rounded-xl p-8 flex items-center justify-center h-24 border border-slate-100 dark:border-slate-800 hover:shadow-lg transition-shadow">
-                <span class="text-slate-400 font-semibold text-sm text-center">ANPCyT</span>
-            </div>
+            {% endif %}
+            {% endfor %}
         </div>
     </div>
 </section>

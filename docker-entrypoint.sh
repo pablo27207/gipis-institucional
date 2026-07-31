@@ -34,6 +34,9 @@ else
     if [ -f /app/scripts/add_phone_column.py ]; then
         python scripts/add_phone_column.py
     fi
+    if [ -f /app/scripts/add_member_features.py ]; then
+        python scripts/add_member_features.py
+    fi
 fi
 
 echo "Starting server..."

@@ -21,8 +21,10 @@ def create_app(config_class=Config):
     
     from app.routes import main
     from app.routes import auth
+    from app.routes import admin
     app.register_blueprint(main.bp)
     app.register_blueprint(auth.bp)
+    app.register_blueprint(admin.bp)
     
     with app.app_context():
         db.create_all()

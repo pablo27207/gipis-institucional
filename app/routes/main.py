@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from app.models import Member, Category, ResearchLine, ResearchSection, ResearchItem, News, SiteContent
+from app.models import Member, Category, ResearchLine, ResearchSection, ResearchItem, News, SiteContent, MemberWork, Partner
 
 bp = Blueprint('main', __name__)
 
@@ -23,7 +23,10 @@ def equipo():
 def miembro_detalle(slug):
     """Detalle de un miembro del equipo"""
     member = Member.query.filter_by(slug=slug).first_or_404()
-    return render_template('pages/miembro.xhtml', member=member)
+    works = member.works.order_by(
+        MemberWork.kind, MemberWork.year.desc().nullslast()).all()
+    return render_template('pages/miembro.xhtml', member=member,
+                           member_works=works, work_kinds=MemberWork.KINDS)
 
 
 @bp.route('/equipo/<slug>/vcard')
@@ -107,7 +110,8 @@ def linea_detalle(line_id):
 def cooperacion():
     """Cooperación Científica e Industrial"""
     content = SiteContent.query.filter_by(key='cooperacion').first()
-    return render_template('pages/cooperacion.xhtml', content=content)
+    partners = Partner.query.order_by(Partner.order).all()
+    return render_template('pages/cooperacion.xhtml', content=content, partners=partners)
 
 
 @bp.route('/novedades')

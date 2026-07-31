@@ -109,6 +109,32 @@
                 </div>
             </div>
 
+            <!-- Producción -->
+            {% if member_works %}
+            <div class="mt-12">
+                <h2 class="font-display text-2xl font-bold text-slate-900 dark:text-white mb-6">Producción</h2>
+                {% for kind_key, kind_label in work_kinds.items() %}
+                {% set kind_works = member_works | selectattr('kind', 'equalto', kind_key) | list %}
+                {% if kind_works %}
+                <div class="mb-8">
+                    <h3 class="font-display text-lg font-semibold text-slate-700 dark:text-slate-300 mb-4">{{ kind_label }}</h3>
+                    <div class="space-y-3">
+                        {% for work in kind_works %}
+                        <div class="bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-100 dark:border-slate-800">
+                            <p class="text-sm font-medium text-slate-900 dark:text-white">{{ work.title }}</p>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                                {% if work.year %}{{ work.year }}{% endif %}
+                                {% if work.authors %}{% if work.year %} · {% endif %}{{ work.authors }}{% endif %}
+                            </p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+
             <!-- Back Button -->
             <div class="mt-8">
                 <a href="{{ url_for('main.equipo') }}"

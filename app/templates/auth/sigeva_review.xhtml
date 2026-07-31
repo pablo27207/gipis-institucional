@@ -1,0 +1,98 @@
+{% extends "base.xhtml" %}
+
+{% block title %}Revisar importación SIGEVA{% endblock %}
+
+{% block content %}
+<section class="py-24 bg-background-light dark:bg-slate-950 min-h-[70vh]">
+    <div class="container mx-auto px-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-8">
+                <h1 class="font-display text-3xl font-bold text-slate-900 dark:text-white mb-2">Revisar importación</h1>
+                <p class="text-slate-500 dark:text-slate-400">Esto es lo que encontramos en tu CV de SIGEVA.
+                    Destildá lo que no tenga relevancia para el grupo y confirmá. Después vas a poder editar
+                    cada trabajo y elegir cuáles compartir en la página de Investigación.</p>
+            </div>
+
+            <form method="post" action="{{ url_for('auth.sigeva_import') }}">
+                <input type="hidden" name="payload" value="{{ payload }}" />
+
+                {% if profile %}
+                <div class="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-sm border border-slate-100 dark:border-slate-800 mb-8">
+                    <h2 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">badge</span>
+                        Datos de perfil
+                    </h2>
+                    <div class="space-y-3">
+                        {% if profile.degree %}
+                        <label class="flex items-start gap-3 cursor-pointer">
+                            <input type="checkbox" name="profile_degree" value="1" checked="checked"
+                                class="mt-1 rounded border-slate-300 text-primary focus:ring-primary" />
+                            <span class="text-sm text-slate-700 dark:text-slate-300">
+                                <strong>Título/Grado:</strong> {{ profile.degree }}
+                                {% if current_user.degree %}
+                                <span class="block text-xs text-slate-400">Reemplaza tu valor actual: "{{ current_user.degree }}"</span>
+                                {% endif %}
+                            </span>
+                        </label>
+                        {% endif %}
+                        {% if profile.bio %}
+                        <label class="flex items-start gap-3 cursor-pointer">
+                            <input type="checkbox" name="profile_bio" value="1"
+                                {% if not current_user.bio %}checked="checked"{% endif %}
+                                class="mt-1 rounded border-slate-300 text-primary focus:ring-primary" />
+                            <span class="text-sm text-slate-700 dark:text-slate-300">
+                                <strong>Biografía (resumen de experticia):</strong> {{ profile.bio|truncate(300) }}
+                                {% if current_user.bio %}
+                                <span class="block text-xs text-slate-400">Reemplaza tu biografía actual.</span>
+                                {% endif %}
+                            </span>
+                        </label>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+
+                {% for group_name, group_items in groups.items() %}
+                <div class="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-sm border border-slate-100 dark:border-slate-800 mb-8">
+                    <h2 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-4">
+                        {{ group_name }}
+                        <span class="text-sm font-normal text-slate-400">({{ group_items|length }})</span>
+                    </h2>
+                    <div class="space-y-3">
+                        {% for idx, item in group_items %}
+                        <label class="flex items-start gap-3 p-3 rounded-lg border border-slate-100 dark:border-slate-800 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors {% if item.duplicate %}opacity-60{% endif %}">
+                            <input type="checkbox" name="item" value="{{ idx }}"
+                                {% if not item.duplicate %}checked="checked"{% endif %}
+                                class="mt-1 rounded border-slate-300 text-primary focus:ring-primary" />
+                            <span class="min-w-0">
+                                <span class="block text-sm font-medium text-slate-900 dark:text-white">{{ item.title }}</span>
+                                <span class="block text-xs text-slate-400 mt-1">
+                                    {% if item.year %}{{ item.year }}{% endif %}
+                                    {% if item.authors %}{% if item.year %} · {% endif %}{{ item.authors|truncate(90) }}{% endif %}
+                                </span>
+                                {% if item.duplicate %}
+                                <span class="inline-flex mt-1 px-2 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">Ya está en tu producción</span>
+                                {% endif %}
+                            </span>
+                        </label>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+
+                <div class="flex items-center gap-4 flex-wrap">
+                    <button type="submit"
+                        class="inline-flex items-center gap-2 bg-primary hover:bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold transition-all">
+                        <span class="material-symbols-outlined">download_done</span>
+                        Importar seleccionados
+                    </button>
+                    <a href="{{ url_for('auth.works') }}"
+                        class="inline-flex items-center gap-2 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 font-medium transition-colors">
+                        Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

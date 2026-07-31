@@ -39,9 +39,17 @@ class Member(UserMixin, db.Model):
     photo = db.Column(db.String(255))
     order = db.Column(db.Integer, default=0)
     is_active = db.Column(db.Boolean, default=True)
-    
+    role = db.Column(db.String(20), default='member')  # 'admin' | 'member'
+
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
-    
+
+    works = db.relationship('MemberWork', backref='member', lazy='dynamic',
+                            cascade='all, delete-orphan')
+
+    @property
+    def is_admin(self):
+        return self.role == 'admin'
+
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
     
@@ -70,7 +78,8 @@ class ResearchSection(db.Model):
     title = db.Column(db.String(150), nullable=False)
     order = db.Column(db.Integer, default=0)
     
-    items = db.relationship('ResearchItem', backref='section', lazy='dynamic')
+    items = db.relationship('ResearchItem', backref='section', lazy='dynamic',
+                            order_by='ResearchItem.year.desc()')
     
     def __repr__(self):
         return f'<ResearchSection {self.title}>'
@@ -106,6 +115,50 @@ class ResearchLine(db.Model):
     
     def __repr__(self):
         return f'<ResearchLine {self.title}>'
+
+
+class MemberWork(db.Model):
+    """Producción personal de un miembro (importada de SIGEVA o cargada a mano).
+    Puede compartirse al sitio creando un ResearchItem vinculado."""
+    __tablename__ = 'member_works'
+
+    KINDS = {
+        'publication': 'Publicaciones',
+        'project': 'Proyectos',
+        'thesis': 'Tesis y becarios dirigidos',
+    }
+
+    id = db.Column(db.Integer, primary_key=True)
+    member_id = db.Column(db.Integer, db.ForeignKey('members.id'), nullable=False)
+    kind = db.Column(db.String(30), nullable=False, default='publication')
+    title = db.Column(db.String(500), nullable=False)
+    authors = db.Column(db.String(500))
+    year = db.Column(db.String(10))
+    detail = db.Column(db.Text)
+    source = db.Column(db.String(20), default='manual')  # 'manual' | 'sigeva'
+    shared_item_id = db.Column(db.Integer, db.ForeignKey('research_items.id'))
+
+    shared_item = db.relationship('ResearchItem')
+
+    @property
+    def kind_label(self):
+        return self.KINDS.get(self.kind, self.kind)
+
+    def __repr__(self):
+        return f'<MemberWork {self.title[:50]}>'
+
+
+class Partner(db.Model):
+    """Organizaciones de la Red de Colaboración (página Cooperación)"""
+    __tablename__ = 'partners'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200), nullable=False)
+    url = db.Column(db.String(255))
+    order = db.Column(db.Integer, default=0)
+
+    def __repr__(self):
+        return f'<Partner {self.name}>'
 
 
 class News(db.Model):

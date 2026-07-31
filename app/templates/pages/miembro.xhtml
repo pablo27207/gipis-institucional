@@ -1,16 +1,16 @@
 {% extends "base.xhtml" %}
 
 {% block title %}{{ member.name }}{% endblock %}
-{% block meta_description %}{{ member.name }}{% if member.position %} — {{ member.position }}{% endif %}. Miembro del GIPIS, Grupo de Investigación en Procesamiento de la Información y Sensores, UNPSJB.{% endblock %}
+{% block meta_description %}{{ member.name }}{% if member.position %} — {{ member.position }}{% endif %}. {{ _('Miembro del GIPIS, Grupo de Investigación en Procesamiento de la Información y Sensores, UNPSJB.') }}{% endblock %}
 
 {% block content %}
 <!-- Page Header -->
 <section class="bg-white dark:bg-slate-900 py-20 border-b border-slate-100 dark:border-slate-800">
     <div class="container mx-auto px-6">
         <nav class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">
-            <a class="hover:text-primary transition-colors" href="{{ url_for('main.home') }}">Inicio</a>
+            <a class="hover:text-primary transition-colors" href="{{ url_for('main.home') }}">{{ _('Inicio') }}</a>
             <span class="material-symbols-outlined text-[10px]">chevron_right</span>
-            <a class="hover:text-primary transition-colors" href="{{ url_for('main.equipo') }}">Equipo</a>
+            <a class="hover:text-primary transition-colors" href="{{ url_for('main.equipo') }}">{{ _('Equipo') }}</a>
             <span class="material-symbols-outlined text-[10px]">chevron_right</span>
             <span class="text-primary">{{ member.name }}</span>
         </nav>
@@ -72,14 +72,14 @@
                             <a href="mailto:{{ member.institutional_email }}"
                                 class="inline-flex items-center gap-2 bg-primary hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold transition-all">
                                 <span class="material-symbols-outlined">mail</span>
-                                Email institucional
+                                {{ _('Email institucional') }}
                             </a>
                             {% endif %}
                             {% if member.personal_email and member.personal_email_public %}
                             <a href="mailto:{{ member.personal_email }}"
                                 class="inline-flex items-center gap-2 bg-primary hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold transition-all">
                                 <span class="material-symbols-outlined">mail</span>
-                                Email personal
+                                {{ _('Email personal') }}
                             </a>
                             {% endif %}
                             {% if member.phone and member.phone_public %}
@@ -102,7 +102,7 @@
                             <a href="{{ url_for('main.member_vcard', slug=member.slug) }}"
                                 class="inline-flex items-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 px-6 py-3 rounded-lg font-semibold transition-all">
                                 <span class="material-symbols-outlined">contact_page</span>
-                                Descargar contacto
+                                {{ _('Descargar contacto') }}
                             </a>
                         </div>
                     </div>
@@ -112,12 +112,12 @@
             <!-- Producción -->
             {% if member_works %}
             <div class="mt-12">
-                <h2 class="font-display text-2xl font-bold text-slate-900 dark:text-white mb-6">Producción</h2>
+                <h2 class="font-display text-2xl font-bold text-slate-900 dark:text-white mb-6">{{ _('Producción') }}</h2>
                 {% for kind_key, kind_label in work_kinds.items() %}
                 {% set kind_works = member_works | selectattr('kind', 'equalto', kind_key) | list %}
                 {% if kind_works %}
                 <div class="mb-8">
-                    <h3 class="font-display text-lg font-semibold text-slate-700 dark:text-slate-300 mb-4">{{ kind_label }}</h3>
+                    <h3 class="font-display text-lg font-semibold text-slate-700 dark:text-slate-300 mb-4">{{ _(kind_label) }}</h3>
                     <div class="space-y-3">
                         {% for work in kind_works %}
                         <div class="bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-100 dark:border-slate-800">
@@ -140,7 +140,7 @@
                 <a href="{{ url_for('main.equipo') }}"
                     class="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-primary transition-colors font-medium">
                     <span class="material-symbols-outlined">arrow_back</span>
-                    Volver al equipo
+                    {{ _('Volver al equipo') }}
                 </a>
             </div>
         </div>

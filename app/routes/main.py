@@ -1,7 +1,16 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from app.models import Member, Category, ResearchLine, ResearchSection, ResearchItem, News, SiteContent, MemberWork, Partner
+from app.i18n import LANGUAGES
 
 bp = Blueprint('main', __name__)
+
+
+@bp.route('/lang/<code>')
+def set_language(code):
+    """Cambiar el idioma de la interfaz (guardado en sesión)"""
+    if code in LANGUAGES:
+        session['lang'] = code
+    return redirect(request.referrer or url_for('main.home'))
 
 
 @bp.route('/')

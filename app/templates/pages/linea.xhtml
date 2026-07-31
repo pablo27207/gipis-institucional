@@ -1,7 +1,7 @@
 {% extends "base.xhtml" %}
 
 {% block title %}{{ line.title }}{% endblock %}
-{% block meta_description %}{{ line.title }} — Línea de investigación del GIPIS. {{ line.description[:150] if line.description else 'Grupo de Investigación en Procesamiento de la Información y Sensores, UNPSJB.' }}{% endblock %}
+{% block meta_description %}{{ line.title }} — {{ _('Línea de investigación del GIPIS.') }} {{ line.description[:150] if line.description else 'Grupo de Investigación en Procesamiento de la Información y Sensores, UNPSJB.' }}{% endblock %}
 
 {% block content %}
 <!-- Page Header -->
@@ -9,10 +9,10 @@
     <div class="container mx-auto px-6">
         <div class="max-w-4xl">
             <nav class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">
-                <a class="hover:text-primary transition-colors" href="{{ url_for('main.home') }}">Inicio</a>
+                <a class="hover:text-primary transition-colors" href="{{ url_for('main.home') }}">{{ _('Inicio') }}</a>
                 <span class="material-symbols-outlined text-[10px]">chevron_right</span>
                 <a class="hover:text-primary transition-colors"
-                    href="{{ url_for('main.investigacion') }}">Investigación</a>
+                    href="{{ url_for('main.investigacion') }}">{{ _('Investigación') }}</a>
                 <span class="material-symbols-outlined text-[10px]">chevron_right</span>
                 <span class="text-primary">{{ line.title }}</span>
             </nav>
@@ -36,16 +36,14 @@
                 class="bg-white dark:bg-slate-900 rounded-2xl p-8 md:p-12 shadow-sm border border-slate-100 dark:border-slate-800 mb-8">
                 <h2 class="font-display text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3">
                     <span class="material-symbols-outlined text-primary">description</span>
-                    Descripción
+                    {{ _('Descripción') }}
                 </h2>
                 <div class="prose prose-lg prose-slate dark:prose-invert max-w-none">
                     {% if line.description %}
                     <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{{ line.description }}</p>
                     {% else %}
                     <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
-                        Esta línea de investigación se enfoca en el desarrollo de soluciones innovadoras mediante
-                        técnicas avanzadas de procesamiento de señales y sistemas sensoriales. Nuestro enfoque
-                        multidisciplinario permite abordar problemas complejos en diversos contextos.
+                        {{ _('Esta línea de investigación se enfoca en el desarrollo de soluciones innovadoras mediante técnicas avanzadas de procesamiento de señales y sistemas sensoriales. Nuestro enfoque multidisciplinario permite abordar problemas complejos en diversos contextos.') }}
                     </p>
                     {% endif %}
                 </div>
@@ -56,25 +54,24 @@
                 class="bg-white dark:bg-slate-900 rounded-2xl p-8 md:p-12 shadow-sm border border-slate-100 dark:border-slate-800 mb-8">
                 <h2 class="font-display text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3">
                     <span class="material-symbols-outlined text-primary">flag</span>
-                    Objetivos
+                    {{ _('Objetivos') }}
                 </h2>
                 <ul class="space-y-4">
                     <li class="flex items-start gap-3 text-slate-600 dark:text-slate-400">
                         <span class="material-symbols-outlined text-primary mt-0.5">check_circle</span>
-                        <span>Desarrollar algoritmos y técnicas innovadoras para el procesamiento de señales en tiempo
-                            real.</span>
+                        <span>{{ _('Desarrollar algoritmos y técnicas innovadoras para el procesamiento de señales en tiempo real.') }}</span>
                     </li>
                     <li class="flex items-start gap-3 text-slate-600 dark:text-slate-400">
                         <span class="material-symbols-outlined text-primary mt-0.5">check_circle</span>
-                        <span>Implementar prototipos funcionales para validar los resultados teóricos.</span>
+                        <span>{{ _('Implementar prototipos funcionales para validar los resultados teóricos.') }}</span>
                     </li>
                     <li class="flex items-start gap-3 text-slate-600 dark:text-slate-400">
                         <span class="material-symbols-outlined text-primary mt-0.5">check_circle</span>
-                        <span>Formar recursos humanos especializados en el área.</span>
+                        <span>{{ _('Formar recursos humanos especializados en el área.') }}</span>
                     </li>
                     <li class="flex items-start gap-3 text-slate-600 dark:text-slate-400">
                         <span class="material-symbols-outlined text-primary mt-0.5">check_circle</span>
-                        <span>Transferir conocimientos y tecnologías al sector productivo.</span>
+                        <span>{{ _('Transferir conocimientos y tecnologías al sector productivo.') }}</span>
                     </li>
                 </ul>
             </div>
@@ -86,24 +83,24 @@
                     <h2
                         class="font-display text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3">
                         <span class="material-symbols-outlined text-primary">precision_manufacturing</span>
-                        Metodologías
+                        {{ _('Metodologías') }}
                     </h2>
                     <ul class="space-y-3 text-sm">
                         <li class="flex items-center gap-2 text-slate-600 dark:text-slate-400">
                             <span class="w-2 h-2 bg-primary rounded-full"></span>
-                            Modelado matemático y simulación
+                            {{ _('Modelado matemático y simulación') }}
                         </li>
                         <li class="flex items-center gap-2 text-slate-600 dark:text-slate-400">
                             <span class="w-2 h-2 bg-primary rounded-full"></span>
-                            Prototipado rápido
+                            {{ _('Prototipado rápido') }}
                         </li>
                         <li class="flex items-center gap-2 text-slate-600 dark:text-slate-400">
                             <span class="w-2 h-2 bg-primary rounded-full"></span>
-                            Validación experimental
+                            {{ _('Validación experimental') }}
                         </li>
                         <li class="flex items-center gap-2 text-slate-600 dark:text-slate-400">
                             <span class="w-2 h-2 bg-primary rounded-full"></span>
-                            Transferencia tecnológica
+                            {{ _('Transferencia tecnológica') }}
                         </li>
                     </ul>
                 </div>
@@ -112,7 +109,7 @@
                     <h2
                         class="font-display text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3">
                         <span class="material-symbols-outlined text-primary">build</span>
-                        Tecnologías
+                        {{ _('Tecnologías') }}
                     </h2>
                     <div class="flex flex-wrap gap-2">
                         <span
@@ -134,29 +131,29 @@
                 class="bg-white dark:bg-slate-900 rounded-2xl p-8 md:p-12 shadow-sm border border-slate-100 dark:border-slate-800 mb-8">
                 <h2 class="font-display text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3">
                     <span class="material-symbols-outlined text-primary">apps</span>
-                    Aplicaciones
+                    {{ _('Aplicaciones') }}
                 </h2>
                 <div class="grid md:grid-cols-3 gap-6">
                     <div class="text-center p-4">
                         <div class="w-12 h-12 mx-auto bg-primary/10 rounded-xl flex items-center justify-center mb-3">
                             <span class="material-symbols-outlined text-primary">factory</span>
                         </div>
-                        <h3 class="font-semibold text-slate-900 dark:text-white text-sm mb-1">Industria</h3>
-                        <p class="text-xs text-slate-500">Automatización y control</p>
+                        <h3 class="font-semibold text-slate-900 dark:text-white text-sm mb-1">{{ _('Industria') }}</h3>
+                        <p class="text-xs text-slate-500">{{ _('Automatización y control') }}</p>
                     </div>
                     <div class="text-center p-4">
                         <div class="w-12 h-12 mx-auto bg-primary/10 rounded-xl flex items-center justify-center mb-3">
                             <span class="material-symbols-outlined text-primary">waves</span>
                         </div>
-                        <h3 class="font-semibold text-slate-900 dark:text-white text-sm mb-1">Oceanografía</h3>
-                        <p class="text-xs text-slate-500">Monitoreo marino</p>
+                        <h3 class="font-semibold text-slate-900 dark:text-white text-sm mb-1">{{ _('Oceanografía') }}</h3>
+                        <p class="text-xs text-slate-500">{{ _('Monitoreo marino') }}</p>
                     </div>
                     <div class="text-center p-4">
                         <div class="w-12 h-12 mx-auto bg-primary/10 rounded-xl flex items-center justify-center mb-3">
                             <span class="material-symbols-outlined text-primary">bolt</span>
                         </div>
-                        <h3 class="font-semibold text-slate-900 dark:text-white text-sm mb-1">Energía</h3>
-                        <p class="text-xs text-slate-500">Redes inteligentes</p>
+                        <h3 class="font-semibold text-slate-900 dark:text-white text-sm mb-1">{{ _('Energía') }}</h3>
+                        <p class="text-xs text-slate-500">{{ _('Redes inteligentes') }}</p>
                     </div>
                 </div>
             </div>
@@ -166,7 +163,7 @@
                 <a href="{{ url_for('main.investigacion') }}"
                     class="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-primary transition-colors font-medium">
                     <span class="material-symbols-outlined">arrow_back</span>
-                    Volver a Líneas de Investigación
+                    {{ _('Volver a Líneas de Investigación') }}
                 </a>
             </div>
         </div>

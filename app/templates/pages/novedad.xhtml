@@ -1,7 +1,7 @@
 {% extends "base.xhtml" %}
 
 {% block title %}{{ news.title }}{% endblock %}
-{% block meta_description %}{{ news.excerpt or news.title }}. Novedad del GIPIS, Grupo de Investigación en Procesamiento de la Información y Sensores.{% endblock %}
+{% block meta_description %}{{ news.excerpt or news.title }}. {{ _('Novedad del GIPIS, Grupo de Investigación en Procesamiento de la Información y Sensores.') }}{% endblock %}
 
 {% block content %}
 <!-- Page Header -->
@@ -9,11 +9,11 @@
     <div class="container mx-auto px-6">
         <div class="max-w-3xl">
             <nav class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">
-                <a class="hover:text-primary transition-colors" href="{{ url_for('main.home') }}">Inicio</a>
+                <a class="hover:text-primary transition-colors" href="{{ url_for('main.home') }}">{{ _('Inicio') }}</a>
                 <span class="material-symbols-outlined text-[10px]">chevron_right</span>
-                <a class="hover:text-primary transition-colors" href="{{ url_for('main.novedades') }}">Novedades</a>
+                <a class="hover:text-primary transition-colors" href="{{ url_for('main.novedades') }}">{{ _('Novedades') }}</a>
                 <span class="material-symbols-outlined text-[10px]">chevron_right</span>
-                <span class="text-primary">Detalle</span>
+                <span class="text-primary">{{ _('Detalle') }}</span>
             </nav>
             <div class="flex items-center gap-3 mb-4">
                 <!-- LinkedIn source badge -->
@@ -23,7 +23,7 @@
                         <path
                             d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                     </svg>
-                    Publicado en LinkedIn
+                    {{ _('Publicado en LinkedIn') }}
                 </span>
                 <span class="text-xs text-slate-400 flex items-center gap-1">
                     <span class="material-symbols-outlined text-xs">calendar_today</span>
@@ -76,9 +76,8 @@
                                 </svg>
                             </div>
                             <div>
-                                <p class="text-sm font-medium text-slate-900 dark:text-white">¿Te interesó esta
-                                    publicación?</p>
-                                <p class="text-xs text-slate-500">Seguinos en LinkedIn para más novedades</p>
+                                <p class="text-sm font-medium text-slate-900 dark:text-white">{{ _('¿Te interesó esta publicación?') }}</p>
+                                <p class="text-xs text-slate-500">{{ _('Seguinos en LinkedIn para más novedades') }}</p>
                             </div>
                         </div>
                         <a href="https://ar.linkedin.com/company/gipis-unpsjb" target="_blank" rel="noopener"
@@ -87,7 +86,7 @@
                                 <path
                                     d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                             </svg>
-                            Seguir en LinkedIn
+                            {{ _('Seguir en LinkedIn') }}
                         </a>
                     </div>
                 </div>
@@ -98,7 +97,7 @@
                 <a href="{{ url_for('main.novedades') }}"
                     class="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-primary transition-colors font-medium">
                     <span class="material-symbols-outlined">arrow_back</span>
-                    Volver a Novedades
+                    {{ _('Volver a Novedades') }}
                 </a>
             </div>
         </div>

@@ -25,6 +25,17 @@ def create_app(config_class=Config):
     app.register_blueprint(main.bp)
     app.register_blueprint(auth.bp)
     app.register_blueprint(admin.bp)
+
+    from flask import session
+    from app.i18n import translate
+
+    @app.context_processor
+    def inject_i18n():
+        lang = session.get('lang', 'es')
+        return {
+            '_': lambda text: translate(text, lang),
+            'current_lang': lang,
+        }
     
     with app.app_context():
         db.create_all()

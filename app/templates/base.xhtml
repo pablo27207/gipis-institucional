@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="{{ current_lang }}" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="utf-8" />
@@ -121,20 +121,27 @@
 
             <nav class="hidden xl:flex items-center space-x-8 font-medium text-sm">
                 <a class="nav-link {% if request.endpoint == 'main.home' %}text-primary{% else %}hover:text-primary{% endif %}"
-                    href="{{ url_for('main.home') }}">Inicio</a>
+                    href="{{ url_for('main.home') }}">{{ _('Inicio') }}</a>
                 <a class="nav-link {% if request.endpoint == 'main.novedades' %}text-primary{% else %}hover:text-primary{% endif %}"
-                    href="{{ url_for('main.novedades') }}">Novedades</a>
+                    href="{{ url_for('main.novedades') }}">{{ _('Novedades') }}</a>
                 <a class="nav-link {% if request.endpoint == 'main.equipo' %}text-primary{% else %}hover:text-primary{% endif %}"
-                    href="{{ url_for('main.equipo') }}">Grupo</a>
+                    href="{{ url_for('main.equipo') }}">{{ _('Grupo') }}</a>
                 <a class="nav-link {% if request.endpoint == 'main.investigacion' %}text-primary{% else %}hover:text-primary{% endif %}"
-                    href="{{ url_for('main.investigacion') }}">Investigación</a>
+                    href="{{ url_for('main.investigacion') }}">{{ _('Investigación') }}</a>
                 <a class="nav-link {% if request.endpoint == 'main.cooperacion' %}text-primary{% else %}hover:text-primary{% endif %}"
-                    href="{{ url_for('main.cooperacion') }}">Cooperación</a>
+                    href="{{ url_for('main.cooperacion') }}">{{ _('Cooperación') }}</a>
                 <a class="nav-link {% if request.endpoint == 'main.contacto' %}text-primary{% else %}hover:text-primary{% endif %}"
-                    href="{{ url_for('main.contacto') }}">Contacto</a>
+                    href="{{ url_for('main.contacto') }}">{{ _('Contacto') }}</a>
             </nav>
 
             <div class="flex items-center gap-4">
+                <!-- Selector de idioma -->
+                <div class="flex items-center text-xs font-bold rounded-md overflow-hidden border border-slate-200 dark:border-slate-700">
+                    <a href="{{ url_for('main.set_language', code='es') }}"
+                        class="px-2 py-1.5 transition-colors {% if current_lang == 'es' %}bg-primary text-white{% else %}text-slate-500 hover:text-primary{% endif %}">ES</a>
+                    <a href="{{ url_for('main.set_language', code='en') }}"
+                        class="px-2 py-1.5 transition-colors {% if current_lang == 'en' %}bg-primary text-white{% else %}text-slate-500 hover:text-primary{% endif %}">EN</a>
+                </div>
                 <button class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                     onclick="document.documentElement.classList.toggle('dark'); localStorage.setItem('gipis-theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light')">
                     <span class="material-symbols-outlined text-slate-500 dark:text-slate-400">dark_mode</span>
@@ -143,13 +150,13 @@
                 <a class="hidden md:inline-flex items-center gap-2 bg-primary hover:bg-blue-600 text-white px-5 py-2 rounded-md font-medium text-sm transition-all shadow-md shadow-primary/20"
                     href="{{ url_for('auth.dashboard') }}">
                     <span class="material-symbols-outlined text-sm">account_circle</span>
-                    Mi Perfil
+                    {{ _('Mi Perfil') }}
                 </a>
                 {% else %}
                 <a class="hidden md:inline-flex items-center gap-2 bg-primary hover:bg-blue-600 text-white px-5 py-2 rounded-md font-medium text-sm transition-all shadow-md shadow-primary/20"
                     href="{{ url_for('auth.login') }}">
                     <span class="material-symbols-outlined text-sm">login</span>
-                    Ingresar
+                    {{ _('Ingresar') }}
                 </a>
                 {% endif %}
                 <button class="xl:hidden p-2" id="mobileMenuBtn">
@@ -162,12 +169,12 @@
         <div class="xl:hidden hidden bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800"
             id="mobileMenu">
             <nav class="container mx-auto px-6 py-4 flex flex-col space-y-4 font-medium text-sm">
-                <a class="hover:text-primary" href="{{ url_for('main.home') }}">Inicio</a>
-                <a class="hover:text-primary" href="{{ url_for('main.novedades') }}">Novedades</a>
-                <a class="hover:text-primary" href="{{ url_for('main.equipo') }}">Grupo</a>
-                <a class="hover:text-primary" href="{{ url_for('main.investigacion') }}">Investigación</a>
-                <a class="hover:text-primary" href="{{ url_for('main.cooperacion') }}">Cooperación</a>
-                <a class="hover:text-primary" href="{{ url_for('main.contacto') }}">Contacto</a>
+                <a class="hover:text-primary" href="{{ url_for('main.home') }}">{{ _('Inicio') }}</a>
+                <a class="hover:text-primary" href="{{ url_for('main.novedades') }}">{{ _('Novedades') }}</a>
+                <a class="hover:text-primary" href="{{ url_for('main.equipo') }}">{{ _('Grupo') }}</a>
+                <a class="hover:text-primary" href="{{ url_for('main.investigacion') }}">{{ _('Investigación') }}</a>
+                <a class="hover:text-primary" href="{{ url_for('main.cooperacion') }}">{{ _('Cooperación') }}</a>
+                <a class="hover:text-primary" href="{{ url_for('main.contacto') }}">{{ _('Contacto') }}</a>
             </nav>
         </div>
     </header>
@@ -185,32 +192,32 @@
                     <div class="flex items-center gap-4 mb-6">
                         <div class="bg-primary px-3 py-1 text-white font-bold text-lg">GIPIS</div>
                         <h4 class="font-display font-bold text-white uppercase text-sm tracking-widest leading-tight">
-                            Grupo de Investigación en Procesamiento de la Información y Sensores</h4>
+                            {{ _('Grupo de Investigación en Procesamiento de la Información y Sensores') }}</h4>
                     </div>
                     <p class="max-w-md text-slate-400 mb-6 leading-relaxed">
-                        Liderando la innovación en el procesamiento de señales y sistemas sensoriales desde la Patagonia
-                        para el mundo.
+                        {{ _('Liderando la innovación en el procesamiento de señales y sistemas sensoriales desde la Patagonia para el mundo.') }}
                     </p>
                 </div>
                 <div>
-                    <h5 class="font-bold text-white mb-6 uppercase text-xs tracking-widest">Institución</h5>
+                    <h5 class="font-bold text-white mb-6 uppercase text-xs tracking-widest">{{ _('Institución') }}</h5>
                     <ul class="space-y-4 text-sm">
                         <li><a class="hover:text-primary transition-colors" href="https://www.ing.unp.edu.ar/"
-                                target="_blank" rel="noopener">Facultad de Ingeniería</a></li>
+                                target="_blank" rel="noopener">{{ _('Facultad de Ingeniería') }}</a></li>
                         <li><a class="hover:text-primary transition-colors" href="https://www.unp.edu.ar/"
                                 target="_blank" rel="noopener">UNPSJB</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h5 class="font-bold text-white mb-6 uppercase text-xs tracking-widest">Contacto</h5>
+                    <h5 class="font-bold text-white mb-6 uppercase text-xs tracking-widest">{{ _('Contacto') }}</h5>
                     <ul class="space-y-4 text-sm">
                         <li class="flex gap-3">
                             <span class="material-symbols-outlined text-primary text-sm">location_on</span>
-                            <span>KM4 Ciudad Universitaria, Comodoro Rivadavia, Chubut</span>
+                            <span>{{ _('KM4 Ciudad Universitaria, Comodoro Rivadavia, Chubut') }}</span>
                         </li>
                         <li class="flex gap-3">
                             <span class="material-symbols-outlined text-primary text-sm">email</span>
-                            <span>gipis.unp@gmail.com</span>
+                            <a class="hover:text-primary transition-colors"
+                                href="mailto:gipis.unp@gmail.com">gipis.unp@gmail.com</a>
                         </li>
                     </ul>
                     <div class="flex space-x-4 mt-6">
@@ -238,16 +245,12 @@
                                     d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
                             </svg>
                         </a>
-                        <a class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-colors"
-                            href="mailto:gipis.unp@gmail.com" title="Email">
-                            <span class="material-symbols-outlined text-xl">mail</span>
-                        </a>
                     </div>
                 </div>
             </div>
             <div
                 class="pt-8 border-t border-slate-800 text-center text-xs font-medium text-slate-500 uppercase tracking-widest">
-                <p>© 2026 GIPIS | Facultad de Ingeniería | Universidad Nacional de la Patagonia San Juan Bosco</p>
+                <p>{{ _('© 2026 GIPIS | Facultad de Ingeniería | Universidad Nacional de la Patagonia San Juan Bosco') }}</p>
             </div>
         </div>
     </footer>

@@ -51,9 +51,15 @@ def members():
         name = request.form.get('name', '').strip()
         email = request.form.get('email', '').strip().lower()
         password = request.form.get('password', '')
+        category_id = request.form.get('category_id', type=int)
 
         if not name or not email or not password:
             flash('Nombre, email y contraseña inicial son obligatorios.', 'error')
+            return redirect(url_for('admin.members'))
+
+        if not category_id:
+            flash('Elegí una categoría: los miembros sin categoría no aparecen '
+                  'en la página del grupo.', 'error')
             return redirect(url_for('admin.members'))
 
         if Member.query.filter_by(email=email).first():
@@ -67,7 +73,7 @@ def members():
             degree=request.form.get('degree', '').strip() or None,
             position=request.form.get('position', '').strip() or None,
             role=request.form.get('role', 'member'),
-            category_id=request.form.get('category_id', type=int),
+            category_id=category_id,
             order=request.form.get('order', type=int) or 0,
         )
         member.set_password(password)
@@ -91,6 +97,20 @@ def toggle_role(member_id):
         member.role = 'member' if member.is_admin else 'admin'
         db.session.commit()
         flash(f'{member.name} ahora es {"administrador" if member.is_admin else "miembro"}.', 'success')
+    return redirect(url_for('admin.members'))
+
+
+@bp.route('/members/<int:member_id>/category', methods=['POST'])
+@admin_required
+def change_category(member_id):
+    member = Member.query.get_or_404(member_id)
+    category = Category.query.get(request.form.get('category_id', type=int))
+    if not category:
+        flash('Categoría inválida.', 'error')
+    else:
+        member.category_id = category.id
+        db.session.commit()
+        flash(f'{member.name} movido a "{category.name}".', 'success')
     return redirect(url_for('admin.members'))
 
 

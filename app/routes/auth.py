@@ -117,6 +117,91 @@ def edit_profile():
 
 
 # ==========================================
+# Recuperación de contraseña por email
+# ==========================================
+
+def _reset_serializer():
+    from itsdangerous import URLSafeTimedSerializer
+    return URLSafeTimedSerializer(current_app.config['SECRET_KEY'],
+                                  salt='password-reset')
+
+
+@bp.route('/forgot', methods=['GET', 'POST'])
+def forgot_password():
+    """Solicitar link de restablecimiento por email"""
+    if current_user.is_authenticated:
+        return redirect(url_for('auth.dashboard'))
+
+    if request.method == 'POST':
+        email = request.form.get('email', '').strip().lower()
+        member = Member.query.filter_by(email=email).first() if email else None
+
+        if member:
+            token = _reset_serializer().dumps(member.id)
+            reset_url = url_for('auth.reset_password', token=token, _external=True)
+            try:
+                from flask_mail import Message
+                from app import mail
+                msg = Message(
+                    subject='[GIPIS] Restablecer tu contraseña',
+                    recipients=[member.email],
+                )
+                msg.body = (
+                    f"Hola {member.name},\n\n"
+                    f"Recibimos un pedido para restablecer tu contraseña del sitio GIPIS.\n"
+                    f"Entrá a este enlace (válido por 1 hora):\n\n{reset_url}\n\n"
+                    f"Si no lo pediste vos, ignorá este mensaje.\n"
+                )
+                mail.send(msg)
+            except Exception:
+                current_app.logger.exception('Error enviando email de reset')
+                flash('No se pudo enviar el email. Contactá a un administrador '
+                      'del grupo para que restablezca tu contraseña.', 'error')
+                return redirect(url_for('auth.forgot_password'))
+
+        # Mensaje idéntico exista o no la cuenta (no revelar emails)
+        flash('Si el email está registrado, te enviamos un enlace para '
+              'restablecer la contraseña. Revisá tu casilla (y el spam).', 'success')
+        return redirect(url_for('auth.login'))
+
+    return render_template('auth/forgot.xhtml')
+
+
+@bp.route('/reset/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    """Definir nueva contraseña desde el link del email"""
+    from itsdangerous import BadSignature, SignatureExpired
+    try:
+        member_id = _reset_serializer().loads(token, max_age=3600)
+    except SignatureExpired:
+        flash('El enlace expiró (dura 1 hora). Pedí uno nuevo.', 'error')
+        return redirect(url_for('auth.forgot_password'))
+    except BadSignature:
+        flash('El enlace no es válido.', 'error')
+        return redirect(url_for('auth.forgot_password'))
+
+    member = Member.query.get(member_id)
+    if not member:
+        flash('El enlace no es válido.', 'error')
+        return redirect(url_for('auth.forgot_password'))
+
+    if request.method == 'POST':
+        password = request.form.get('password', '')
+        confirm = request.form.get('confirm', '')
+        if len(password) < 8:
+            flash('La contraseña debe tener al menos 8 caracteres.', 'error')
+        elif password != confirm:
+            flash('Las contraseñas no coinciden.', 'error')
+        else:
+            member.set_password(password)
+            db.session.commit()
+            flash('Contraseña actualizada. Ya podés ingresar.', 'success')
+            return redirect(url_for('auth.login'))
+
+    return render_template('auth/reset_password.xhtml', token=token, member=member)
+
+
+# ==========================================
 # Mi producción (trabajos personales)
 # ==========================================
 

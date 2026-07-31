@@ -94,6 +94,20 @@ def toggle_role(member_id):
     return redirect(url_for('admin.members'))
 
 
+@bp.route('/members/<int:member_id>/password', methods=['POST'])
+@admin_required
+def reset_password(member_id):
+    """Generar una contraseña temporal para un miembro"""
+    import secrets
+    member = Member.query.get_or_404(member_id)
+    temp_password = secrets.token_urlsafe(6)
+    member.set_password(temp_password)
+    db.session.commit()
+    flash(f'Contraseña temporal de {member.name}: {temp_password} — '
+          'compartila de forma segura; puede cambiarla desde su perfil.', 'success')
+    return redirect(url_for('admin.members'))
+
+
 @bp.route('/members/<int:member_id>/active', methods=['POST'])
 @admin_required
 def toggle_active(member_id):

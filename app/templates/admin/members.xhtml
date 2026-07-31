@@ -137,6 +137,13 @@
                                                 <span class="material-symbols-outlined text-lg">{{ 'person_off' if m.is_active else 'person_check' }}</span>
                                             </button>
                                         </form>
+                                        <form method="post" action="{{ url_for('admin.reset_password', member_id=m.id) }}"
+                                            onsubmit="return confirm('¿Generar una contraseña temporal para {{ m.name }}? La actual dejará de funcionar.');">
+                                            <button type="submit" title="Restablecer contraseña"
+                                                class="text-slate-400 hover:text-primary transition-colors">
+                                                <span class="material-symbols-outlined text-lg">key</span>
+                                            </button>
+                                        </form>
                                     </div>
                                     {% else %}
                                     <span class="text-xs text-slate-400">(vos)</span>

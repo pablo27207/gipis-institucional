@@ -23,7 +23,11 @@ Ideas y funcionalidades a implementar en el futuro.
 **Descripción**: Alimentar automáticamente las tarjetas de Novedades con las publicaciones
 del grupo en redes sociales.
 
-**Estado (2026-07-31)**:
+**Estado (2026-07-31)**: A la espera de datos de la página de Facebook — Pablo tiene que
+consultar con Carlos quién es administrador de facebook.com/GIPISUNPSJB para poder crear
+la app de Meta y generar el token. Mientras tanto ya se puede cargar novedades a mano
+desde el panel admin (CRUD implementado) y las referencias de Novedades apuntan a Facebook.
+
 - **LinkedIn descartado como fuente**: la API de páginas de empresa (Community Management
   API) requiere una app aprobada por LinkedIn con proceso de revisión, y el scraping va
   contra sus términos de servicio. Los textos de Novedades que prometían "sincronización

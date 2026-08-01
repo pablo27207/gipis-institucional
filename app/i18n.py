@@ -216,10 +216,10 @@ TRANSLATIONS = {
     'No hay novedades publicadas por el momento.': 'There are no news posted at the moment.',
     'Novedades y noticias del GIPIS. Congresos, publicaciones, proyectos y actividades del grupo de investigación.':
         'News and updates from GIPIS. Conferences, publications, projects and activities of the research group.',
-    'GIPIS en LinkedIn': 'GIPIS on LinkedIn',
-    'Compartimos nuestras novedades también en LinkedIn':
-        'We also share our news on LinkedIn',
-    'Seguir en LinkedIn': 'Follow on LinkedIn',
+    'GIPIS en Facebook': 'GIPIS on Facebook',
+    'Compartimos nuestras novedades también en Facebook':
+        'We also share our news on Facebook',
+    'Seguir en Facebook': 'Follow on Facebook',
     'Participación en el Congreso Nacional de Procesamiento':
         'Participation in the National Congress on Signal Processing',
     'Miembros del GIPIS presentaron avances significativos en el desarrollo de redes de sensores subacuáticos...':
@@ -235,7 +235,7 @@ TRANSLATIONS = {
         'News from GIPIS, the Information Processing and Sensors Research Group.',
     'Detalle': 'Detail',
     '¿Te interesó esta publicación?': 'Did you find this post interesting?',
-    'Seguinos en LinkedIn para más novedades': 'Follow us on LinkedIn for more news',
+    'Seguinos en Facebook para más novedades': 'Follow us on Facebook for more news',
     'Volver a Novedades': 'Back to News',
 
     # --- Contacto ---

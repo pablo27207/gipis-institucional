@@ -195,6 +195,7 @@ class SiteContent(db.Model):
     key = db.Column(db.String(100), unique=True, nullable=False)
     title = db.Column(db.String(200))
     content = db.Column(db.Text)
+    content_en = db.Column(db.Text)  # traducción opcional (interfaz EN)
     
     def __repr__(self):
         return f'<SiteContent {self.key}>'

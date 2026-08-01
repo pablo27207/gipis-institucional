@@ -4,10 +4,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}GIPIS{% endblock %} - Grupo de Investigación en Procesamiento de Información y Sensores
+    <title>{% block title %}GIPIS{% endblock %} - {{ _('Grupo de Investigación en Procesamiento de la Información y Sensores') }}
     </title>
     <meta name="description"
-        content="{% block meta_description %}GIPIS - Grupo de Investigación en Procesamiento de la Información y Sensores. Facultad de Ingeniería, UNPSJB, Comodoro Rivadavia.{% endblock %}" />
+        content="{% block meta_description %}GIPIS - {{ _('Grupo de Investigación en Procesamiento de la Información y Sensores') }}. {{ _('Facultad de Ingeniería') }}, UNPSJB, Comodoro Rivadavia.{% endblock %}" />
     <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon" />
 
     <!-- Open Graph -->
@@ -144,7 +144,7 @@
                 <div class="hidden lg:block">
                     <p
                         class="text-[10px] uppercase tracking-widest font-bold text-slate-500 dark:text-slate-400 leading-tight">
-                        Grupo de Investigación en Procesamiento de la Información y Sensores</p>
+                        {{ _('Grupo de Investigación en Procesamiento de la Información y Sensores') }}</p>
                     <p class="text-[10px] uppercase tracking-widest font-bold text-primary leading-tight">FI-UNPSJB</p>
                 </div>
             </div>

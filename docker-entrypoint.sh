@@ -49,6 +49,9 @@ else
     if [ -f /app/scripts/add_translation_columns.py ]; then
         python scripts/add_translation_columns.py
     fi
+    if [ -f /app/scripts/add_sitecontent_en.py ]; then
+        python scripts/add_sitecontent_en.py
+    fi
 fi
 
 echo "Starting server..."

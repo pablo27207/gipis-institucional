@@ -33,7 +33,7 @@
                 {% endif %}
                 <span class="text-xs text-slate-400 flex items-center gap-1">
                     <span class="material-symbols-outlined text-xs">calendar_today</span>
-                    {{ news.published_at.strftime('%d de %B, %Y') if news.published_at else '' }}
+                    {{ format_date(news.published_at) }}
                 </span>
             </div>
             <h1 class="font-display text-4xl md:text-5xl font-bold text-slate-900 dark:text-white leading-tight">{{

@@ -264,6 +264,25 @@ TRANSLATIONS = {
 }
 
 
+MONTHS = {
+    'es': ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio',
+           'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
+    'en': ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+           'August', 'September', 'October', 'November', 'December'],
+}
+
+
+def format_date(dt, lang='es', short=False):
+    """Formatear fecha según el idioma de la interfaz ('1 de agosto de 2026',
+    'August 1, 2026'; short: '1 ago, 2026' / 'Aug 1, 2026')."""
+    if not dt:
+        return ''
+    month = MONTHS.get(lang, MONTHS['es'])[dt.month - 1]
+    if lang == 'en':
+        return f'{month[:3]} {dt.day}, {dt.year}' if short else f'{month} {dt.day}, {dt.year}'
+    return f'{dt.day} {month[:3]}, {dt.year}' if short else f'{dt.day} de {month} de {dt.year}'
+
+
 def translate(text, lang):
     """Traducir una cadena; si no hay traducción, devolver el original."""
     if lang == 'en':

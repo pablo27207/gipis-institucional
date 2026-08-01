@@ -18,6 +18,13 @@
             <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
                 {{ _('Contamos con un equipo multidisciplinario de investigadores, docentes y becarios comprometidos con la excelencia académica y la innovación tecnológica en el procesamiento de señales y sistemas sensoriales.') }}
             </p>
+            {% if current_user.is_authenticated and current_user.is_admin %}
+            <a href="{{ url_for('admin.members') }}"
+                class="mt-6 inline-flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all">
+                <span class="material-symbols-outlined text-sm">manage_accounts</span>
+                Gestionar miembros
+            </a>
+            {% endif %}
         </div>
     </div>
 </section>

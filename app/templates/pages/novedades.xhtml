@@ -17,6 +17,13 @@
             <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
                 {{ _('Enterate de las últimas actividades, logros y anuncios del grupo.') }}
             </p>
+            {% if current_user.is_authenticated and current_user.is_admin %}
+            <a href="{{ url_for('admin.news') }}"
+                class="mt-6 inline-flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all">
+                <span class="material-symbols-outlined text-sm">edit_note</span>
+                Gestionar novedades
+            </a>
+            {% endif %}
         </div>
     </div>
 </section>
@@ -68,7 +75,7 @@
                         class="flex items-center justify-between mt-6 pt-4 border-t border-slate-50 dark:border-slate-800">
                         <span class="text-xs text-slate-400 flex items-center gap-1">
                             <span class="material-symbols-outlined text-xs">calendar_today</span>
-                            {{ item.published_at.strftime('%d %b, %Y') if item.published_at else '' }}
+                            {{ format_date(item.published_at, short=True) }}
                         </span>
                         <a href="{{ url_for('main.novedad_detalle', slug=item.slug) }}"
                             class="text-primary text-sm font-bold flex items-center gap-1">{{ _('Leer más') }} <span

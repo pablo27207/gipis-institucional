@@ -27,7 +27,7 @@ def create_app(config_class=Config):
     app.register_blueprint(admin.bp)
 
     from flask import session
-    from app.i18n import translate
+    from app.i18n import translate, format_date
 
     @app.context_processor
     def inject_i18n():
@@ -35,6 +35,7 @@ def create_app(config_class=Config):
         return {
             '_': lambda text: translate(text, lang),
             'current_lang': lang,
+            'format_date': lambda dt, short=False: format_date(dt, lang, short),
         }
 
     @app.errorhandler(413)

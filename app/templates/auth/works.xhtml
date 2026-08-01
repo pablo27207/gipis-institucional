@@ -97,7 +97,23 @@
                     </h2>
                     <span class="material-symbols-outlined text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
                 </summary>
-                <form method="post" action="{{ url_for('auth.works') }}" class="grid md:grid-cols-2 gap-4 px-8 pb-8">
+                <form method="post" action="{{ url_for('auth.works') }}" class="grid md:grid-cols-2 gap-4 px-8 pb-8"
+                    id="add-work-form">
+                    <div class="md:col-span-2 p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                            ¿Tenés el DOI? Completá los campos automáticamente
+                        </label>
+                        <div class="flex gap-3 flex-wrap items-center">
+                            <input type="text" id="doi-input" placeholder="10.1109/5.771073 o https://doi.org/…"
+                                class="flex-1 min-w-[220px] px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm" />
+                            <button type="button" id="doi-btn"
+                                class="inline-flex items-center gap-2 bg-slate-700 hover:bg-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 text-white px-5 py-2 rounded-lg text-sm font-medium transition-all">
+                                <span class="material-symbols-outlined text-sm">travel_explore</span>
+                                Buscar DOI
+                            </button>
+                        </div>
+                        <p id="doi-status" class="text-xs mt-2 hidden"></p>
+                    </div>
                     <div class="md:col-span-2">
                         <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Título *</label>
                         <input type="text" name="title" required
@@ -256,4 +272,42 @@
         </div>
     </div>
 </section>
+
+<script>
+(function () {
+    var btn = document.getElementById('doi-btn');
+    var input = document.getElementById('doi-input');
+    var status = document.getElementById('doi-status');
+    var form = document.getElementById('add-work-form');
+
+    function setStatus(msg, ok) {
+        status.textContent = msg;
+        status.className = 'text-xs mt-2 ' + (ok ? 'text-green-600' : 'text-red-500');
+    }
+
+    function lookup() {
+        var doi = input.value.trim();
+        if (!doi) { setStatus('Ingresá un DOI.', false); return; }
+        setStatus('Consultando…', true);
+        btn.disabled = true;
+        fetch('{{ url_for("auth.doi_lookup") }}?doi=' + encodeURIComponent(doi))
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+                if (!data.ok) { setStatus(data.error, false); return; }
+                if (data.title) form.elements.title.value = data.title;
+                if (data.authors) form.elements.authors.value = data.authors;
+                if (data.year) form.elements.year.value = data.year;
+                if (data.detail) form.elements.detail.value = data.detail;
+                setStatus('Datos cargados. Revisalos antes de agregar.', true);
+            })
+            .catch(function () { setStatus('No se pudo consultar el DOI.', false); })
+            .finally(function () { btn.disabled = false; });
+    }
+
+    btn.addEventListener('click', lookup);
+    input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') { e.preventDefault(); lookup(); }
+    });
+})();
+</script>
 {% endblock %}

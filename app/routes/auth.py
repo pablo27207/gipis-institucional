@@ -504,6 +504,30 @@ def sigeva_import():
 
 
 # ==========================================
+# Búsqueda de metadatos por DOI
+# ==========================================
+
+@bp.route('/doi/lookup')
+@login_required
+def doi_lookup():
+    """Devolver metadatos de un DOI en JSON (para autocompletar formularios)"""
+    from flask import jsonify
+    from app.doi import normalize_doi, fetch_doi, DoiError
+
+    doi = normalize_doi(request.args.get('doi', ''))
+    if not doi:
+        return jsonify(ok=False, error='Ingresá un DOI válido (ej: 10.1109/5.771073).')
+    try:
+        data = fetch_doi(doi)
+    except DoiError as e:
+        return jsonify(ok=False, error=str(e))
+    except Exception:
+        current_app.logger.exception('Error consultando DOI')
+        return jsonify(ok=False, error='Error inesperado consultando el DOI.')
+    return jsonify(ok=True, **data)
+
+
+# ==========================================
 # Importación desde ORCID
 # ==========================================
 

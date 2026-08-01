@@ -40,6 +40,9 @@ else
     if [ -f /app/scripts/add_orcid_column.py ]; then
         python scripts/add_orcid_column.py
     fi
+    if [ -f /app/scripts/add_news_source.py ]; then
+        python scripts/add_news_source.py
+    fi
 fi
 
 echo "Starting server..."

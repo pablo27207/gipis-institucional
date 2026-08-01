@@ -174,6 +174,7 @@ class News(db.Model):
     image = db.Column(db.String(255))
     category = db.Column(db.String(100))
     published_at = db.Column(db.DateTime)
+    source = db.Column(db.String(20), default='manual')  # 'manual' | 'facebook'
     
     def __repr__(self):
         return f'<News {self.title[:50]}>'

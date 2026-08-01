@@ -1,6 +1,6 @@
 {% extends "base.xhtml" %}
 
-{% block title %}Administrar Investigación{% endblock %}
+{% block title %}{{ _('Administrar Investigación') }}{% endblock %}
 
 {% block content %}
 <section class="py-24 bg-background-light dark:bg-slate-950 min-h-[70vh]">
@@ -8,13 +8,13 @@
         <div class="max-w-5xl mx-auto">
             <div class="flex items-center justify-between mb-8 flex-wrap gap-4">
                 <div>
-                    <h1 class="font-display text-3xl font-bold text-slate-900 dark:text-white mb-2">Investigación</h1>
-                    <p class="text-slate-500 dark:text-slate-400">Secciones e ítems (publicaciones, proyectos, tesis, etc.) que se muestran en la página de Investigación.</p>
+                    <h1 class="font-display text-3xl font-bold text-slate-900 dark:text-white mb-2">{{ _('Investigación') }}</h1>
+                    <p class="text-slate-500 dark:text-slate-400">{{ _('Secciones e ítems (publicaciones, proyectos, tesis, etc.) que se muestran en la página de Investigación.') }}</p>
                 </div>
                 <a href="{{ url_for('auth.dashboard') }}"
                     class="inline-flex items-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 px-4 py-2 rounded-lg text-sm font-medium transition-all">
                     <span class="material-symbols-outlined text-sm">arrow_back</span>
-                    Volver al panel
+                    {{ _('Volver al panel') }}
                 </a>
             </div>
 
@@ -33,32 +33,32 @@
             <div class="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-sm border border-slate-100 dark:border-slate-800 mb-10">
                 <h2 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
                     <span class="material-symbols-outlined text-primary">post_add</span>
-                    Agregar ítem
+                    {{ _('Agregar ítem') }}
                 </h2>
                 <form method="post" action="{{ url_for('admin.add_item') }}" class="grid md:grid-cols-2 gap-4"
                     id="add-item-form">
                     <div class="md:col-span-2 p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
                         <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-                            ¿Tenés el DOI? Completá los campos automáticamente
+                            {{ _('¿Tenés el DOI? Completá los campos automáticamente') }}
                         </label>
                         <div class="flex gap-3 flex-wrap items-center">
-                            <input type="text" id="doi-input" placeholder="10.1109/5.771073 o https://doi.org/…"
+                            <input type="text" id="doi-input" placeholder="{{ _('10.1109/5.771073 o https://doi.org/…') }}"
                                 class="flex-1 min-w-[220px] px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm" />
                             <button type="button" id="doi-btn"
                                 class="inline-flex items-center gap-2 bg-slate-700 hover:bg-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 text-white px-5 py-2 rounded-lg text-sm font-medium transition-all">
                                 <span class="material-symbols-outlined text-sm">travel_explore</span>
-                                Buscar DOI
+                                {{ _('Buscar DOI') }}
                             </button>
                         </div>
                         <p id="doi-status" class="text-xs mt-2 hidden"></p>
                     </div>
                     <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Título *</label>
+                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{{ _('Título *') }}</label>
                         <input type="text" name="title" required
                             class="w-full px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm" />
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Sección *</label>
+                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{{ _('Sección *') }}</label>
                         <select name="section_id" required
                             class="w-full px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm">
                             {% for s in sections %}
@@ -68,18 +68,18 @@
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Año</label>
+                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{{ _('Año') }}</label>
                             <input type="text" name="year"
                                 class="w-full px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm" />
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Autores</label>
+                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{{ _('Autores') }}</label>
                             <input type="text" name="authors"
                                 class="w-full px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm" />
                         </div>
                     </div>
                     <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Resumen / detalle</label>
+                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{{ _('Resumen / detalle') }}</label>
                         <textarea name="abstract" rows="2"
                             class="w-full px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm"></textarea>
                     </div>
@@ -87,7 +87,7 @@
                         <button type="submit"
                             class="inline-flex items-center gap-2 bg-primary hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-medium transition-all">
                             <span class="material-symbols-outlined">add</span>
-                            Agregar
+                            {{ _('Agregar') }}
                         </button>
                     </div>
                 </form>
@@ -97,15 +97,15 @@
             <div class="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-sm border border-slate-100 dark:border-slate-800 mb-10">
                 <h2 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
                     <span class="material-symbols-outlined text-primary">create_new_folder</span>
-                    Nueva sección
+                    {{ _('Nueva sección') }}
                 </h2>
                 <form method="post" action="{{ url_for('admin.add_section') }}" class="flex gap-4 flex-wrap">
-                    <input type="text" name="title" required placeholder="Ej: Patentes"
+                    <input type="text" name="title" required placeholder="{{ _('Ej: Patentes') }}"
                         class="flex-1 min-w-[200px] px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm" />
                     <button type="submit"
                         class="inline-flex items-center gap-2 bg-primary hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-medium transition-all">
                         <span class="material-symbols-outlined">add</span>
-                        Crear sección
+                        {{ _('Crear sección') }}
                     </button>
                 </form>
             </div>
@@ -115,7 +115,7 @@
             <div class="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-sm border border-slate-100 dark:border-slate-800 mb-8">
                 <h2 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-6">
                     {{ section.title }}
-                    <span class="text-sm font-normal text-slate-400">({{ section.items.count() }} ítems)</span>
+                    <span class="text-sm font-normal text-slate-400">({{ section.items.count() }} {{ _('ítems') }})</span>
                 </h2>
                 <div class="space-y-3">
                     {% for item in section.items %}
@@ -133,10 +133,10 @@
                                     <input type="text" name="title" value="{{ item.title }}" required
                                         class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm" />
                                 </div>
-                                <input type="text" name="authors" value="{{ item.authors or '' }}" placeholder="Autores"
+                                <input type="text" name="authors" value="{{ item.authors or '' }}" placeholder="{{ _('Autores') }}"
                                     class="px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm" />
                                 <div class="flex gap-3">
-                                    <input type="text" name="year" value="{{ item.year or '' }}" placeholder="Año"
+                                    <input type="text" name="year" value="{{ item.year or '' }}" placeholder="{{ _('Año') }}"
                                         class="w-24 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm" />
                                     <select name="section_id"
                                         class="flex-1 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm">
@@ -146,27 +146,27 @@
                                     </select>
                                 </div>
                                 <div class="md:col-span-2">
-                                    <textarea name="abstract" rows="2" placeholder="Resumen"
+                                    <textarea name="abstract" rows="2" placeholder="{{ _('Resumen') }}"
                                         class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm">{{ item.abstract or '' }}</textarea>
                                 </div>
                                 <div class="flex gap-3 md:col-span-2">
                                     <button type="submit"
                                         class="inline-flex items-center gap-1 bg-primary hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all">
-                                        <span class="material-symbols-outlined text-sm">save</span> Guardar
+                                        <span class="material-symbols-outlined text-sm">save</span> {{ _('Guardar') }}
                                     </button>
                                 </div>
                             </form>
                             <form method="post" action="{{ url_for('admin.delete_item', item_id=item.id) }}" class="mt-2"
-                                onsubmit="return confirm('¿Eliminar este ítem del sitio?');">
+                                onsubmit="return confirm('{{ _('¿Eliminar este ítem del sitio?') }}');">
                                 <button type="submit"
                                     class="inline-flex items-center gap-1 text-red-500 hover:text-red-700 text-sm font-medium transition-colors">
-                                    <span class="material-symbols-outlined text-sm">delete</span> Eliminar
+                                    <span class="material-symbols-outlined text-sm">delete</span> {{ _('Eliminar') }}
                                 </button>
                             </form>
                         </div>
                     </details>
                     {% else %}
-                    <p class="text-sm text-slate-400">Sin ítems.</p>
+                    <p class="text-sm text-slate-400">{{ _('Sin ítems.') }}</p>
                     {% endfor %}
                 </div>
             </div>
@@ -189,8 +189,8 @@
 
     function lookup() {
         var doi = input.value.trim();
-        if (!doi) { setStatus('Ingresá un DOI.', false); return; }
-        setStatus('Consultando…', true);
+        if (!doi) { setStatus({{ _('Ingresá un DOI.')|tojson }}, false); return; }
+        setStatus({{ _('Consultando…')|tojson }}, true);
         btn.disabled = true;
         fetch('{{ url_for("auth.doi_lookup") }}?doi=' + encodeURIComponent(doi))
             .then(function (r) { return r.json(); })
@@ -200,9 +200,9 @@
                 if (data.authors) form.elements.authors.value = data.authors;
                 if (data.year) form.elements.year.value = data.year;
                 if (data.detail) form.elements.abstract.value = data.detail;
-                setStatus('Datos cargados. Revisalos antes de agregar.', true);
+                setStatus({{ _('Datos cargados. Revisalos antes de agregar.')|tojson }}, true);
             })
-            .catch(function () { setStatus('No se pudo consultar el DOI.', false); })
+            .catch(function () { setStatus({{ _('No se pudo consultar el DOI.')|tojson }}, false); })
             .finally(function () { btn.disabled = false; });
     }
 

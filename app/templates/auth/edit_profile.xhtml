@@ -1,6 +1,6 @@
 {% extends "base.xhtml" %}
 
-{% block title %}Editar Perfil{% endblock %}
+{% block title %}{{ _('Editar Perfil') }}{% endblock %}
 
 {% block content %}
 <section class="py-24 bg-background-light dark:bg-slate-950 min-h-[70vh]">
@@ -11,9 +11,9 @@
                 <a href="{{ url_for('auth.dashboard') }}"
                     class="inline-flex items-center gap-2 text-slate-500 hover:text-primary transition-colors text-sm mb-4">
                     <span class="material-symbols-outlined text-sm">arrow_back</span>
-                    Volver al dashboard
+                    {{ _('Volver al dashboard') }}
                 </a>
-                <h1 class="font-display text-3xl font-bold text-slate-900 dark:text-white">Editar Perfil</h1>
+                <h1 class="font-display text-3xl font-bold text-slate-900 dark:text-white">{{ _('Editar Perfil') }}</h1>
             </div>
 
             <!-- Flash messages -->
@@ -35,7 +35,7 @@
                 <!-- Photo Upload -->
                 <h2 class="font-display text-lg font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
                     <span class="material-symbols-outlined text-primary">photo_camera</span>
-                    Foto de perfil
+                    {{ _('Foto de perfil') }}
                 </h2>
 
                 <div class="mb-8">
@@ -65,9 +65,9 @@
                                 class="flex flex-col items-center justify-center w-full py-6 px-4 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl cursor-pointer hover:border-primary hover:bg-primary/5 dark:hover:bg-primary/5 transition-all group">
                                 <span class="material-symbols-outlined text-3xl text-slate-400 group-hover:text-primary mb-2 transition-colors">cloud_upload</span>
                                 <span class="text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-primary transition-colors">
-                                    Hacé click o arrastrá una imagen
+                                    {{ _('Hacé click o arrastrá una imagen') }}
                                 </span>
-                                <span class="text-xs text-slate-400 mt-1">PNG, JPG o WebP • Máximo 10 MB</span>
+                                <span class="text-xs text-slate-400 mt-1">{{ _('PNG, JPG o WebP • Máximo 10 MB') }}</span>
                                 <span id="photo-filename" class="text-xs text-primary font-medium mt-2 hidden"></span>
                             </label>
                             <input type="file" id="photo" name="photo" accept="image/png,image/jpeg,image/webp" class="hidden" />
@@ -78,7 +78,7 @@
                                     class="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-red-500 focus:ring-red-500/30 cursor-pointer" />
                                 <span class="text-sm text-slate-500 dark:text-slate-400 group-hover:text-red-500 transition-colors flex items-center gap-1.5">
                                     <span class="material-symbols-outlined text-sm">delete</span>
-                                    Eliminar foto actual
+                                    {{ _('Eliminar foto actual') }}
                                 </span>
                             </label>
                             {% endif %}
@@ -91,59 +91,59 @@
                 <!-- Basic Info -->
                 <h2 class="font-display text-lg font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
                     <span class="material-symbols-outlined text-primary">badge</span>
-                    Información básica
+                    {{ _('Información básica') }}
                 </h2>
 
                 <div class="grid md:grid-cols-2 gap-6 mb-8">
                     <div>
                         <label for="name" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
-                            Nombre completo *
+                            {{ _('Nombre completo *') }}
                         </label>
                         <input type="text" id="name" name="name" required value="{{ current_user.name }}"
                             class="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" />
                     </div>
                     <div>
                         <label for="degree" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
-                            Título / Grado académico
+                            {{ _('Título / Grado académico') }}
                         </label>
                         <input type="text" id="degree" name="degree" value="{{ current_user.degree or '' }}"
-                            placeholder="Ej: Dr. en Ingeniería"
+                            placeholder="{{ _('Ej: Dr. en Ingeniería') }}"
                             class="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" />
                     </div>
                 </div>
 
                 <div class="mb-8">
                     <label for="position" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
-                        Cargo / Posición
+                        {{ _('Cargo / Posición') }}
                     </label>
                     <input type="text" id="position" name="position" value="{{ current_user.position or '' }}"
-                        placeholder="Ej: Investigador Principal"
+                        placeholder="{{ _('Ej: Investigador Principal') }}"
                         class="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" />
                 </div>
 
                 <div class="mb-8">
                     <label for="bio" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
-                        Biografía
+                        {{ _('Biografía') }}
                     </label>
                     <textarea id="bio" name="bio" rows="4"
-                        placeholder="Contanos sobre tu trayectoria, áreas de interés, etc."
+                        placeholder="{{ _('Contanos sobre tu trayectoria, áreas de interés, etc.') }}"
                         class="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary resize-none">{{ current_user.bio or '' }}</textarea>
                 </div>
 
                 <div class="mb-8">
                     <label for="bio_en" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2">
                         <span class="material-symbols-outlined text-primary text-lg">translate</span>
-                        Biografía en inglés (opcional)
+                        {{ _('Biografía en inglés (opcional)') }}
                     </label>
                     <textarea id="bio_en" name="bio_en" rows="4"
                         placeholder="Optional English version of your bio; shown to visitors using the site in English."
                         class="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary resize-none">{{ current_user.bio_en or '' }}</textarea>
-                    <p class="text-xs text-slate-400 mt-2">Si la dejás vacía, los visitantes en inglés ven tu biografía en español.</p>
+                    <p class="text-xs text-slate-400 mt-2">{{ _('Si la dejás vacía, los visitantes en inglés ven tu biografía en español.') }}</p>
                 </div>
 
                 <div class="mb-8">
                     <label for="linkedin" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
-                        LinkedIn (URL completa)
+                        {{ _('LinkedIn (URL completa)') }}
                     </label>
                     <input type="url" id="linkedin" name="linkedin" value="{{ current_user.linkedin or '' }}"
                         placeholder="https://linkedin.com/in/tu-perfil"
@@ -157,9 +157,8 @@
                     <input type="text" id="orcid" name="orcid" value="{{ current_user.orcid or '' }}"
                         placeholder="0000-0000-0000-0000"
                         class="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" />
-                    <p class="text-xs text-slate-400 mt-2">Tu identificador de <a href="https://orcid.org" target="_blank"
-                            rel="noopener" class="text-primary hover:underline">orcid.org</a>. Se muestra en tu perfil
-                        público y permite importar tus publicaciones desde "Mi Producción".</p>
+                    <p class="text-xs text-slate-400 mt-2">{{ _('Tu identificador de') }} <a href="https://orcid.org" target="_blank"
+                            rel="noopener" class="text-primary hover:underline">orcid.org</a>. {{ _('Se muestra en tu perfil público y permite importar tus publicaciones desde "Mi Producción".') }}</p>
                 </div>
 
                 <hr class="border-slate-100 dark:border-slate-800 my-8" />
@@ -167,17 +166,16 @@
                 <!-- Emails de contacto -->
                 <h2 class="font-display text-lg font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
                     <span class="material-symbols-outlined text-primary">mail</span>
-                    Emails de contacto
+                    {{ _('Emails de contacto') }}
                 </h2>
-                <p class="text-sm text-slate-400 mb-6">Podés elegir qué emails se muestran en tu perfil público
-                    y con cuáles podés iniciar sesión (tu email de acceso original
-                    <strong>{{ current_user.email }}</strong> siempre funciona).</p>
+                <p class="text-sm text-slate-400 mb-6">{{ _('Podés elegir qué emails se muestran en tu perfil público y con cuáles podés iniciar sesión (tu email de acceso original') }}
+                    <strong>{{ current_user.email }}</strong> {{ _('siempre funciona).') }}</p>
 
                 <div class="space-y-6 mb-8">
                     <!-- Email Personal -->
                     <div class="p-5 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30">
                         <label for="personal_email" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
-                            Email personal
+                            {{ _('Email personal') }}
                         </label>
                         <input type="email" id="personal_email" name="personal_email" value="{{ current_user.personal_email or '' }}"
                             placeholder="tu.email@personal.com"
@@ -188,7 +186,7 @@
                                 class="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary/30 cursor-pointer" />
                             <span class="text-sm text-slate-500 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors flex items-center gap-1.5">
                                 <span class="material-symbols-outlined text-sm">visibility</span>
-                                Mostrar en perfil público
+                                {{ _('Mostrar en perfil público') }}
                             </span>
                         </label>
                         <label class="flex items-center gap-3 mt-2 cursor-pointer select-none group">
@@ -197,7 +195,7 @@
                                 class="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary/30 cursor-pointer" />
                             <span class="text-sm text-slate-500 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors flex items-center gap-1.5">
                                 <span class="material-symbols-outlined text-sm">key</span>
-                                Permitir iniciar sesión con este email
+                                {{ _('Permitir iniciar sesión con este email') }}
                             </span>
                         </label>
                     </div>
@@ -205,7 +203,7 @@
                     <!-- Email Institucional -->
                     <div class="p-5 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30">
                         <label for="institutional_email" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
-                            Email institucional
+                            {{ _('Email institucional') }}
                         </label>
                         <input type="email" id="institutional_email" name="institutional_email" value="{{ current_user.institutional_email or '' }}"
                             placeholder="tu.email@universidad.edu.ar"
@@ -216,7 +214,7 @@
                                 class="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary/30 cursor-pointer" />
                             <span class="text-sm text-slate-500 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors flex items-center gap-1.5">
                                 <span class="material-symbols-outlined text-sm">visibility</span>
-                                Mostrar en perfil público
+                                {{ _('Mostrar en perfil público') }}
                             </span>
                         </label>
                         <label class="flex items-center gap-3 mt-2 cursor-pointer select-none group">
@@ -225,7 +223,7 @@
                                 class="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary/30 cursor-pointer" />
                             <span class="text-sm text-slate-500 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors flex items-center gap-1.5">
                                 <span class="material-symbols-outlined text-sm">key</span>
-                                Permitir iniciar sesión con este email
+                                {{ _('Permitir iniciar sesión con este email') }}
                             </span>
                         </label>
                     </div>
@@ -234,7 +232,7 @@
                     <!-- Teléfono -->
                     <div class="p-5 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30">
                         <label for="phone" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
-                            Teléfono de contacto
+                            {{ _('Teléfono de contacto') }}
                         </label>
                         <input type="tel" id="phone" name="phone" value="{{ current_user.phone or '' }}"
                             placeholder="+54 297 4550000"
@@ -245,7 +243,7 @@
                                 class="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary/30 cursor-pointer" />
                             <span class="text-sm text-slate-500 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors flex items-center gap-1.5">
                                 <span class="material-symbols-outlined text-sm">visibility</span>
-                                Mostrar en perfil público
+                                {{ _('Mostrar en perfil público') }}
                             </span>
                         </label>
                     </div>
@@ -255,26 +253,25 @@
                 <!-- Password Change -->
                 <h2 class="font-display text-lg font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
                     <span class="material-symbols-outlined text-primary">lock</span>
-                    Cambiar contraseña
-                    <span class="text-xs font-normal text-slate-400">(opcional)</span>
+                    {{ _('Cambiar contraseña') }}
+                    <span class="text-xs font-normal text-slate-400">{{ _('(opcional)') }}</span>
                 </h2>
 
                 <div class="mb-8">
                     <label for="new_password"
                         class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
-                        Nueva contraseña
+                        {{ _('Nueva contraseña') }}
                     </label>
                     <div class="relative">
                         <input type="password" id="new_password" name="new_password"
-                            placeholder="Dejá en blanco para no cambiarla"
+                            placeholder="{{ _('Dejá en blanco para no cambiarla') }}"
                             class="w-full px-4 py-3 pr-12 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" />
                         <button type="button" onclick="togglePassword('new_password', this)"
                             class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors">
                             <span class="material-symbols-outlined">visibility</span>
                         </button>
                     </div>
-                    <p class="text-xs text-slate-400 mt-2">Mínimo 6 caracteres. Hacé click en el ojo para ver la
-                        contraseña.</p>
+                    <p class="text-xs text-slate-400 mt-2">{{ _('Mínimo 6 caracteres. Hacé click en el ojo para ver la contraseña.') }}</p>
                 </div>
 
                 <script>
@@ -301,7 +298,7 @@
                         function showPreview(file) {
                             if (!file) return;
                             if (file.size > 10 * 1024 * 1024) {
-                                alert('La imagen no puede superar los 10 MB.');
+                                alert({{ _('La imagen no puede superar los 10 MB.')|tojson }});
                                 photoInput.value = '';
                                 return;
                             }
@@ -354,11 +351,11 @@
                     <button type="submit"
                         class="bg-primary hover:bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold transition-all flex items-center gap-2">
                         <span class="material-symbols-outlined">save</span>
-                        Guardar cambios
+                        {{ _('Guardar cambios') }}
                     </button>
                     <a href="{{ url_for('auth.dashboard') }}"
                         class="px-6 py-3 text-slate-500 hover:text-slate-700 font-medium transition-colors">
-                        Cancelar
+                        {{ _('Cancelar') }}
                     </a>
                 </div>
             </form>

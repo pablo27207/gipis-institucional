@@ -1,6 +1,6 @@
 {% extends "base.xhtml" %}
 
-{% block title %}Red de Colaboración{% endblock %}
+{% block title %}{{ _('Red de Colaboración') }}{% endblock %}
 
 {% block content %}
 <section class="py-24 bg-background-light dark:bg-slate-950 min-h-[70vh]">
@@ -8,13 +8,13 @@
         <div class="max-w-4xl mx-auto">
             <div class="flex items-center justify-between mb-8 flex-wrap gap-4">
                 <div>
-                    <h1 class="font-display text-3xl font-bold text-slate-900 dark:text-white mb-2">Red de Colaboración</h1>
-                    <p class="text-slate-500 dark:text-slate-400">Organizaciones que se muestran en la página de Cooperación.</p>
+                    <h1 class="font-display text-3xl font-bold text-slate-900 dark:text-white mb-2">{{ _('Red de Colaboración') }}</h1>
+                    <p class="text-slate-500 dark:text-slate-400">{{ _('Organizaciones que se muestran en la página de Cooperación.') }}</p>
                 </div>
                 <a href="{{ url_for('auth.dashboard') }}"
                     class="inline-flex items-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 px-4 py-2 rounded-lg text-sm font-medium transition-all">
                     <span class="material-symbols-outlined text-sm">arrow_back</span>
-                    Volver al panel
+                    {{ _('Volver al panel') }}
                 </a>
             </div>
 
@@ -33,24 +33,24 @@
             <div class="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-sm border border-slate-100 dark:border-slate-800 mb-10">
                 <h2 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
                     <span class="material-symbols-outlined text-primary">add_business</span>
-                    Agregar organización
+                    {{ _('Agregar organización') }}
                 </h2>
                 <form method="post" action="{{ url_for('admin.partners') }}" enctype="multipart/form-data"
                     class="flex gap-4 flex-wrap items-center">
-                    <input type="text" name="name" required placeholder="Nombre de la organización *"
+                    <input type="text" name="name" required placeholder="{{ _('Nombre de la organización *') }}"
                         class="flex-1 min-w-[200px] px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm" />
-                    <input type="url" name="url" placeholder="Sitio web (opcional)"
+                    <input type="url" name="url" placeholder="{{ _('Sitio web (opcional)') }}"
                         class="flex-1 min-w-[200px] px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm" />
                     <div class="w-full">
                         <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Logo
-                            <span class="text-slate-400 font-normal">(opcional, PNG/JPG/WebP/SVG, idealmente con fondo transparente)</span></label>
+                            <span class="text-slate-400 font-normal">{{ _('(opcional, PNG/JPG/WebP/SVG, idealmente con fondo transparente)') }}</span></label>
                         <input type="file" name="image" accept=".png,.jpg,.jpeg,.webp,.svg"
                             class="text-sm text-slate-600 dark:text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-primary/10 file:text-primary file:font-medium file:cursor-pointer" />
                     </div>
                     <button type="submit"
                         class="inline-flex items-center gap-2 bg-primary hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-medium transition-all">
                         <span class="material-symbols-outlined">add</span>
-                        Agregar
+                        {{ _('Agregar') }}
                     </button>
                 </form>
             </div>
@@ -67,11 +67,11 @@
                                 class="max-h-full max-w-full object-contain" />
                         </span>
                         {% endif %}
-                        <input type="number" name="order" value="{{ p.order }}" title="Orden"
+                        <input type="number" name="order" value="{{ p.order }}" title="{{ _('Orden') }}"
                             class="w-16 px-2 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm text-center" />
                         <input type="text" name="name" value="{{ p.name }}" required
                             class="flex-1 min-w-[160px] px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm" />
-                        <input type="url" name="url" value="{{ p.url or '' }}" placeholder="Sitio web"
+                        <input type="url" name="url" value="{{ p.url or '' }}" placeholder="{{ _('Sitio web') }}"
                             class="flex-1 min-w-[160px] px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm" />
                         <div class="w-full flex items-center gap-4 flex-wrap">
                             <input type="file" name="image" accept=".png,.jpg,.jpeg,.webp,.svg" title="Logo"
@@ -80,25 +80,25 @@
                             <label class="inline-flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 cursor-pointer">
                                 <input type="checkbox" name="remove_image" value="1"
                                     class="rounded border-slate-300 text-red-500 focus:ring-red-400" />
-                                Quitar logo
+                                {{ _('Quitar logo') }}
                             </label>
                             {% endif %}
                         </div>
-                        <button type="submit" title="Guardar"
+                        <button type="submit" title="{{ _('Guardar') }}"
                             class="inline-flex items-center gap-1 bg-primary hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all">
-                            <span class="material-symbols-outlined text-sm">save</span> Guardar
+                            <span class="material-symbols-outlined text-sm">save</span> {{ _('Guardar') }}
                         </button>
                     </form>
                     <form method="post" action="{{ url_for('admin.delete_partner', partner_id=p.id) }}" class="mt-2 text-right"
-                        onsubmit="return confirm('¿Quitar {{ p.name }} de la Red de Colaboración?');">
+                        onsubmit="return confirm('{{ _('¿Quitar') }} {{ p.name }} {{ _('de la Red de Colaboración?') }}');">
                         <button type="submit"
                             class="inline-flex items-center gap-1 text-red-500 hover:text-red-700 text-xs font-medium transition-colors">
-                            <span class="material-symbols-outlined text-sm">delete</span> Eliminar
+                            <span class="material-symbols-outlined text-sm">delete</span> {{ _('Eliminar') }}
                         </button>
                     </form>
                 </div>
                 {% else %}
-                <p class="text-slate-400 text-sm">No hay organizaciones cargadas.</p>
+                <p class="text-slate-400 text-sm">{{ _('No hay organizaciones cargadas.') }}</p>
                 {% endfor %}
             </div>
         </div>

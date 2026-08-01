@@ -1,16 +1,15 @@
 {% extends "base.xhtml" %}
 
-{% block title %}Revisar importación SIGEVA{% endblock %}
+{% block title %}{{ _('Revisar importación') }} SIGEVA{% endblock %}
 
 {% block content %}
 <section class="py-24 bg-background-light dark:bg-slate-950 min-h-[70vh]">
     <div class="container mx-auto px-6">
         <div class="max-w-4xl mx-auto">
             <div class="mb-8">
-                <h1 class="font-display text-3xl font-bold text-slate-900 dark:text-white mb-2">Revisar importación</h1>
-                <p class="text-slate-500 dark:text-slate-400">Esto es lo que encontramos en tu CV de SIGEVA.
-                    Destildá lo que no tenga relevancia para el grupo y confirmá. Después vas a poder editar
-                    cada trabajo y elegir cuáles compartir en la página de Investigación.</p>
+                <h1 class="font-display text-3xl font-bold text-slate-900 dark:text-white mb-2">{{ _('Revisar importación') }}</h1>
+                <p class="text-slate-500 dark:text-slate-400">{{ _('Esto es lo que encontramos en tu CV de SIGEVA.') }}
+                    {{ _('Destildá lo que no tenga relevancia para el grupo y confirmá. Después vas a poder editar cada trabajo y elegir cuáles compartir en la página de Investigación.') }}</p>
             </div>
 
             <form method="post" action="{{ url_for('auth.sigeva_import') }}">
@@ -20,7 +19,7 @@
                 <div class="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-sm border border-slate-100 dark:border-slate-800 mb-8">
                     <h2 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
                         <span class="material-symbols-outlined text-primary">badge</span>
-                        Datos de perfil
+                        {{ _('Datos de perfil') }}
                     </h2>
                     <div class="space-y-3">
                         {% if profile.degree %}
@@ -28,9 +27,9 @@
                             <input type="checkbox" name="profile_degree" value="1" checked="checked"
                                 class="mt-1 rounded border-slate-300 text-primary focus:ring-primary" />
                             <span class="text-sm text-slate-700 dark:text-slate-300">
-                                <strong>Título/Grado:</strong> {{ profile.degree }}
+                                <strong>{{ _('Título/Grado') }}:</strong> {{ profile.degree }}
                                 {% if current_user.degree %}
-                                <span class="block text-xs text-slate-400">Reemplaza tu valor actual: "{{ current_user.degree }}"</span>
+                                <span class="block text-xs text-slate-400">{{ _('Reemplaza tu valor actual:') }} "{{ current_user.degree }}"</span>
                                 {% endif %}
                             </span>
                         </label>
@@ -41,9 +40,9 @@
                                 {% if not current_user.bio %}checked="checked"{% endif %}
                                 class="mt-1 rounded border-slate-300 text-primary focus:ring-primary" />
                             <span class="text-sm text-slate-700 dark:text-slate-300">
-                                <strong>Biografía (resumen de experticia):</strong> {{ profile.bio|truncate(300) }}
+                                <strong>{{ _('Biografía (resumen de experticia):') }}</strong> {{ profile.bio|truncate(300) }}
                                 {% if current_user.bio %}
-                                <span class="block text-xs text-slate-400">Reemplaza tu biografía actual.</span>
+                                <span class="block text-xs text-slate-400">{{ _('Reemplaza tu biografía actual.') }}</span>
                                 {% endif %}
                             </span>
                         </label>
@@ -71,7 +70,7 @@
                                     {% if item.authors %}{% if item.year %} · {% endif %}{{ item.authors|truncate(90) }}{% endif %}
                                 </span>
                                 {% if item.duplicate %}
-                                <span class="inline-flex mt-1 px-2 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">Ya está en tu producción</span>
+                                <span class="inline-flex mt-1 px-2 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">{{ _('Ya está en tu producción') }}</span>
                                 {% endif %}
                             </span>
                         </label>
@@ -84,11 +83,11 @@
                     <button type="submit"
                         class="inline-flex items-center gap-2 bg-primary hover:bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold transition-all">
                         <span class="material-symbols-outlined">download_done</span>
-                        Importar seleccionados
+                        {{ _('Importar seleccionados') }}
                     </button>
                     <a href="{{ url_for('auth.works') }}"
                         class="inline-flex items-center gap-2 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 font-medium transition-colors">
-                        Cancelar
+                        {{ _('Cancelar') }}
                     </a>
                 </div>
             </form>

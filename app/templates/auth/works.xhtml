@@ -1,6 +1,6 @@
 {% extends "base.xhtml" %}
 
-{% block title %}Mi Producción{% endblock %}
+{% block title %}{{ _('Mi Producción') }}{% endblock %}
 
 {% block content %}
 <section class="py-24 bg-background-light dark:bg-slate-950 min-h-[70vh]">
@@ -8,14 +8,13 @@
         <div class="max-w-5xl mx-auto">
             <div class="flex items-center justify-between mb-8 flex-wrap gap-4">
                 <div>
-                    <h1 class="font-display text-3xl font-bold text-slate-900 dark:text-white mb-2">Mi Producción</h1>
-                    <p class="text-slate-500 dark:text-slate-400">Tus publicaciones, proyectos y direcciones. Lo que compartas
-                        aparece también en la página de Investigación del sitio.</p>
+                    <h1 class="font-display text-3xl font-bold text-slate-900 dark:text-white mb-2">{{ _('Mi Producción') }}</h1>
+                    <p class="text-slate-500 dark:text-slate-400">{{ _('Tus publicaciones, proyectos y direcciones. Lo que compartas aparece también en la página de Investigación del sitio.') }}</p>
                 </div>
                 <a href="{{ url_for('auth.dashboard') }}"
                     class="inline-flex items-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 px-4 py-2 rounded-lg text-sm font-medium transition-all">
                     <span class="material-symbols-outlined text-sm">arrow_back</span>
-                    Volver al panel
+                    {{ _('Volver al panel') }}
                 </a>
             </div>
 
@@ -37,10 +36,9 @@
                         <img src="{{ url_for('static', filename='img/logo_conicet.png') }}" alt="CONICET"
                             class="h-5 w-auto" />
                     </span>
-                    Importar desde SIGEVA
+                    {{ _('Importar desde SIGEVA') }}
                 </h2>
-                <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Subí el PDF de tu CV exportado de SIGEVA
-                    (Banco de datos → Imprimir CV). Vas a poder revisar y elegir qué importar antes de guardar.</p>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">{{ _('Subí el PDF de tu CV exportado de SIGEVA (Banco de datos → Imprimir CV). Vas a poder revisar y elegir qué importar antes de guardar.') }}</p>
                 <form method="post" action="{{ url_for('auth.sigeva_parse') }}" enctype="multipart/form-data"
                     class="flex gap-4 flex-wrap items-center">
                     <input type="file" name="pdf" accept=".pdf" required
@@ -48,7 +46,7 @@
                     <button type="submit"
                         class="inline-flex items-center gap-2 bg-primary hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-medium transition-all">
                         <span class="material-symbols-outlined">manage_search</span>
-                        Analizar PDF
+                        {{ _('Analizar PDF') }}
                     </button>
                 </form>
             </div>
@@ -59,30 +57,28 @@
                     <svg class="w-6 h-6 text-[#A6CE39]" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true">
                         <path d="M128 0C57.3 0 0 57.3 0 128s57.3 128 128 128 128-57.3 128-128S198.7 0 128 0zM86.3 186.2H70.9V79.1h15.4v107.1zm-7.7-116.3c-5.5 0-10-4.5-10-10s4.5-10 10-10 10 4.5 10 10-4.5 10-10 10zm102.6 116.3h-38.4V79.1h37.3c35.5 0 51.1 25.4 51.1 53.6 0 30.6-17.9 53.5-50 53.5zm-1.1-93.2h-22v79.3h21.9c31.3 0 38.5-23.8 38.5-39.7 0-21.5-13.7-39.6-38.4-39.6z"/>
                     </svg>
-                    Importar desde ORCID
+                    {{ _('Importar desde ORCID') }}
                 </h2>
                 {% if current_user.orcid %}
-                <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Vamos a buscar los trabajos públicos de tu
-                    registro <a href="https://orcid.org/{{ current_user.orcid }}" target="_blank" rel="noopener"
+                <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">{{ _('Vamos a buscar los trabajos públicos de tu registro') }} <a href="https://orcid.org/{{ current_user.orcid }}" target="_blank" rel="noopener"
                         class="text-primary hover:underline font-medium">{{ current_user.orcid }}</a>.
-                    Vas a poder revisar y elegir qué importar antes de guardar.</p>
+                    {{ _('Vas a poder revisar y elegir qué importar antes de guardar.') }}</p>
                 <form method="post" action="{{ url_for('auth.orcid_fetch') }}">
                     <button type="submit"
                         class="inline-flex items-center gap-2 bg-primary hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-medium transition-all">
                         <span class="material-symbols-outlined">manage_search</span>
-                        Buscar mis publicaciones
+                        {{ _('Buscar mis publicaciones') }}
                     </button>
                 </form>
                 {% else %}
-                <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Ingresá tu ORCID iD (o la URL de tu perfil
-                    en orcid.org) para buscar tus trabajos públicos. Se guarda en tu perfil para la próxima vez.</p>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">{{ _('Ingresá tu ORCID iD (o la URL de tu perfil en orcid.org) para buscar tus trabajos públicos. Se guarda en tu perfil para la próxima vez.') }}</p>
                 <form method="post" action="{{ url_for('auth.orcid_fetch') }}" class="flex gap-4 flex-wrap items-center">
                     <input type="text" name="orcid" required placeholder="0000-0000-0000-0000"
                         class="px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm w-64" />
                     <button type="submit"
                         class="inline-flex items-center gap-2 bg-primary hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-medium transition-all">
                         <span class="material-symbols-outlined">manage_search</span>
-                        Buscar publicaciones
+                        {{ _('Buscar publicaciones') }}
                     </button>
                 </form>
                 {% endif %}
@@ -92,23 +88,19 @@
             <div class="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-sm border border-slate-100 dark:border-slate-800 mb-10">
                 <h2 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
                     <span class="material-symbols-outlined text-amber-500">travel_explore</span>
-                    Descubrir publicaciones (OpenAlex)
+                    {{ _('Descubrir publicaciones (OpenAlex)') }}
                 </h2>
                 {% if current_user.orcid %}
-                <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">OpenAlex indexa publicaciones de toda la
-                    literatura académica, incluso las que no cargaste en ORCID. Buscamos por tu ORCID iD y te mostramos
-                    lo que encuentre, con su cantidad de citas. Ojo: puede traer atribuciones erróneas — revisá antes
-                    de importar.</p>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">{{ _('OpenAlex indexa publicaciones de toda la literatura académica, incluso las que no cargaste en ORCID. Buscamos por tu ORCID iD y te mostramos lo que encuentre, con su cantidad de citas. Ojo: puede traer atribuciones erróneas — revisá antes de importar.') }}</p>
                 <form method="post" action="{{ url_for('auth.openalex_fetch') }}">
                     <button type="submit"
                         class="inline-flex items-center gap-2 bg-primary hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-medium transition-all">
                         <span class="material-symbols-outlined">manage_search</span>
-                        Buscar en OpenAlex
+                        {{ _('Buscar en OpenAlex') }}
                     </button>
                 </form>
                 {% else %}
-                <p class="text-sm text-slate-500 dark:text-slate-400">Cargá tu ORCID iD (en la tarjeta de arriba o en tu
-                    perfil) y vas a poder descubrir publicaciones tuyas indexadas en OpenAlex, con su cantidad de citas.</p>
+                <p class="text-sm text-slate-500 dark:text-slate-400">{{ _('Cargá tu ORCID iD (en la tarjeta de arriba o en tu perfil) y vas a poder descubrir publicaciones tuyas indexadas en OpenAlex, con su cantidad de citas.') }}</p>
                 {% endif %}
             </div>
 
@@ -117,7 +109,7 @@
                 <summary class="flex items-center justify-between p-8 cursor-pointer list-none">
                     <h2 class="font-display text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
                         <span class="material-symbols-outlined text-primary">post_add</span>
-                        Agregar trabajo a mano
+                        {{ _('Agregar trabajo a mano') }}
                     </h2>
                     <span class="material-symbols-outlined text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
                 </summary>
@@ -125,26 +117,26 @@
                     id="add-work-form">
                     <div class="md:col-span-2 p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
                         <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-                            ¿Tenés el DOI? Completá los campos automáticamente
+                            {{ _('¿Tenés el DOI? Completá los campos automáticamente') }}
                         </label>
                         <div class="flex gap-3 flex-wrap items-center">
-                            <input type="text" id="doi-input" placeholder="10.1109/5.771073 o https://doi.org/…"
+                            <input type="text" id="doi-input" placeholder="{{ _('10.1109/5.771073 o https://doi.org/…') }}"
                                 class="flex-1 min-w-[220px] px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm" />
                             <button type="button" id="doi-btn"
                                 class="inline-flex items-center gap-2 bg-slate-700 hover:bg-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 text-white px-5 py-2 rounded-lg text-sm font-medium transition-all">
                                 <span class="material-symbols-outlined text-sm">travel_explore</span>
-                                Buscar DOI
+                                {{ _('Buscar DOI') }}
                             </button>
                         </div>
                         <p id="doi-status" class="text-xs mt-2 hidden"></p>
                     </div>
                     <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Título *</label>
+                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{{ _('Título *') }}</label>
                         <input type="text" name="title" required
                             class="w-full px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm" />
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Tipo</label>
+                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{{ _('Tipo') }}</label>
                         <select name="kind"
                             class="w-full px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm">
                             {% for k, label in kinds.items() %}
@@ -154,18 +146,18 @@
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Año</label>
+                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{{ _('Año') }}</label>
                             <input type="text" name="year"
                                 class="w-full px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm" />
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Autores</label>
+                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{{ _('Autores') }}</label>
                             <input type="text" name="authors"
                                 class="w-full px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm" />
                         </div>
                     </div>
                     <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Detalle</label>
+                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{{ _('Detalle') }}</label>
                         <textarea name="detail" rows="2"
                             class="w-full px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm"></textarea>
                     </div>
@@ -173,7 +165,7 @@
                         <button type="submit"
                             class="inline-flex items-center gap-2 bg-primary hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-medium transition-all">
                             <span class="material-symbols-outlined">add</span>
-                            Agregar
+                            {{ _('Agregar') }}
                         </button>
                     </div>
                 </form>
@@ -201,7 +193,7 @@
                             <div class="flex items-center gap-2 shrink-0">
                                 {% if work.shared_item %}
                                 <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-400">
-                                    <span class="material-symbols-outlined text-xs">public</span> En el sitio
+                                    <span class="material-symbols-outlined text-xs">public</span> {{ _('En el sitio') }}
                                 </span>
                                 {% endif %}
                                 {% if work.source == 'sigeva' %}
@@ -225,7 +217,7 @@
                                 <button type="submit"
                                     class="inline-flex items-center gap-1 text-amber-600 hover:text-amber-700 text-sm font-medium transition-colors">
                                     <span class="material-symbols-outlined text-sm">public_off</span>
-                                    Quitar de la página de Investigación ({{ work.shared_item.section.title }})
+                                    {{ _('Quitar de la página de Investigación') }} ({{ work.shared_item.section.title }})
                                 </button>
                             </form>
                             {% else %}
@@ -240,7 +232,7 @@
                                 <button type="submit"
                                     class="inline-flex items-center gap-1 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all">
                                     <span class="material-symbols-outlined text-sm">public</span>
-                                    Compartir al sitio
+                                    {{ _('Compartir al sitio') }}
                                 </button>
                             </form>
                             {% endif %}
@@ -251,10 +243,10 @@
                                     <input type="text" name="title" value="{{ work.title }}" required
                                         class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm" />
                                 </div>
-                                <input type="text" name="authors" value="{{ work.authors or '' }}" placeholder="Autores"
+                                <input type="text" name="authors" value="{{ work.authors or '' }}" placeholder="{{ _('Autores') }}"
                                     class="px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm" />
                                 <div class="flex gap-3">
-                                    <input type="text" name="year" value="{{ work.year or '' }}" placeholder="Año"
+                                    <input type="text" name="year" value="{{ work.year or '' }}" placeholder="{{ _('Año') }}"
                                         class="w-24 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm" />
                                     <select name="kind"
                                         class="flex-1 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm">
@@ -264,21 +256,21 @@
                                     </select>
                                 </div>
                                 <div class="md:col-span-2">
-                                    <textarea name="detail" rows="2" placeholder="Detalle"
+                                    <textarea name="detail" rows="2" placeholder="{{ _('Detalle') }}"
                                         class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm">{{ work.detail or '' }}</textarea>
                                 </div>
                                 <div>
                                     <button type="submit"
                                         class="inline-flex items-center gap-1 bg-primary hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all">
-                                        <span class="material-symbols-outlined text-sm">save</span> Guardar
+                                        <span class="material-symbols-outlined text-sm">save</span> {{ _('Guardar') }}
                                     </button>
                                 </div>
                             </form>
                             <form method="post" action="{{ url_for('auth.delete_work', work_id=work.id) }}"
-                                onsubmit="return confirm('¿Eliminar este trabajo de tu producción?');">
+                                onsubmit="return confirm('{{ _('¿Eliminar este trabajo de tu producción?') }}');">
                                 <button type="submit"
                                     class="inline-flex items-center gap-1 text-red-500 hover:text-red-700 text-sm font-medium transition-colors">
-                                    <span class="material-symbols-outlined text-sm">delete</span> Eliminar
+                                    <span class="material-symbols-outlined text-sm">delete</span> {{ _('Eliminar') }}
                                 </button>
                             </form>
                         </div>
@@ -292,7 +284,7 @@
             {% if not works %}
             <div class="text-center py-12 text-slate-400">
                 <span class="material-symbols-outlined text-5xl mb-4">library_books</span>
-                <p>Todavía no cargaste ningún trabajo. Importá tu CV de SIGEVA o agregá uno a mano.</p>
+                <p>{{ _('Todavía no cargaste ningún trabajo. Importá tu CV de SIGEVA o agregá uno a mano.') }}</p>
             </div>
             {% endif %}
         </div>
@@ -313,8 +305,8 @@
 
     function lookup() {
         var doi = input.value.trim();
-        if (!doi) { setStatus('Ingresá un DOI.', false); return; }
-        setStatus('Consultando…', true);
+        if (!doi) { setStatus({{ _('Ingresá un DOI.')|tojson }}, false); return; }
+        setStatus({{ _('Consultando…')|tojson }}, true);
         btn.disabled = true;
         fetch('{{ url_for("auth.doi_lookup") }}?doi=' + encodeURIComponent(doi))
             .then(function (r) { return r.json(); })
@@ -324,9 +316,9 @@
                 if (data.authors) form.elements.authors.value = data.authors;
                 if (data.year) form.elements.year.value = data.year;
                 if (data.detail) form.elements.detail.value = data.detail;
-                setStatus('Datos cargados. Revisalos antes de agregar.', true);
+                setStatus({{ _('Datos cargados. Revisalos antes de agregar.')|tojson }}, true);
             })
-            .catch(function () { setStatus('No se pudo consultar el DOI.', false); })
+            .catch(function () { setStatus({{ _('No se pudo consultar el DOI.')|tojson }}, false); })
             .finally(function () { btn.disabled = false; });
     }
 

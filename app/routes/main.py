@@ -231,6 +231,14 @@ def sitemap():
     return Response(xml, mimetype='application/xml')
 
 
+@bp.route('/google69166b95c779df06.html')
+def google_site_verification():
+    """Archivo de verificación de propiedad para Google Search Console"""
+    from flask import Response
+    return Response('google-site-verification: google69166b95c779df06.html',
+                    mimetype='text/html')
+
+
 @bp.route('/robots.txt')
 def robots():
     from flask import Response

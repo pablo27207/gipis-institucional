@@ -125,82 +125,10 @@
             </article>
             {% endfor %}
             {% else %}
-            <!-- Placeholder cards -->
-            <article
-                class="bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 dark:border-slate-800 group">
-                <div class="h-48 overflow-hidden">
-                    <div
-                        class="w-full h-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                        <span class="material-symbols-outlined text-white text-5xl">newspaper</span>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <span class="text-xs font-bold text-primary uppercase mb-3 block tracking-wide">{{ _('Congreso Científico') }}</span>
-                    <h3
-                        class="font-display text-xl font-bold mb-3 text-slate-900 dark:text-white group-hover:text-primary transition-colors">
-                        {{ _('Participación en el Congreso Nacional de Procesamiento') }}</h3>
-                    <p class="text-slate-600 dark:text-slate-400 text-sm mb-4 line-clamp-3">
-                        {{ _('Miembros del GIPIS presentaron avances significativos en el desarrollo de redes de sensores subacuáticos durante la última edición...') }}
-                    </p>
-                    <div
-                        class="flex items-center justify-between mt-6 pt-4 border-t border-slate-50 dark:border-slate-800">
-                        <span class="text-xs text-slate-400 flex items-center gap-1"><span
-                                class="material-symbols-outlined text-xs">calendar_today</span> 15 Oct, 2023</span>
-                        <button class="text-primary text-sm font-bold flex items-center gap-1">{{ _('Leer más') }} <span
-                                class="material-symbols-outlined text-xs">add</span></button>
-                    </div>
-                </div>
-            </article>
-            <article
-                class="bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 dark:border-slate-800 group">
-                <div class="h-48 overflow-hidden">
-                    <div
-                        class="w-full h-full bg-gradient-to-br from-blue-400 to-secondary flex items-center justify-center">
-                        <span class="material-symbols-outlined text-white text-5xl">bolt</span>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <span class="text-xs font-bold text-primary uppercase mb-3 block tracking-wide">{{ _('Investigación') }}</span>
-                    <h3
-                        class="font-display text-xl font-bold mb-3 text-slate-900 dark:text-white group-hover:text-primary transition-colors">
-                        {{ _('Nuevas técnicas de sincronización para PLC') }}</h3>
-                    <p class="text-slate-600 dark:text-slate-400 text-sm mb-4 line-clamp-3">
-                        {{ _('En el marco de las redes eléctricas, las investigaciones se enfocan en esquemas de modulación de multiplexación por división de frecuencia ortogonal (OFDM)...') }}
-                    </p>
-                    <div
-                        class="flex items-center justify-between mt-6 pt-4 border-t border-slate-50 dark:border-slate-800">
-                        <span class="text-xs text-slate-400 flex items-center gap-1"><span
-                                class="material-symbols-outlined text-xs">calendar_today</span> 02 Oct, 2023</span>
-                        <button class="text-primary text-sm font-bold flex items-center gap-1">{{ _('Leer más') }} <span
-                                class="material-symbols-outlined text-xs">add</span></button>
-                    </div>
-                </div>
-            </article>
-            <article
-                class="bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 dark:border-slate-800 group">
-                <div class="h-48 overflow-hidden">
-                    <div
-                        class="w-full h-full bg-gradient-to-br from-green-400 to-secondary flex items-center justify-center">
-                        <span class="material-symbols-outlined text-white text-5xl">handshake</span>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <span class="text-xs font-bold text-primary uppercase mb-3 block tracking-wide">{{ _('Cooperación') }}</span>
-                    <h3
-                        class="font-display text-xl font-bold mb-3 text-slate-900 dark:text-white group-hover:text-primary transition-colors">
-                        {{ _('Alianza Estratégica con Sector Productivo Local') }}</h3>
-                    <p class="text-slate-600 dark:text-slate-400 text-sm mb-4 line-clamp-3">
-                        {{ _('Se ha firmado un convenio para la implementación de dispositivos programables FPGA en el monitoreo de campañas oceanográficas...') }}
-                    </p>
-                    <div
-                        class="flex items-center justify-between mt-6 pt-4 border-t border-slate-50 dark:border-slate-800">
-                        <span class="text-xs text-slate-400 flex items-center gap-1"><span
-                                class="material-symbols-outlined text-xs">calendar_today</span> 28 Sep, 2023</span>
-                        <button class="text-primary text-sm font-bold flex items-center gap-1">{{ _('Leer más') }} <span
-                                class="material-symbols-outlined text-xs">add</span></button>
-                    </div>
-                </div>
-            </article>
+            <div class="col-span-full text-center py-16 text-slate-400 dark:text-slate-500">
+                <span class="material-symbols-outlined text-5xl mb-4 block">newspaper</span>
+                <p>{{ _('No hay novedades aún.') }}</p>
+            </div>
             {% endif %}
         </div>
     </div>

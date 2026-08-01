@@ -57,13 +57,6 @@ TRANSLATIONS = {
     'Facultad de Ingeniería UNPSJB': 'Faculty of Engineering, UNPSJB',
     'Novedades Recientes': 'Recent News',
     'Ver todas las noticias': 'View all news',
-    'Congreso Científico': 'Scientific Conference',
-    'Miembros del GIPIS presentaron avances significativos en el desarrollo de redes de sensores subacuáticos durante la última edición...':
-        'GIPIS members presented significant advances in the development of underwater sensor networks during the latest edition...',
-    'En el marco de las redes eléctricas, las investigaciones se enfocan en esquemas de modulación de multiplexación por división de frecuencia ortogonal (OFDM)...':
-        'In the context of power grids, research focuses on orthogonal frequency-division multiplexing (OFDM) modulation schemes...',
-    'Se ha firmado un convenio para la implementación de dispositivos programables FPGA en el monitoreo de campañas oceanográficas...':
-        'An agreement has been signed for the implementation of FPGA programmable devices in the monitoring of oceanographic campaigns...',
     'Procesamiento de la Información y Sensores':
         'Information Processing and Sensors',
     'Investigación aplicada en electrónica, sensores y sistemas de información desde la Facultad de Ingeniería de la UNPSJB.':
@@ -212,20 +205,10 @@ TRANSLATIONS = {
         'Stay up to date with the latest activities, achievements and announcements of the group.',
     'Volver a novedades': 'Back to news',
     'No hay novedades publicadas por el momento.': 'There are no news posted at the moment.',
+    'No hay novedades aún.': 'No news yet.',
     'Novedades y noticias del GIPIS. Congresos, publicaciones, proyectos y actividades del grupo de investigación.':
         'News and updates from GIPIS. Conferences, publications, projects and activities of the research group.',
     'Publicado en Facebook': 'Posted on Facebook',
-    'Participación en el Congreso Nacional de Procesamiento':
-        'Participation in the National Congress on Signal Processing',
-    'Miembros del GIPIS presentaron avances significativos en el desarrollo de redes de sensores subacuáticos...':
-        'GIPIS members presented significant advances in the development of underwater sensor networks...',
-    'Nuevas técnicas de sincronización para PLC': 'New synchronization techniques for PLC',
-    'En el marco de las redes eléctricas, las investigaciones se enfocan en esquemas OFDM...':
-        'Within the framework of power line networks, research focuses on OFDM schemes...',
-    'Alianza Estratégica con Sector Productivo Local':
-        'Strategic Partnership with the Local Productive Sector',
-    'Se ha firmado un convenio para la implementación de dispositivos programables FPGA...':
-        'An agreement has been signed for the implementation of FPGA programmable devices...',
     'Novedad del GIPIS, Grupo de Investigación en Procesamiento de la Información y Sensores.':
         'News from GIPIS, the Information Processing and Sensors Research Group.',
     'Detalle': 'Detail',

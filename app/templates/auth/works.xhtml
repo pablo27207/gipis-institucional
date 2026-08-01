@@ -88,6 +88,30 @@
                 {% endif %}
             </div>
 
+            <!-- Descubrir con OpenAlex -->
+            <div class="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-sm border border-slate-100 dark:border-slate-800 mb-10">
+                <h2 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-amber-500">travel_explore</span>
+                    Descubrir publicaciones (OpenAlex)
+                </h2>
+                {% if current_user.orcid %}
+                <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">OpenAlex indexa publicaciones de toda la
+                    literatura académica, incluso las que no cargaste en ORCID. Buscamos por tu ORCID iD y te mostramos
+                    lo que encuentre, con su cantidad de citas. Ojo: puede traer atribuciones erróneas — revisá antes
+                    de importar.</p>
+                <form method="post" action="{{ url_for('auth.openalex_fetch') }}">
+                    <button type="submit"
+                        class="inline-flex items-center gap-2 bg-primary hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-medium transition-all">
+                        <span class="material-symbols-outlined">manage_search</span>
+                        Buscar en OpenAlex
+                    </button>
+                </form>
+                {% else %}
+                <p class="text-sm text-slate-500 dark:text-slate-400">Cargá tu ORCID iD (en la tarjeta de arriba o en tu
+                    perfil) y vas a poder descubrir publicaciones tuyas indexadas en OpenAlex, con su cantidad de citas.</p>
+                {% endif %}
+            </div>
+
             <!-- Agregar a mano -->
             <details class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 mb-10 group">
                 <summary class="flex items-center justify-between p-8 cursor-pointer list-none">
@@ -184,6 +208,8 @@
                                 <span class="inline-flex px-2 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">SIGEVA</span>
                                 {% elif work.source == 'orcid' %}
                                 <span class="inline-flex px-2 py-0.5 rounded-full text-xs font-medium bg-lime-50 text-lime-700 dark:bg-lime-900/30 dark:text-lime-400">ORCID</span>
+                                {% elif work.source == 'openalex' %}
+                                <span class="inline-flex px-2 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">OpenAlex</span>
                                 {% endif %}
                                 <span class="material-symbols-outlined text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
                             </div>

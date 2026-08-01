@@ -250,6 +250,11 @@ TRANSLATIONS = {
     'No se encontraron resultados con esos filtros.': 'No results were found with those filters.',
     'La producción del grupo se mostrará próximamente.': "The group's production will be published soon.",
     'Ver toda la producción': 'View all production',
+    'Citar (BibTeX)': 'Cite (BibTeX)',
+    'citas': 'citations',
+    '¡Copiado!': 'Copied!',
+    'Software y Repositorios': 'Software & Repositories',
+    'Ver en GitHub': 'View on GitHub',
 
     # --- Contacto ---
     'Estamos interesados en establecer nuevas colaboraciones y responder tus consultas.':

@@ -109,12 +109,44 @@ def investigacion():
 @bp.route('/investigacion/produccion')
 def produccion():
     """Producción científica completa, con búsqueda y filtros en el cliente"""
+    from app.doi import normalize_doi
     sections = ResearchSection.query.order_by(ResearchSection.order).all()
-    years = sorted({
-        item.year for section in sections for item in section.items
-        if item.year
-    }, reverse=True)
-    return render_template('pages/produccion.xhtml', sections=sections, years=years)
+    years = set()
+    for section in sections:
+        for item in section.items:
+            if item.year:
+                years.add(item.year)
+            # DOI detectado en el texto del ítem: habilita citas y "Citar"
+            item.doi_norm = normalize_doi(
+                f"{item.abstract or ''} {item.links or ''}")
+    return render_template('pages/produccion.xhtml', sections=sections,
+                           years=sorted(years, reverse=True))
+
+
+@bp.route('/investigacion/produccion/<int:item_id>/bibtex')
+def produccion_bibtex(item_id):
+    """Cita BibTeX de un ítem (vía DOI si tiene; si no, generada básica)"""
+    from flask import Response
+    from app.doi import normalize_doi, fetch_bibtex, DoiError
+
+    item = ResearchItem.query.get_or_404(item_id)
+    doi = normalize_doi(f"{item.abstract or ''} {item.links or ''}")
+    bibtex = None
+    if doi:
+        try:
+            bibtex = fetch_bibtex(doi)
+        except DoiError:
+            pass
+    if not bibtex:
+        first_author = (item.authors or 'GIPIS').split(';')[0].split(',')[0].strip()
+        key = ''.join(c for c in first_author.lower() if c.isalnum()) or 'gipis'
+        fields = [f'  title = {{{item.title}}}']
+        if item.authors:
+            fields.append(f'  author = {{{item.authors}}}')
+        if item.year:
+            fields.append(f'  year = {{{item.year}}}')
+        bibtex = ('@misc{%s%s,\n' % (key, item.year or '')) + ',\n'.join(fields) + '\n}'
+    return Response(bibtex, mimetype='text/plain; charset=utf-8')
 
 
 @bp.route('/investigacion/<int:line_id>')
@@ -149,6 +181,56 @@ def novedad_detalle(slug):
     """Detalle de una novedad"""
     news_item = News.query.filter_by(slug=slug).first_or_404()
     return render_template('pages/novedad.xhtml', news=news_item)
+
+
+# ==========================================
+# SEO: sitemap y robots
+# ==========================================
+
+@bp.route('/sitemap.xml')
+def sitemap():
+    """Sitemap XML para buscadores"""
+    from flask import Response
+
+    urls = []
+    for endpoint in ('main.home', 'main.equipo', 'main.investigacion',
+                     'main.produccion', 'main.cooperacion', 'main.novedades',
+                     'main.contacto'):
+        urls.append((url_for(endpoint, _external=True), None))
+
+    for member in Member.query.filter(Member.is_active.is_(True),
+                                      Member.category_id.isnot(None)).all():
+        urls.append((url_for('main.miembro_detalle', slug=member.slug,
+                             _external=True), None))
+
+    for item in News.query.order_by(News.published_at.desc()).all():
+        lastmod = item.published_at.strftime('%Y-%m-%d') if item.published_at else None
+        urls.append((url_for('main.novedad_detalle', slug=item.slug,
+                             _external=True), lastmod))
+
+    entries = []
+    for loc, lastmod in urls:
+        entry = f'  <url>\n    <loc>{loc}</loc>\n'
+        if lastmod:
+            entry += f'    <lastmod>{lastmod}</lastmod>\n'
+        entries.append(entry + '  </url>')
+
+    xml = ('<?xml version="1.0" encoding="UTF-8"?>\n'
+           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+           + '\n'.join(entries) + '\n</urlset>\n')
+    return Response(xml, mimetype='application/xml')
+
+
+@bp.route('/robots.txt')
+def robots():
+    from flask import Response
+    body = (
+        'User-agent: *\n'
+        'Allow: /\n'
+        'Disallow: /auth/\n'
+        f'Sitemap: {url_for("main.sitemap", _external=True)}\n'
+    )
+    return Response(body, mimetype='text/plain')
 
 
 @bp.route('/contacto', methods=['GET', 'POST'])

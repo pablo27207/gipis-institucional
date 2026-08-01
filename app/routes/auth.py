@@ -569,34 +569,91 @@ def orcid_fetch():
         flash('El registro ORCID no tiene trabajos públicos para importar.', 'error')
         return redirect(url_for('auth.works'))
 
-    existing = {w.title.lower() for w in current_user.works}
-    for item in result['items']:
-        item['duplicate'] = item['title'].lower() in existing
-
-    groups = {}
-    for idx, item in enumerate(result['items']):
-        groups.setdefault(item['group'], []).append((idx, item))
-
-    import json
-    return render_template(
-        'auth/orcid_review.xhtml',
-        orcid_id=orcid_id,
-        orcid_name=result['name'],
-        groups=groups,
-        payload=json.dumps({'items': result['items']}),
+    return _render_import_review(
+        result['items'],
+        source='orcid',
+        source_label='ORCID',
+        intro=(f'Esto es lo que encontramos en el registro ORCID '
+               f'<a href="https://orcid.org/{orcid_id}" target="_blank" rel="noopener" '
+               f'class="text-primary hover:underline font-medium">{orcid_id}</a>'
+               + (f' ({result["name"]})' if result['name'] else '') + '.'),
     )
 
 
-@bp.route('/orcid/import', methods=['POST'])
+def _render_import_review(items, source, source_label, intro):
+    """Pantalla de revisión compartida por las importaciones ORCID/OpenAlex"""
+    existing = {w.title.lower() for w in current_user.works}
+    for item in items:
+        item['duplicate'] = item['title'].lower() in existing
+
+    groups = {}
+    for idx, item in enumerate(items):
+        groups.setdefault(item['group'], []).append((idx, item))
+
+    import json
+    from markupsafe import Markup
+    return render_template(
+        'auth/import_review.xhtml',
+        source=source,
+        source_label=source_label,
+        intro=Markup(intro),
+        groups=groups,
+        payload=json.dumps({'items': items}),
+    )
+
+
+@bp.route('/openalex/fetch', methods=['POST'])
 @login_required
-def orcid_import():
-    """Guardar los trabajos de ORCID seleccionados en la revisión"""
+def openalex_fetch():
+    """Buscar en OpenAlex publicaciones indexadas para el ORCID del miembro"""
+    from app.openalex import fetch_openalex_works, OpenAlexError
+
+    if not current_user.orcid:
+        flash('Cargá tu ORCID iD en el perfil para poder buscar en OpenAlex.', 'error')
+        return redirect(url_for('auth.works'))
+
+    try:
+        result = fetch_openalex_works(current_user.orcid)
+    except OpenAlexError as e:
+        flash(str(e), 'error')
+        return redirect(url_for('auth.works'))
+    except Exception:
+        current_app.logger.exception('Error consultando OpenAlex')
+        flash('Ocurrió un error inesperado consultando OpenAlex.', 'error')
+        return redirect(url_for('auth.works'))
+
+    if not result['items']:
+        flash('OpenAlex no tiene trabajos indexados para tu ORCID iD.', 'error')
+        return redirect(url_for('auth.works'))
+
+    return _render_import_review(
+        result['items'],
+        source='openalex',
+        source_label='OpenAlex',
+        intro=(f'Esto es lo que OpenAlex tiene indexado para tu ORCID '
+               f'{current_user.orcid}, ordenado por citas. Puede incluir '
+               f'trabajos que no están en tu perfil de ORCID — y también '
+               f'atribuciones erróneas: revisá antes de importar.'),
+    )
+
+
+IMPORT_SOURCES = {'orcid', 'openalex'}
+
+
+@bp.route('/works/import', methods=['POST'])
+@login_required
+def works_import():
+    """Guardar los trabajos seleccionados en la pantalla de revisión"""
     import json
     try:
         payload = json.loads(request.form.get('payload', '{}'))
     except ValueError:
-        flash('Datos de importación inválidos. Volvé a consultar ORCID.', 'error')
+        flash('Datos de importación inválidos. Volvé a hacer la búsqueda.', 'error')
         return redirect(url_for('auth.works'))
+
+    source = request.form.get('source', 'orcid')
+    if source not in IMPORT_SOURCES:
+        source = 'orcid'
 
     items = payload.get('items', [])
     selected = {int(i) for i in request.form.getlist('item') if i.isdigit()}
@@ -623,14 +680,15 @@ def orcid_import():
             authors=(item.get('authors') or '')[:500] or None,
             year=(item.get('year') or '')[:10] or None,
             detail=item.get('detail') or None,
-            source='orcid',
+            source=source,
         ))
         existing.add(title.lower())
         imported += 1
 
     db.session.commit()
 
-    parts = [f'{imported} trabajos importados desde ORCID']
+    source_names = {'orcid': 'ORCID', 'openalex': 'OpenAlex'}
+    parts = [f'{imported} trabajos importados desde {source_names[source]}']
     if skipped:
         parts.append(f'{skipped} ya existían')
     flash('. '.join(parts) + '.', 'success')

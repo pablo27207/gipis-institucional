@@ -25,6 +25,24 @@ def normalize_doi(raw):
     return match.group(1).rstrip('.,;') if match else None
 
 
+def fetch_bibtex(doi):
+    """Traer la cita BibTeX de un DOI (content negotiation en doi.org)."""
+    url = f'https://doi.org/{urllib.parse.quote(doi, safe="/")}'
+    req = urllib.request.Request(url, headers={
+        'Accept': 'application/x-bibtex',
+        'User-Agent': 'GIPIS-institucional/1.0 (gipis.unp.edu.ar)',
+    })
+    try:
+        with urllib.request.urlopen(req, timeout=TIMEOUT) as resp:
+            return resp.read().decode('utf-8').strip()
+    except urllib.error.HTTPError as e:
+        if e.code == 404:
+            raise DoiError('No se encontró ese DOI.')
+        raise DoiError(f'El servicio de DOI respondió con un error (HTTP {e.code}).')
+    except urllib.error.URLError:
+        raise DoiError('No se pudo consultar el DOI.')
+
+
 def fetch_doi(doi):
     """Traer metadatos de un DOI ya normalizado.
 

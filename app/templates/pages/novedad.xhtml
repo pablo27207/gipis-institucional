@@ -3,6 +3,23 @@
 {% block title %}{{ loc(news, 'title') }}{% endblock %}
 {% block meta_description %}{{ loc(news, 'excerpt') or loc(news, 'title') }}. {{ _('Novedad del GIPIS, Grupo de Investigación en Procesamiento de la Información y Sensores.') }}{% endblock %}
 
+{% block jsonld %}
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "NewsArticle",
+        "headline": {{ loc(news, 'title')|tojson }},
+        {% if news.excerpt %}"description": {{ loc(news, 'excerpt')|tojson }},{% endif %}
+        {% if news.published_at %}"datePublished": "{{ news.published_at.strftime('%Y-%m-%d') }}",{% endif %}
+        {% if news.image %}"image": "{{ url_for('static', filename='img/' ~ news.image, _external=True) }}",{% endif %}
+        "publisher": {
+            "@type": "Organization",
+            "name": "GIPIS - UNPSJB"
+        }
+    }
+</script>
+{% endblock %}
+
 {% block content %}
 <!-- Page Header -->
 <section class="bg-white dark:bg-slate-900 py-20 border-b border-slate-100 dark:border-slate-800">

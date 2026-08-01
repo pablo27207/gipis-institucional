@@ -71,6 +71,7 @@
                     {% for item in section.items %}
                     <div class="production-item bg-white dark:bg-slate-900 rounded-lg p-6 border border-slate-100 dark:border-slate-800"
                         data-year="{{ item.year or '' }}" data-section="{{ section.slug }}"
+                        data-doi="{{ item.doi_norm or '' }}"
                         data-text="{{ ((item.title or '') ~ ' ' ~ (item.authors or ''))|lower }}">
                         <h3 class="font-semibold text-slate-900 dark:text-white mb-2">{{ item.title }}</h3>
                         <p class="text-sm text-slate-500 dark:text-slate-400">
@@ -80,6 +81,17 @@
                         {% if item.abstract %}
                         <p class="text-sm text-slate-500 dark:text-slate-400 mt-3">{{ item.abstract|truncate(280) }}</p>
                         {% endif %}
+                        <div class="flex items-center gap-3 mt-3 flex-wrap">
+                            <span class="citation-badge hidden inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
+                                <span class="material-symbols-outlined text-xs">format_quote</span>
+                                <span class="citation-count"></span>
+                            </span>
+                            <button type="button" data-bibtex-url="{{ url_for('main.produccion_bibtex', item_id=item.id) }}"
+                                class="bibtex-btn inline-flex items-center gap-1 text-slate-400 hover:text-primary text-xs font-medium transition-colors">
+                                <span class="material-symbols-outlined text-sm">content_copy</span>
+                                <span class="bibtex-label">{{ _('Citar (BibTeX)') }}</span>
+                            </button>
+                        </div>
                     </div>
                     {% endfor %}
                 </div>
@@ -144,6 +156,54 @@
         apply();
     });
     apply();
+
+    // Citas desde OpenAlex (best effort, en lotes de 50 DOIs)
+    var withDoi = items.filter(function (el) { return el.dataset.doi; });
+    var dois = withDoi.map(function (el) { return el.dataset.doi.toLowerCase(); });
+    var unique = Array.from(new Set(dois));
+    var citesLabel = {{ _('citas')|tojson }};
+    for (var i = 0; i < unique.length; i += 50) {
+        (function (chunk) {
+            fetch('https://api.openalex.org/works?filter=doi:' +
+                  encodeURIComponent(chunk.join('|')) +
+                  '&per-page=50&select=doi,cited_by_count')
+                .then(function (r) { return r.json(); })
+                .then(function (data) {
+                    var counts = {};
+                    (data.results || []).forEach(function (w) {
+                        if (w.doi) counts[w.doi.replace('https://doi.org/', '').toLowerCase()] = w.cited_by_count || 0;
+                    });
+                    withDoi.forEach(function (el) {
+                        var c = counts[el.dataset.doi.toLowerCase()];
+                        if (typeof c === 'number' && c > 0) {
+                            el.querySelector('.citation-count').textContent = c + ' ' + citesLabel;
+                            el.querySelector('.citation-badge').classList.remove('hidden');
+                        }
+                    });
+                })
+                .catch(function () { /* sin citas: no se muestra nada */ });
+        })(unique.slice(i, i + 50));
+    }
+
+    // Botones "Citar (BibTeX)": copiar al portapapeles
+    var copiedLabel = {{ _('¡Copiado!')|tojson }};
+    document.querySelectorAll('.bibtex-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            btn.disabled = true;
+            fetch(btn.dataset.bibtexUrl)
+                .then(function (r) { return r.text(); })
+                .then(function (bib) {
+                    return navigator.clipboard.writeText(bib);
+                })
+                .then(function () {
+                    var label = btn.querySelector('.bibtex-label');
+                    var original = label.textContent;
+                    label.textContent = copiedLabel;
+                    setTimeout(function () { label.textContent = original; btn.disabled = false; }, 2000);
+                })
+                .catch(function () { btn.disabled = false; });
+        });
+    });
 })();
 </script>
 {% endblock %}

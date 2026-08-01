@@ -19,6 +19,36 @@
     <meta property="og:site_name" content="GIPIS - UNPSJB" />
     <meta name="twitter:card" content="summary_large_image" />
 
+    <!-- Datos estructurados (schema.org) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ResearchOrganization",
+        "name": "GIPIS - Grupo de Investigación en Procesamiento de la Información y Sensores",
+        "alternateName": "GIPIS",
+        "url": "{{ url_for('main.home', _external=True) }}",
+        "logo": "{{ url_for('static', filename='img/logo_gipis.png', _external=True) }}",
+        "parentOrganization": {
+            "@type": "CollegeOrUniversity",
+            "name": "Universidad Nacional de la Patagonia San Juan Bosco",
+            "department": "Facultad de Ingeniería"
+        },
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Comodoro Rivadavia",
+            "addressRegion": "Chubut",
+            "addressCountry": "AR"
+        },
+        "sameAs": [
+            "https://ar.linkedin.com/company/gipis-unpsjb",
+            "https://www.facebook.com/GIPISUNPSJB/",
+            "https://www.instagram.com/gipis.unp/",
+            "https://github.com/GIPIS"
+        ]
+    }
+    </script>
+    {% block jsonld %}{% endblock %}
+
     <!-- Dark mode: apply before render to prevent flash -->
     <script>
         (function() {

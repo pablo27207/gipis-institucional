@@ -3,6 +3,27 @@
 {% block title %}{{ member.name }}{% endblock %}
 {% block meta_description %}{{ member.name }}{% if member.position %} — {{ member.position }}{% endif %}. {{ _('Miembro del GIPIS, Grupo de Investigación en Procesamiento de la Información y Sensores, UNPSJB.') }}{% endblock %}
 
+{% block jsonld %}
+{% set same_as = [] %}
+{% if member.orcid %}{% set _ = same_as.append('https://orcid.org/' ~ member.orcid) %}{% endif %}
+{% if member.linkedin %}{% set _ = same_as.append(member.linkedin) %}{% endif %}
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": {{ member.name|tojson }},
+        {% if member.position or member.degree %}"jobTitle": {{ (member.position or member.degree)|tojson }},{% endif %}
+        {% if member.photo %}"image": "{{ url_for('static', filename='img/profiles/' ~ member.photo, _external=True) }}",{% endif %}
+        {% if same_as %}"sameAs": {{ same_as|tojson }},{% endif %}
+        "url": "{{ url_for('main.miembro_detalle', slug=member.slug, _external=True) }}",
+        "affiliation": {
+            "@type": "ResearchOrganization",
+            "name": "GIPIS - Grupo de Investigación en Procesamiento de la Información y Sensores, UNPSJB"
+        }
+    }
+</script>
+{% endblock %}
+
 {% block content %}
 <!-- Page Header -->
 <section class="bg-white dark:bg-slate-900 py-20 border-b border-slate-100 dark:border-slate-800">

@@ -4,16 +4,11 @@ Ideas y funcionalidades a implementar en el futuro.
 
 ---
 
-## 🔍 Búsqueda y filtrado de publicaciones
+## 🔍 Búsqueda y filtrado de publicaciones — HECHO (2026-08-01)
 
-**Prioridad**: Media  
-**Descripción**: En la sección de investigación, permitir a los visitantes buscar y filtrar publicaciones por:
-- Año de publicación
-- Autor/investigador
-- Palabras clave
-- Línea de investigación
-
-**Notas**: Sería útil para visitantes académicos que buscan papers específicos. Se podría implementar con filtros dinámicos en el frontend (JavaScript) sin necesidad de consultas al backend, dado que el volumen de publicaciones es manejable.
+**Implementado**: página `/investigacion/produccion` con toda la producción agrupada por
+sección y filtros en el cliente (texto sobre título/autores, año y sección), más conteo
+de citas vía OpenAlex y botón "Citar (BibTeX)" por ítem.
 
 ---
 
@@ -23,10 +18,17 @@ Ideas y funcionalidades a implementar en el futuro.
 **Descripción**: Alimentar automáticamente las tarjetas de Novedades con las publicaciones
 del grupo en redes sociales.
 
-**Estado (2026-07-31)**: A la espera de datos de la página de Facebook — Pablo tiene que
+**Estado (2026-08-01)**: A la espera de datos de la página de Facebook — Pablo tiene que
 consultar con Carlos quién es administrador de facebook.com/GIPISUNPSJB para poder crear
 la app de Meta y generar el token. Mientras tanto ya se puede cargar novedades a mano
-desde el panel admin (CRUD implementado) y las referencias de Novedades apuntan a Facebook.
+desde el panel admin (CRUD implementado). El modelo ya tiene `News.source` y la UI
+muestra el badge de la red en las novedades harvesteadas.
+
+**Instagram (pedirle también a Carlos)**: la misma app de Meta sirve para leer los posts
+de instagram.com/gipis.unp **si la cuenta de Instagram está vinculada como cuenta
+profesional a la página de Facebook**. Al hablar con Carlos, confirmar: (1) quién es
+admin de la página de Facebook, (2) si la cuenta de Instagram está vinculada a esa
+página y quién la administra. Con un solo token se harvestean las dos redes.
 
 - **LinkedIn descartado como fuente**: la API de páginas de empresa (Community Management
   API) requiere una app aprobada por LinkedIn con proceso de revisión, y el scraping va
@@ -40,12 +42,36 @@ desde el panel admin (CRUD implementado) y las referencias de Novedades apuntan 
 
 ---
 
-## 📄 Paginación de novedades
+## 📈 Google Search Console (requiere acción de Pablo)
 
-**Prioridad**: Media (crece con el tiempo)  
-**Descripción**: Implementar paginación en la página de novedades para evitar que la página crezca indefinidamente.
+**Prioridad**: Alta, esfuerzo bajo  
+**Descripción**: El sitio ya expone `sitemap.xml`, `robots.txt` y datos estructurados
+schema.org (organización, personas, novedades). Falta darlo de alta en Search Console
+para que Google lo indexe bien y reporte problemas:
 
-**Notas**: Ya hay un `# TODO` en el código. Implementar después de que haya suficiente contenido para justificarlo (~20+ novedades). Flask-SQLAlchemy tiene `.paginate()` integrado.
+1. Entrar a https://search.google.com/search-console con una cuenta de Google del grupo.
+2. Agregar propiedad → "Prefijo de la URL" → `https://gipis.unp.edu.ar`.
+3. Verificar con la opción "Etiqueta HTML": copiar el `content` de la meta etiqueta
+   que da Google y pasárselo a Claude para agregarla al `<head>` del sitio (un deploy).
+4. En "Sitemaps", enviar `https://gipis.unp.edu.ar/sitemap.xml`.
+
+---
+
+## 📶 Monitoreo de uptime (requiere acción de Pablo)
+
+**Prioridad**: Media, esfuerzo bajo  
+**Descripción**: Avisa por email si el sitio se cae. Pasos:
+
+1. Crear cuenta gratuita en https://uptimerobot.com (50 monitores gratis).
+2. Add New Monitor → tipo HTTP(s) → URL `https://gipis.unp.edu.ar` → intervalo 5 min.
+3. Configurar alerta al email del grupo (gipis.unp@gmail.com).
+
+---
+
+## 📄 Paginación de novedades — HECHO (2026-08-01)
+
+**Implementado**: 9 novedades por página con pager (Anterior/Siguiente y números),
+usando `.paginate()` de Flask-SQLAlchemy.
 
 ---
 

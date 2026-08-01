@@ -54,6 +54,28 @@ class Member(UserMixin, db.Model):
     def is_admin(self):
         return self.role == 'admin'
 
+    @property
+    def position_rank(self):
+        """Prioridad de aparición en /equipo según el cargo (menor = más arriba):
+        1 Profesor+Investigador/CONICET · 2 Investigador/CONICET · 3 Profesor ·
+        4 JTP · 5 Auxiliar · 6 Alumno/Pasante/Becario · 7 sin cargo/otros."""
+        pos = (self.position or '').lower()
+        has_prof = 'prof' in pos
+        has_inv = 'inv' in pos or 'conicet' in pos
+        if has_prof and has_inv:
+            return 1
+        if has_inv:
+            return 2
+        if has_prof:
+            return 3
+        if 'jefe de trabajos' in pos or 'jtp' in pos:
+            return 4
+        if 'aux' in pos:
+            return 5
+        if 'alumno' in pos or 'pasante' in pos or 'becari' in pos:
+            return 6
+        return 7
+
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
     

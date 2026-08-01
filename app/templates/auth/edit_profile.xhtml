@@ -158,7 +158,9 @@
                     <span class="material-symbols-outlined text-primary">mail</span>
                     Emails de contacto
                 </h2>
-                <p class="text-sm text-slate-400 mb-6">Podés elegir qué emails se muestran en tu perfil público.</p>
+                <p class="text-sm text-slate-400 mb-6">Podés elegir qué emails se muestran en tu perfil público
+                    y con cuáles podés iniciar sesión (tu email de acceso original
+                    <strong>{{ current_user.email }}</strong> siempre funciona).</p>
 
                 <div class="space-y-6 mb-8">
                     <!-- Email Personal -->
@@ -178,6 +180,15 @@
                                 Mostrar en perfil público
                             </span>
                         </label>
+                        <label class="flex items-center gap-3 mt-2 cursor-pointer select-none group">
+                            <input type="checkbox" name="personal_email_login" value="1"
+                                {% if current_user.personal_email_login %}checked{% endif %}
+                                class="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary/30 cursor-pointer" />
+                            <span class="text-sm text-slate-500 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-sm">key</span>
+                                Permitir iniciar sesión con este email
+                            </span>
+                        </label>
                     </div>
 
                     <!-- Email Institucional -->
@@ -195,6 +206,15 @@
                             <span class="text-sm text-slate-500 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors flex items-center gap-1.5">
                                 <span class="material-symbols-outlined text-sm">visibility</span>
                                 Mostrar en perfil público
+                            </span>
+                        </label>
+                        <label class="flex items-center gap-3 mt-2 cursor-pointer select-none group">
+                            <input type="checkbox" name="institutional_email_login" value="1"
+                                {% if current_user.institutional_email_login %}checked{% endif %}
+                                class="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary/30 cursor-pointer" />
+                            <span class="text-sm text-slate-500 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-sm">key</span>
+                                Permitir iniciar sesión con este email
                             </span>
                         </label>
                     </div>

@@ -43,6 +43,9 @@ else
     if [ -f /app/scripts/add_news_source.py ]; then
         python scripts/add_news_source.py
     fi
+    if [ -f /app/scripts/add_partner_image_login_flags.py ]; then
+        python scripts/add_partner_image_login_flags.py
+    fi
 fi
 
 echo "Starting server..."

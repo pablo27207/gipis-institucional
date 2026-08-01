@@ -30,8 +30,10 @@ class Member(UserMixin, db.Model):
     email = db.Column(db.String(150), unique=True)
     personal_email = db.Column(db.String(150))
     personal_email_public = db.Column(db.Boolean, default=False)
+    personal_email_login = db.Column(db.Boolean, default=False)
     institutional_email = db.Column(db.String(150))
     institutional_email_public = db.Column(db.Boolean, default=False)
+    institutional_email_login = db.Column(db.Boolean, default=False)
     phone = db.Column(db.String(50))
     phone_public = db.Column(db.Boolean, default=False)
     password_hash = db.Column(db.String(256))
@@ -156,6 +158,7 @@ class Partner(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200), nullable=False)
     url = db.Column(db.String(255))
+    image = db.Column(db.String(255))  # 'partners/<id>.<ext>' bajo static/img/
     order = db.Column(db.Integer, default=0)
 
     def __repr__(self):

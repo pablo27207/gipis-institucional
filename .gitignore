@@ -67,5 +67,6 @@ docker-compose.override.yml
 CurriculumVitae.pdf
 *.sigeva.pdf
 
-# Imágenes de novedades subidas desde el panel (viven en el volumen del server)
+# Imágenes subidas desde el panel (viven en el volumen del server)
 app/static/img/news/
+app/static/img/partners/

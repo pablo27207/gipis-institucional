@@ -21,18 +21,46 @@ def get_upload_folder():
     return upload_folder
 
 
+def _member_by_login_email(email):
+    """Buscar miembro por cualquiera de sus emails habilitados para login."""
+    e = (email or '').strip().lower()
+    if not e:
+        return None
+    return Member.query.filter(db.or_(
+        db.func.lower(Member.email) == e,
+        db.and_(Member.personal_email_login,
+                db.func.lower(Member.personal_email) == e),
+        db.and_(Member.institutional_email_login,
+                db.func.lower(Member.institutional_email) == e),
+    )).first()
+
+
+def _login_email_taken(member, email):
+    """¿Otro miembro ya usa este email para iniciar sesión?"""
+    e = (email or '').strip().lower()
+    if not e:
+        return False
+    return Member.query.filter(Member.id != member.id).filter(db.or_(
+        db.func.lower(Member.email) == e,
+        db.and_(Member.personal_email_login,
+                db.func.lower(Member.personal_email) == e),
+        db.and_(Member.institutional_email_login,
+                db.func.lower(Member.institutional_email) == e),
+    )).count() > 0
+
+
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
     """Página de login para miembros"""
     if current_user.is_authenticated:
         return redirect(url_for('auth.dashboard'))
-    
+
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
-        
-        member = Member.query.filter_by(email=email).first()
-        
+
+        member = _member_by_login_email(email)
+
         if member and member.check_password(password):
             login_user(member)
             next_page = request.args.get('next')
@@ -81,11 +109,21 @@ def edit_profile():
         else:
             current_user.orcid = None
         
-        # Manejar emails con visibilidad
+        # Manejar emails con visibilidad y habilitación de login
         current_user.personal_email = request.form.get('personal_email', current_user.personal_email)
         current_user.personal_email_public = 'personal_email_public' in request.form
         current_user.institutional_email = request.form.get('institutional_email', current_user.institutional_email)
         current_user.institutional_email_public = 'institutional_email_public' in request.form
+
+        for field, flag in (('personal_email', 'personal_email_login'),
+                            ('institutional_email', 'institutional_email_login')):
+            wanted = flag in request.form
+            value = getattr(current_user, field)
+            if wanted and value and _login_email_taken(current_user, value):
+                flash(f'El email {value} ya lo usa otro miembro para iniciar '
+                      'sesión, no se puede habilitar.', 'error')
+                wanted = False
+            setattr(current_user, flag, wanted and bool(value))
         current_user.phone = request.form.get('phone', current_user.phone)
         current_user.phone_public = 'phone_public' in request.form
         
@@ -146,7 +184,7 @@ def forgot_password():
 
     if request.method == 'POST':
         email = request.form.get('email', '').strip().lower()
-        member = Member.query.filter_by(email=email).first() if email else None
+        member = _member_by_login_email(email)
 
         if member:
             token = _reset_serializer().dumps(member.id)
@@ -156,7 +194,7 @@ def forgot_password():
                 from app import mail
                 msg = Message(
                     subject='[GIPIS] Restablecer tu contraseña',
-                    recipients=[member.email],
+                    recipients=[email],
                 )
                 msg.body = (
                     f"Hola {member.name},\n\n"

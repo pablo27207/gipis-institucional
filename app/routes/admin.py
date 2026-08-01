@@ -240,6 +240,39 @@ def _item_slug(title):
 # Red de Colaboración
 # ==========================================
 
+PARTNER_IMAGE_EXTENSIONS = {'png', 'jpg', 'jpeg', 'webp', 'svg'}
+
+
+def _partner_upload_folder():
+    folder = os.path.join(current_app.static_folder, 'img', 'partners')
+    os.makedirs(folder, exist_ok=True)
+    return folder
+
+
+def _save_partner_image(partner):
+    """Guardar el logo subido (si hay); devuelve True si hubo error de formato."""
+    image = request.files.get('image')
+    if not image or not image.filename:
+        return False
+    ext = image.filename.rsplit('.', 1)[-1].lower()
+    if ext not in PARTNER_IMAGE_EXTENSIONS:
+        flash('Formato de imagen no permitido. Usá PNG, JPG, WebP o SVG.', 'error')
+        return True
+    _delete_partner_image(partner)
+    filename = f"{partner.id}.{ext}"
+    image.save(os.path.join(_partner_upload_folder(), filename))
+    partner.image = f"partners/{filename}"
+    return False
+
+
+def _delete_partner_image(partner):
+    if partner.image:
+        path = os.path.join(current_app.static_folder, 'img', partner.image)
+        if os.path.exists(path):
+            os.remove(path)
+        partner.image = None
+
+
 @bp.route('/partners', methods=['GET', 'POST'])
 @admin_required
 def partners():
@@ -250,11 +283,16 @@ def partners():
             return redirect(url_for('admin.partners'))
 
         max_order = db.session.query(db.func.max(Partner.order)).scalar() or 0
-        db.session.add(Partner(
+        partner = Partner(
             name=name,
             url=request.form.get('url', '').strip() or None,
             order=max_order + 1,
-        ))
+        )
+        db.session.add(partner)
+        db.session.flush()  # asigna id para nombrar el archivo del logo
+        if _save_partner_image(partner):
+            db.session.rollback()
+            return redirect(url_for('admin.partners'))
         db.session.commit()
         flash(f'"{name}" agregada a la Red de Colaboración.', 'success')
         return redirect(url_for('admin.partners'))
@@ -417,6 +455,10 @@ def edit_partner(partner_id):
     order = request.form.get('order', type=int)
     if order is not None:
         partner.order = order
+    if request.form.get('remove_image') == '1':
+        _delete_partner_image(partner)
+    if _save_partner_image(partner):
+        return redirect(url_for('admin.partners'))
     db.session.commit()
     flash('Organización actualizada.', 'success')
     return redirect(url_for('admin.partners'))
@@ -426,6 +468,7 @@ def edit_partner(partner_id):
 @admin_required
 def delete_partner(partner_id):
     partner = Partner.query.get_or_404(partner_id)
+    _delete_partner_image(partner)
     db.session.delete(partner)
     db.session.commit()
     flash('Organización eliminada.', 'success')

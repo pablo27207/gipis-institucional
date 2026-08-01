@@ -71,15 +71,23 @@
 
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
             {% for partner in partners %}
+            {% set partner_content %}
+                {% if partner.image %}
+                <img src="{{ url_for('static', filename='img/' ~ partner.image) }}" alt="{{ partner.name }}"
+                    title="{{ partner.name }}" class="max-h-14 max-w-full object-contain" />
+                {% else %}
+                <span class="text-slate-400 font-semibold text-sm text-center">{{ partner.name }}</span>
+                {% endif %}
+            {% endset %}
             {% if partner.url %}
             <a href="{{ partner.url }}" target="_blank" rel="noopener"
-                class="bg-white dark:bg-slate-900 rounded-xl p-8 flex items-center justify-center h-24 border border-slate-100 dark:border-slate-800 hover:shadow-lg transition-shadow">
-                <span class="text-slate-400 font-semibold text-sm text-center">{{ partner.name }}</span>
+                class="bg-white {% if not partner.image %}dark:bg-slate-900{% endif %} rounded-xl p-6 flex items-center justify-center h-24 border border-slate-100 dark:border-slate-800 hover:shadow-lg transition-shadow">
+                {{ partner_content }}
             </a>
             {% else %}
             <div
-                class="bg-white dark:bg-slate-900 rounded-xl p-8 flex items-center justify-center h-24 border border-slate-100 dark:border-slate-800 hover:shadow-lg transition-shadow">
-                <span class="text-slate-400 font-semibold text-sm text-center">{{ partner.name }}</span>
+                class="bg-white {% if not partner.image %}dark:bg-slate-900{% endif %} rounded-xl p-6 flex items-center justify-center h-24 border border-slate-100 dark:border-slate-800 hover:shadow-lg transition-shadow">
+                {{ partner_content }}
             </div>
             {% endif %}
             {% endfor %}

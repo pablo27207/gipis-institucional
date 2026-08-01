@@ -232,6 +232,24 @@ TRANSLATIONS = {
         'News from GIPIS, the Information Processing and Sensors Research Group.',
     'Detalle': 'Detail',
     'Volver a Novedades': 'Back to News',
+    'Anterior': 'Previous',
+    'Siguiente': 'Next',
+    'Paginación': 'Pagination',
+
+    # --- Producción científica ---
+    'Producción Científica': 'Scientific Production',
+    'Producción': 'Production',
+    'Producción científica del GIPIS: publicaciones, proyectos y tesis del grupo de investigación.':
+        'Scientific production of GIPIS: publications, projects and theses of the research group.',
+    'Publicaciones, proyectos y tesis del grupo. Usá los filtros para encontrar trabajos específicos.':
+        'Publications, projects and theses of the group. Use the filters to find specific works.',
+    'Buscar por título o autor…': 'Search by title or author…',
+    'Todos los años': 'All years',
+    'Todas las secciones': 'All sections',
+    'Limpiar filtros': 'Clear filters',
+    'No se encontraron resultados con esos filtros.': 'No results were found with those filters.',
+    'La producción del grupo se mostrará próximamente.': "The group's production will be published soon.",
+    'Ver toda la producción': 'View all production',
 
     # --- Contacto ---
     'Estamos interesados en establecer nuevas colaboraciones y responder tus consultas.':

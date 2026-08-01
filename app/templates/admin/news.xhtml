@@ -71,6 +71,25 @@
                         <input type="file" name="image" accept=".png,.jpg,.jpeg,.webp"
                             class="text-sm text-slate-600 dark:text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-primary/10 file:text-primary file:font-medium file:cursor-pointer" />
                     </div>
+                    <details class="md:col-span-2 border border-slate-100 dark:border-slate-800 rounded-lg group/en">
+                        <summary class="flex items-center justify-between p-4 cursor-pointer list-none text-sm font-medium text-slate-700 dark:text-slate-300">
+                            <span class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary text-lg">translate</span>
+                                Traducción al inglés (opcional)
+                            </span>
+                            <span class="material-symbols-outlined text-slate-400 group-open/en:rotate-180 transition-transform">expand_more</span>
+                        </summary>
+                        <div class="px-4 pb-4 space-y-3">
+                            <p class="text-xs text-slate-400">Si se completa, los visitantes que usen el sitio en inglés
+                                verán esta versión; si no, se muestra el texto en español.</p>
+                            <input type="text" name="title_en" placeholder="Title (English)"
+                                class="w-full px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm" />
+                            <textarea name="excerpt_en" rows="2" maxlength="500" placeholder="Summary (English)"
+                                class="w-full px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm"></textarea>
+                            <textarea name="content_en" rows="4" placeholder="Content (English)"
+                                class="w-full px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm"></textarea>
+                        </div>
+                    </details>
                     <div>
                         <button type="submit"
                             class="inline-flex items-center gap-2 bg-primary hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-medium transition-all">
@@ -128,6 +147,24 @@
                                 <textarea name="content" rows="6" placeholder="Contenido"
                                     class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm">{{ n.content_text }}</textarea>
                             </div>
+                            <details class="md:col-span-2 border border-slate-100 dark:border-slate-800 rounded-lg group/en"
+                                {% if n.title_en or n.excerpt_en or n.content_en %}open{% endif %}>
+                                <summary class="flex items-center justify-between p-3 cursor-pointer list-none text-sm font-medium text-slate-700 dark:text-slate-300">
+                                    <span class="flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-primary text-lg">translate</span>
+                                        Traducción al inglés (opcional)
+                                    </span>
+                                    <span class="material-symbols-outlined text-slate-400 group-open/en:rotate-180 transition-transform">expand_more</span>
+                                </summary>
+                                <div class="px-3 pb-3 space-y-3">
+                                    <input type="text" name="title_en" value="{{ n.title_en or '' }}" placeholder="Title (English)"
+                                        class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm" />
+                                    <textarea name="excerpt_en" rows="2" maxlength="500" placeholder="Summary (English)"
+                                        class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm">{{ n.excerpt_en or '' }}</textarea>
+                                    <textarea name="content_en" rows="4" placeholder="Content (English)"
+                                        class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm">{{ n.content_text_en }}</textarea>
+                                </div>
+                            </details>
                             <div class="md:col-span-2 flex items-center gap-4 flex-wrap">
                                 <input type="file" name="image" accept=".png,.jpg,.jpeg,.webp"
                                     class="text-sm text-slate-600 dark:text-slate-400 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-primary/10 file:text-primary file:font-medium file:cursor-pointer" />

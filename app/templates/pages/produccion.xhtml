@@ -1,0 +1,149 @@
+{% extends "base.xhtml" %}
+
+{% block title %}{{ _('Producción Científica') }}{% endblock %}
+{% block meta_description %}{{ _('Producción científica del GIPIS: publicaciones, proyectos y tesis del grupo de investigación.') }}{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="bg-white dark:bg-slate-900 py-20 border-b border-slate-100 dark:border-slate-800">
+    <div class="container mx-auto px-6">
+        <div class="max-w-3xl">
+            <nav class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">
+                <a class="hover:text-primary transition-colors" href="{{ url_for('main.home') }}">{{ _('Inicio') }}</a>
+                <span class="material-symbols-outlined text-[10px]">chevron_right</span>
+                <a class="hover:text-primary transition-colors"
+                    href="{{ url_for('main.investigacion') }}">{{ _('Investigación') }}</a>
+                <span class="material-symbols-outlined text-[10px]">chevron_right</span>
+                <span class="text-primary">{{ _('Producción') }}</span>
+            </nav>
+            <h1 class="font-display text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">{{ _('Producción Científica') }}</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+                {{ _('Publicaciones, proyectos y tesis del grupo. Usá los filtros para encontrar trabajos específicos.') }}
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Filters + Listing -->
+<section class="py-16 bg-background-light dark:bg-slate-950 transition-colors duration-300">
+    <div class="container mx-auto px-6">
+        <div class="max-w-4xl mx-auto">
+            <!-- Filter bar -->
+            <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-sm border border-slate-100 dark:border-slate-800 mb-10 flex gap-4 flex-wrap items-center">
+                <div class="relative flex-1 min-w-[220px]">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg pointer-events-none">search</span>
+                    <input type="search" id="filter-text" placeholder="{{ _('Buscar por título o autor…') }}"
+                        class="w-full pl-10 pr-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" />
+                </div>
+                <select id="filter-year"
+                    class="px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm">
+                    <option value="">{{ _('Todos los años') }}</option>
+                    {% for y in years %}
+                    <option value="{{ y }}">{{ y }}</option>
+                    {% endfor %}
+                </select>
+                <select id="filter-section"
+                    class="px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm">
+                    <option value="">{{ _('Todas las secciones') }}</option>
+                    {% for section in sections %}
+                    {% if section.items.count() > 0 %}
+                    <option value="{{ section.slug }}">{{ _(section.title) }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                <button type="button" id="filter-clear"
+                    class="hidden inline-flex items-center gap-1 text-slate-500 hover:text-primary text-sm font-medium transition-colors">
+                    <span class="material-symbols-outlined text-sm">filter_alt_off</span>
+                    {{ _('Limpiar filtros') }}
+                </button>
+            </div>
+
+            <!-- Items grouped by section -->
+            {% for section in sections %}
+            {% if section.items.count() > 0 %}
+            <div class="mb-12 production-group" data-section="{{ section.slug }}">
+                <h2 class="font-display text-xl font-bold text-slate-900 dark:text-white flex items-center gap-3 mb-6">
+                    <span class="w-6 h-0.5 bg-primary rounded-full"></span>
+                    {{ _(section.title) }}
+                    <span class="text-sm font-normal text-slate-400 group-count"></span>
+                </h2>
+                <div class="space-y-4">
+                    {% for item in section.items %}
+                    <div class="production-item bg-white dark:bg-slate-900 rounded-lg p-6 border border-slate-100 dark:border-slate-800"
+                        data-year="{{ item.year or '' }}" data-section="{{ section.slug }}"
+                        data-text="{{ ((item.title or '') ~ ' ' ~ (item.authors or ''))|lower }}">
+                        <h3 class="font-semibold text-slate-900 dark:text-white mb-2">{{ item.title }}</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">
+                            {% if item.authors %}{{ item.authors }}{% endif %}
+                            {% if item.year %}{% if item.authors %} · {% endif %}{{ item.year }}{% endif %}
+                        </p>
+                        {% if item.abstract %}
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-3">{{ item.abstract|truncate(280) }}</p>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+            <!-- No results -->
+            <div id="no-results" class="hidden text-center py-16 text-slate-400">
+                <span class="material-symbols-outlined text-5xl mb-4">search_off</span>
+                <p>{{ _('No se encontraron resultados con esos filtros.') }}</p>
+            </div>
+
+            {% if not sections or sections|selectattr('items')|list|length == 0 %}
+            <p class="text-slate-500 dark:text-slate-400">{{ _('La producción del grupo se mostrará próximamente.') }}</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<script>
+(function () {
+    var text = document.getElementById('filter-text');
+    var year = document.getElementById('filter-year');
+    var section = document.getElementById('filter-section');
+    var clearBtn = document.getElementById('filter-clear');
+    var items = Array.prototype.slice.call(document.querySelectorAll('.production-item'));
+    var groups = Array.prototype.slice.call(document.querySelectorAll('.production-group'));
+    var noResults = document.getElementById('no-results');
+
+    function apply() {
+        var q = text.value.trim().toLowerCase();
+        var y = year.value;
+        var s = section.value;
+        var anyFilter = q !== '' || y !== '' || s !== '';
+        var visible = 0;
+
+        items.forEach(function (el) {
+            var ok = (!q || el.dataset.text.indexOf(q) !== -1) &&
+                     (!y || el.dataset.year === y) &&
+                     (!s || el.dataset.section === s);
+            el.style.display = ok ? '' : 'none';
+            if (ok) visible++;
+        });
+
+        groups.forEach(function (g) {
+            var count = g.querySelectorAll('.production-item:not([style*="none"])').length;
+            g.style.display = count ? '' : 'none';
+            var badge = g.querySelector('.group-count');
+            if (badge) badge.textContent = '(' + count + ')';
+        });
+
+        noResults.classList.toggle('hidden', visible > 0);
+        clearBtn.classList.toggle('hidden', !anyFilter);
+    }
+
+    text.addEventListener('input', apply);
+    year.addEventListener('change', apply);
+    section.addEventListener('change', apply);
+    clearBtn.addEventListener('click', function () {
+        text.value = ''; year.value = ''; section.value = '';
+        apply();
+    });
+    apply();
+})();
+</script>
+{% endblock %}

@@ -396,9 +396,12 @@ def news():
         item = News(
             slug=_news_slug(title),
             title=title[:300],
+            title_en=request.form.get('title_en', '').strip()[:300] or None,
             category=request.form.get('category', '').strip()[:100] or None,
             excerpt=request.form.get('excerpt', '').strip()[:500] or None,
+            excerpt_en=request.form.get('excerpt_en', '').strip()[:500] or None,
             content=_news_content_html(request.form.get('content')),
+            content_en=_news_content_html(request.form.get('content_en')),
             published_at=_parse_published_at(request.form.get('published_at')),
         )
         if _save_news_image(item):
@@ -412,6 +415,7 @@ def news():
     all_news = News.query.order_by(News.published_at.desc()).all()
     for n in all_news:
         n.content_text = _news_content_text(n.content)
+        n.content_text_en = _news_content_text(n.content_en)
     return render_template('admin/news.xhtml', news=all_news,
                            today=date.today().isoformat())
 
@@ -421,9 +425,12 @@ def news():
 def edit_news(news_id):
     item = News.query.get_or_404(news_id)
     item.title = request.form.get('title', item.title).strip()[:300] or item.title
+    item.title_en = request.form.get('title_en', '').strip()[:300] or None
     item.category = request.form.get('category', '').strip()[:100] or None
     item.excerpt = request.form.get('excerpt', '').strip()[:500] or None
+    item.excerpt_en = request.form.get('excerpt_en', '').strip()[:500] or None
     item.content = _news_content_html(request.form.get('content'))
+    item.content_en = _news_content_html(request.form.get('content_en'))
     if request.form.get('published_at'):
         item.published_at = _parse_published_at(request.form.get('published_at'))
     if request.form.get('remove_image') == '1':

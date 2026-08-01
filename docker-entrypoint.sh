@@ -46,6 +46,9 @@ else
     if [ -f /app/scripts/add_partner_image_login_flags.py ]; then
         python scripts/add_partner_image_login_flags.py
     fi
+    if [ -f /app/scripts/add_translation_columns.py ]; then
+        python scripts/add_translation_columns.py
+    fi
 fi
 
 echo "Starting server..."

@@ -66,7 +66,7 @@
                             {{ member.position or member.degree or 'CARGO' }}
                         </p>
                         <p class="text-slate-500 dark:text-slate-400 text-xs mb-6 line-clamp-2">
-                            {% if member.bio %}{{ member.bio[:100] }}...{% else %}Lorem ipsum dolor sit amet,
+                            {% if member.bio %}{{ loc(member, 'bio')[:100] }}...{% else %}Lorem ipsum dolor sit amet,
                             consectetur adipiscing elit.{% endif %}
                         </p>
                         <div

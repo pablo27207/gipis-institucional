@@ -32,10 +32,21 @@ def create_app(config_class=Config):
     @app.context_processor
     def inject_i18n():
         lang = session.get('lang', 'es')
+
+        def loc(obj, field):
+            """Contenido dinámico: versión _en si la interfaz está en inglés
+            y existe traducción; si no, el original."""
+            if lang == 'en':
+                translated = getattr(obj, f'{field}_en', None)
+                if translated:
+                    return translated
+            return getattr(obj, field)
+
         return {
             '_': lambda text: translate(text, lang),
             'current_lang': lang,
             'format_date': lambda dt, short=False: format_date(dt, lang, short),
+            'loc': loc,
         }
 
     @app.errorhandler(413)

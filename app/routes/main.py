@@ -106,6 +106,17 @@ def investigacion():
     return render_template('pages/investigacion.xhtml', lines=lines, sections=sections)
 
 
+@bp.route('/investigacion/produccion')
+def produccion():
+    """Producción científica completa, con búsqueda y filtros en el cliente"""
+    sections = ResearchSection.query.order_by(ResearchSection.order).all()
+    years = sorted({
+        item.year for section in sections for item in section.items
+        if item.year
+    }, reverse=True)
+    return render_template('pages/produccion.xhtml', sections=sections, years=years)
+
+
 @bp.route('/investigacion/<int:line_id>')
 def linea_detalle(line_id):
     """Detalle de una línea de investigación"""
@@ -125,10 +136,12 @@ def cooperacion():
 
 @bp.route('/novedades')
 def novedades():
-    """Listado de novedades"""
-    page = 1  # TODO: implementar paginación
-    news = News.query.order_by(News.published_at.desc()).all()
-    return render_template('pages/novedades.xhtml', news=news)
+    """Listado de novedades, paginado"""
+    page = request.args.get('page', 1, type=int)
+    pagination = News.query.order_by(News.published_at.desc()).paginate(
+        page=page, per_page=9, error_out=False)
+    return render_template('pages/novedades.xhtml',
+                           news=pagination.items, pagination=pagination)
 
 
 @bp.route('/novedades/<slug>')

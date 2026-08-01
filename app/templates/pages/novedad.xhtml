@@ -1,7 +1,7 @@
 {% extends "base.xhtml" %}
 
-{% block title %}{{ news.title }}{% endblock %}
-{% block meta_description %}{{ news.excerpt or news.title }}. {{ _('Novedad del GIPIS, Grupo de Investigación en Procesamiento de la Información y Sensores.') }}{% endblock %}
+{% block title %}{{ loc(news, 'title') }}{% endblock %}
+{% block meta_description %}{{ loc(news, 'excerpt') or loc(news, 'title') }}. {{ _('Novedad del GIPIS, Grupo de Investigación en Procesamiento de la Información y Sensores.') }}{% endblock %}
 
 {% block content %}
 <!-- Page Header -->
@@ -37,7 +37,7 @@
                 </span>
             </div>
             <h1 class="font-display text-4xl md:text-5xl font-bold text-slate-900 dark:text-white leading-tight">{{
-                news.title }}</h1>
+                loc(news, 'title') }}</h1>
         </div>
     </div>
 </section>
@@ -48,7 +48,7 @@
         <div class="max-w-3xl mx-auto">
             {% if news.image %}
             <div class="mb-12 rounded-2xl overflow-hidden shadow-lg">
-                <img src="{{ url_for('static', filename='img/' ~ news.image) }}" alt="{{ news.title }}"
+                <img src="{{ url_for('static', filename='img/' ~ news.image) }}" alt="{{ loc(news, 'title') }}"
                     class="w-full h-auto object-cover" />
             </div>
             {% endif %}
@@ -57,10 +57,10 @@
                 class="bg-white dark:bg-slate-900 rounded-2xl p-8 md:p-12 shadow-sm border border-slate-100 dark:border-slate-800">
                 <div class="prose prose-lg prose-slate dark:prose-invert max-w-none">
                     {% if news.content %}
-                    {{ news.content|safe }}
+                    {{ loc(news, 'content')|safe }}
                     {% else %}
                     <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
-                        {{ news.excerpt or 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+                        {{ loc(news, 'excerpt') or 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
                         tempor incididunt ut labore et dolore magna aliqua.' }}
                     </p>
                     <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">

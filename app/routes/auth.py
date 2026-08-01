@@ -95,6 +95,7 @@ def edit_profile():
         current_user.degree = request.form.get('degree', current_user.degree)
         current_user.position = request.form.get('position', current_user.position)
         current_user.bio = request.form.get('bio', current_user.bio)
+        current_user.bio_en = request.form.get('bio_en', '').strip() or None
         current_user.linkedin = request.form.get('linkedin', current_user.linkedin)
 
         orcid_raw = request.form.get('orcid', '').strip()

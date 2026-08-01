@@ -139,6 +139,11 @@
                     {{ _('I+D+i Activo') }}</div>
                 <h2 class="font-display text-3xl font-bold text-slate-900 dark:text-white">{{ _('Proyectos Activos') }}</h2>
             </div>
+            <a href="{{ url_for('main.produccion') }}"
+                class="inline-flex items-center gap-2 bg-primary hover:bg-blue-600 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition-all">
+                <span class="material-symbols-outlined text-sm">manage_search</span>
+                {{ _('Ver toda la producción') }}
+            </a>
         </div>
 
         {% if sections %}

@@ -42,29 +42,19 @@ página y quién la administra. Con un solo token se harvestean las dos redes.
 
 ---
 
-## 📈 Google Search Console (requiere acción de Pablo)
+## 📈 Google Search Console — HECHO (2026-08-01)
 
-**Prioridad**: Alta, esfuerzo bajo  
-**Descripción**: El sitio ya expone `sitemap.xml`, `robots.txt` y datos estructurados
-schema.org (organización, personas, novedades). Falta darlo de alta en Search Console
-para que Google lo indexe bien y reporte problemas:
-
-1. Entrar a https://search.google.com/search-console con una cuenta de Google del grupo.
-2. Agregar propiedad → "Prefijo de la URL" → `https://gipis.unp.edu.ar`.
-3. Verificar con la opción "Etiqueta HTML": copiar el `content` de la meta etiqueta
-   que da Google y pasárselo a Claude para agregarla al `<head>` del sitio (un deploy).
-4. En "Sitemaps", enviar `https://gipis.unp.edu.ar/sitemap.xml`.
+**Configurado**: propiedad `https://gipis.unp.edu.ar` verificada (archivo
+`google69166b95c779df06.html` servido por una ruta permanente — no borrar) y
+sitemap enviado, con 19 páginas descubiertas. En el camino se corrigió que las
+URLs generadas fueran https (ProxyFix en Flask + trustedIPs en Traefik).
 
 ---
 
-## 📶 Monitoreo de uptime (requiere acción de Pablo)
+## 📶 Monitoreo de uptime — HECHO (2026-08-01)
 
-**Prioridad**: Media, esfuerzo bajo  
-**Descripción**: Avisa por email si el sitio se cae. Pasos:
-
-1. Crear cuenta gratuita en https://uptimerobot.com (50 monitores gratis).
-2. Add New Monitor → tipo HTTP(s) → URL `https://gipis.unp.edu.ar` → intervalo 5 min.
-3. Configurar alerta al email del grupo (gipis.unp@gmail.com).
+**Configurado**: monitor HTTP(s) de UptimeRobot sobre `https://gipis.unp.edu.ar`
+cada 5 minutos, con alerta por email.
 
 ---
 

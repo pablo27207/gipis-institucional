@@ -14,6 +14,11 @@ mail = Mail()
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
+
+    # Detrás de Traefik: respetar esquema (https), host e IP reales del
+    # pedido original — sin esto url_for(_external=True) genera http://
+    from werkzeug.middleware.proxy_fix import ProxyFix
+    app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1)
     
     db.init_app(app)
     login_manager.init_app(app)

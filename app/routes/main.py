@@ -23,12 +23,13 @@ def home():
 
 @bp.route('/equipo')
 def equipo():
-    """Nuestro Equipo (ordenado por jerarquía del cargo, ver Member.position_rank)"""
+    """Nuestro Equipo. Orden: primero quienes tienen foto (incentivo a subirla),
+    luego por jerarquía del cargo (Member.position_rank) y alfabético por nombre."""
     categories = Category.query.order_by(Category.order).all()
     for category in categories:
         category.sorted_members = sorted(
             category.members.filter_by(is_active=True),
-            key=lambda m: (m.position_rank, m.order, m.name.lower()))
+            key=lambda m: (0 if m.photo else 1, m.position_rank, m.name.lower()))
     return render_template('pages/equipo.xhtml', categories=categories)
 
 

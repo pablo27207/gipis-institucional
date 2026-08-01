@@ -17,15 +17,16 @@ Ideas y funcionalidades a implementar en el futuro.
 
 ---
 
-## 🔄 Harvesting desde LinkedIn
+## 🔄 Harvesting desde LinkedIn — DESCARTADO (2026-07-31)
 
-**Prioridad**: Alta  
-**Descripción**: Sincronizar automáticamente la información de los perfiles de miembros con sus datos en LinkedIn (publicaciones, experiencia, educación).
+**Decisión**: Se descartó la sincronización automática desde LinkedIn. La API oficial
+(Community Management API) requiere una app aprobada por LinkedIn con proceso de revisión,
+y el scraping va contra los términos de servicio. En su lugar se implementó la
+**integración con ORCID** (ver abajo) y se ajustaron los textos de Novedades para no
+prometer una sincronización que no existe (LinkedIn queda como link a la página del grupo).
 
-**Consideraciones**:
-- La API oficial de LinkedIn tiene restricciones importantes (requiere app aprobada)
-- Alternativas: scraping controlado, importación manual periódica, o integración con ORCID (más abierto para perfiles académicos)
-- Evaluar ORCID como complemento/alternativa
+Si en el futuro se quiere retomar: la alternativa razonable es carga semi-manual de
+novedades con link al post original de LinkedIn.
 
 ---
 
@@ -38,7 +39,10 @@ Ideas y funcionalidades a implementar en el futuro.
 
 ---
 
-## 📊 ORCID Integration
+## 📊 ORCID Integration — HECHO (2026-07-31)
 
-**Prioridad**: Baja  
-**Descripción**: Permitir a los miembros vincular su perfil ORCID para importar automáticamente sus publicaciones académicas. La API de ORCID es abierta y está diseñada para este tipo de integración.
+**Implementado**: Los miembros pueden cargar su ORCID iD en el perfil (validado con
+checksum, se muestra en su página pública) e importar sus trabajos públicos desde
+"Mi Producción" con pantalla de revisión (mismo patrón que SIGEVA). Cliente de la API
+pública en `app/orcid.py` (sin dependencias nuevas, `urllib`). Los trabajos importados
+quedan con `source='orcid'` y se pueden compartir a la página de Investigación.

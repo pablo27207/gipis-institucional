@@ -36,6 +36,7 @@ class Member(UserMixin, db.Model):
     phone_public = db.Column(db.Boolean, default=False)
     password_hash = db.Column(db.String(256))
     linkedin = db.Column(db.String(255))
+    orcid = db.Column(db.String(19))  # iD canónico 0000-0000-0000-0000
     photo = db.Column(db.String(255))
     order = db.Column(db.Integer, default=0)
     is_active = db.Column(db.Boolean, default=True)

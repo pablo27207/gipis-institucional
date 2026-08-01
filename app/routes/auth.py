@@ -68,6 +68,18 @@ def edit_profile():
         current_user.position = request.form.get('position', current_user.position)
         current_user.bio = request.form.get('bio', current_user.bio)
         current_user.linkedin = request.form.get('linkedin', current_user.linkedin)
+
+        orcid_raw = request.form.get('orcid', '').strip()
+        if orcid_raw:
+            from app.orcid import normalize_orcid_id
+            orcid_id = normalize_orcid_id(orcid_raw)
+            if not orcid_id:
+                flash('El ORCID iD no es válido. Copialo de tu perfil en orcid.org '
+                      '(formato 0000-0000-0000-0000).', 'error')
+                return redirect(url_for('auth.edit_profile'))
+            current_user.orcid = orcid_id
+        else:
+            current_user.orcid = None
         
         # Manejar emails con visibilidad
         current_user.personal_email = request.form.get('personal_email', current_user.personal_email)
@@ -448,6 +460,116 @@ def sigeva_import():
         parts.append(f'{skipped} ya existían')
     if profile_updates:
         parts.append(f'perfil actualizado ({", ".join(profile_updates)})')
+    flash('. '.join(parts) + '.', 'success')
+    return redirect(url_for('auth.works'))
+
+
+# ==========================================
+# Importación desde ORCID
+# ==========================================
+
+@bp.route('/orcid/fetch', methods=['POST'])
+@login_required
+def orcid_fetch():
+    """Consultar la API pública de ORCID y mostrar la pantalla de revisión"""
+    from app.orcid import normalize_orcid_id, fetch_orcid_works, OrcidError
+
+    # Permite pasar el iD en el formulario (y de paso guardarlo en el perfil)
+    orcid_raw = request.form.get('orcid', '').strip()
+    if orcid_raw:
+        orcid_id = normalize_orcid_id(orcid_raw)
+        if not orcid_id:
+            flash('El ORCID iD no es válido. Copialo de tu perfil en orcid.org '
+                  '(formato 0000-0000-0000-0000).', 'error')
+            return redirect(url_for('auth.works'))
+        if current_user.orcid != orcid_id:
+            current_user.orcid = orcid_id
+            db.session.commit()
+    else:
+        orcid_id = current_user.orcid
+
+    if not orcid_id:
+        flash('Cargá tu ORCID iD para poder importar tus publicaciones.', 'error')
+        return redirect(url_for('auth.works'))
+
+    try:
+        result = fetch_orcid_works(orcid_id)
+    except OrcidError as e:
+        flash(str(e), 'error')
+        return redirect(url_for('auth.works'))
+    except Exception:
+        current_app.logger.exception('Error consultando ORCID')
+        flash('Ocurrió un error inesperado consultando ORCID.', 'error')
+        return redirect(url_for('auth.works'))
+
+    if not result['items']:
+        flash('El registro ORCID no tiene trabajos públicos para importar.', 'error')
+        return redirect(url_for('auth.works'))
+
+    existing = {w.title.lower() for w in current_user.works}
+    for item in result['items']:
+        item['duplicate'] = item['title'].lower() in existing
+
+    groups = {}
+    for idx, item in enumerate(result['items']):
+        groups.setdefault(item['group'], []).append((idx, item))
+
+    import json
+    return render_template(
+        'auth/orcid_review.xhtml',
+        orcid_id=orcid_id,
+        orcid_name=result['name'],
+        groups=groups,
+        payload=json.dumps({'items': result['items']}),
+    )
+
+
+@bp.route('/orcid/import', methods=['POST'])
+@login_required
+def orcid_import():
+    """Guardar los trabajos de ORCID seleccionados en la revisión"""
+    import json
+    try:
+        payload = json.loads(request.form.get('payload', '{}'))
+    except ValueError:
+        flash('Datos de importación inválidos. Volvé a consultar ORCID.', 'error')
+        return redirect(url_for('auth.works'))
+
+    items = payload.get('items', [])
+    selected = {int(i) for i in request.form.getlist('item') if i.isdigit()}
+
+    existing = {w.title.lower() for w in current_user.works}
+    imported = skipped = 0
+    for idx in sorted(selected):
+        if idx >= len(items):
+            continue
+        item = items[idx]
+        title = (item.get('title') or '').strip()
+        if not title:
+            continue
+        if title.lower() in existing:
+            skipped += 1
+            continue
+        kind = item.get('kind')
+        if kind not in MemberWork.KINDS:
+            kind = 'publication'
+        db.session.add(MemberWork(
+            member_id=current_user.id,
+            kind=kind,
+            title=title[:500],
+            authors=(item.get('authors') or '')[:500] or None,
+            year=(item.get('year') or '')[:10] or None,
+            detail=item.get('detail') or None,
+            source='orcid',
+        ))
+        existing.add(title.lower())
+        imported += 1
+
+    db.session.commit()
+
+    parts = [f'{imported} trabajos importados desde ORCID']
+    if skipped:
+        parts.append(f'{skipped} ya existían')
     flash('. '.join(parts) + '.', 'success')
     return redirect(url_for('auth.works'))
 

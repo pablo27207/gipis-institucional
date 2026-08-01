@@ -37,6 +37,9 @@ else
     if [ -f /app/scripts/add_member_features.py ]; then
         python scripts/add_member_features.py
     fi
+    if [ -f /app/scripts/add_orcid_column.py ]; then
+        python scripts/add_orcid_column.py
+    fi
 fi
 
 echo "Starting server..."

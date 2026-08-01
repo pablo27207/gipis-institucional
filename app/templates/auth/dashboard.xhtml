@@ -183,6 +183,17 @@
                                 </dd>
                             </div>
                             <div class="grid grid-cols-3 gap-4 py-3 border-b border-slate-100 dark:border-slate-800">
+                                <dt class="text-sm font-medium text-slate-500">ORCID</dt>
+                                <dd class="col-span-2 text-sm text-slate-900 dark:text-white">
+                                    {% if current_user.orcid %}
+                                    <a href="https://orcid.org/{{ current_user.orcid }}" target="_blank"
+                                        class="text-primary hover:underline">{{ current_user.orcid }}</a>
+                                    {% else %}
+                                    —
+                                    {% endif %}
+                                </dd>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4 py-3 border-b border-slate-100 dark:border-slate-800">
                                 <dt class="text-sm font-medium text-slate-500">Teléfono</dt>
                                 <dd class="col-span-2 text-sm text-slate-900 dark:text-white flex items-center gap-2">
                                     {{ current_user.phone or '—' }}

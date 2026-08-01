@@ -99,6 +99,15 @@
                                 LinkedIn
                             </a>
                             {% endif %}
+                            {% if member.orcid %}
+                            <a href="https://orcid.org/{{ member.orcid }}" target="_blank" rel="noopener"
+                                class="inline-flex items-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 px-6 py-3 rounded-lg font-semibold transition-all">
+                                <svg class="w-5 h-5 text-[#A6CE39]" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true">
+                                    <path d="M128 0C57.3 0 0 57.3 0 128s57.3 128 128 128 128-57.3 128-128S198.7 0 128 0zM86.3 186.2H70.9V79.1h15.4v107.1zm-7.7-116.3c-5.5 0-10-4.5-10-10s4.5-10 10-10 10 4.5 10 10-4.5 10-10 10zm102.6 116.3h-38.4V79.1h37.3c35.5 0 51.1 25.4 51.1 53.6 0 30.6-17.9 53.5-50 53.5zm-1.1-93.2h-22v79.3h21.9c31.3 0 38.5-23.8 38.5-39.7 0-21.5-13.7-39.6-38.4-39.6z"/>
+                                </svg>
+                                ORCID
+                            </a>
+                            {% endif %}
                             <a href="{{ url_for('main.member_vcard', slug=member.slug) }}"
                                 class="inline-flex items-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 px-6 py-3 rounded-lg font-semibold transition-all">
                                 <span class="material-symbols-outlined">contact_page</span>

@@ -216,10 +216,9 @@ TRANSLATIONS = {
     'No hay novedades publicadas por el momento.': 'There are no news posted at the moment.',
     'Novedades y noticias del GIPIS. Congresos, publicaciones, proyectos y actividades del grupo de investigación.':
         'News and updates from GIPIS. Conferences, publications, projects and activities of the research group.',
-    'Mantenete al día con las últimas publicaciones del grupo. El contenido se sincroniza automáticamente desde nuestras redes sociales.':
-        "Stay up to date with the group's latest posts. Content is automatically synced from our social media channels.",
-    'Contenido sincronizado desde LinkedIn': 'Content synced from LinkedIn',
-    'Última actualización: hace 2 horas': 'Last updated: 2 hours ago',
+    'GIPIS en LinkedIn': 'GIPIS on LinkedIn',
+    'Compartimos nuestras novedades también en LinkedIn':
+        'We also share our news on LinkedIn',
     'Seguir en LinkedIn': 'Follow on LinkedIn',
     'Participación en el Congreso Nacional de Procesamiento':
         'Participation in the National Congress on Signal Processing',
@@ -232,12 +231,9 @@ TRANSLATIONS = {
         'Strategic Partnership with the Local Productive Sector',
     'Se ha firmado un convenio para la implementación de dispositivos programables FPGA...':
         'An agreement has been signed for the implementation of FPGA programmable devices...',
-    'Las novedades se actualizan automáticamente desde LinkedIn':
-        'News items are automatically updated from LinkedIn',
     'Novedad del GIPIS, Grupo de Investigación en Procesamiento de la Información y Sensores.':
         'News from GIPIS, the Information Processing and Sensors Research Group.',
     'Detalle': 'Detail',
-    'Publicado en LinkedIn': 'Published on LinkedIn',
     '¿Te interesó esta publicación?': 'Did you find this post interesting?',
     'Seguinos en LinkedIn para más novedades': 'Follow us on LinkedIn for more news',
     'Volver a Novedades': 'Back to News',

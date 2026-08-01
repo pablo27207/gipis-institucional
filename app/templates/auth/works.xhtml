@@ -50,6 +50,41 @@
                 </form>
             </div>
 
+            <!-- Importar desde ORCID -->
+            <div class="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-sm border border-slate-100 dark:border-slate-800 mb-10">
+                <h2 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+                    <svg class="w-6 h-6 text-[#A6CE39]" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true">
+                        <path d="M128 0C57.3 0 0 57.3 0 128s57.3 128 128 128 128-57.3 128-128S198.7 0 128 0zM86.3 186.2H70.9V79.1h15.4v107.1zm-7.7-116.3c-5.5 0-10-4.5-10-10s4.5-10 10-10 10 4.5 10 10-4.5 10-10 10zm102.6 116.3h-38.4V79.1h37.3c35.5 0 51.1 25.4 51.1 53.6 0 30.6-17.9 53.5-50 53.5zm-1.1-93.2h-22v79.3h21.9c31.3 0 38.5-23.8 38.5-39.7 0-21.5-13.7-39.6-38.4-39.6z"/>
+                    </svg>
+                    Importar desde ORCID
+                </h2>
+                {% if current_user.orcid %}
+                <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Vamos a buscar los trabajos públicos de tu
+                    registro <a href="https://orcid.org/{{ current_user.orcid }}" target="_blank" rel="noopener"
+                        class="text-primary hover:underline font-medium">{{ current_user.orcid }}</a>.
+                    Vas a poder revisar y elegir qué importar antes de guardar.</p>
+                <form method="post" action="{{ url_for('auth.orcid_fetch') }}">
+                    <button type="submit"
+                        class="inline-flex items-center gap-2 bg-primary hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-medium transition-all">
+                        <span class="material-symbols-outlined">manage_search</span>
+                        Buscar mis publicaciones
+                    </button>
+                </form>
+                {% else %}
+                <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Ingresá tu ORCID iD (o la URL de tu perfil
+                    en orcid.org) para buscar tus trabajos públicos. Se guarda en tu perfil para la próxima vez.</p>
+                <form method="post" action="{{ url_for('auth.orcid_fetch') }}" class="flex gap-4 flex-wrap items-center">
+                    <input type="text" name="orcid" required placeholder="0000-0000-0000-0000"
+                        class="px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm w-64" />
+                    <button type="submit"
+                        class="inline-flex items-center gap-2 bg-primary hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-medium transition-all">
+                        <span class="material-symbols-outlined">manage_search</span>
+                        Buscar publicaciones
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+
             <!-- Agregar a mano -->
             <details class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 mb-10 group">
                 <summary class="flex items-center justify-between p-8 cursor-pointer list-none">
@@ -128,6 +163,8 @@
                                 {% endif %}
                                 {% if work.source == 'sigeva' %}
                                 <span class="inline-flex px-2 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">SIGEVA</span>
+                                {% elif work.source == 'orcid' %}
+                                <span class="inline-flex px-2 py-0.5 rounded-full text-xs font-medium bg-lime-50 text-lime-700 dark:bg-lime-900/30 dark:text-lime-400">ORCID</span>
                                 {% endif %}
                                 <span class="material-symbols-outlined text-slate-400 group-open:rotate-180 transition-transform">expand_more</span>
                             </div>

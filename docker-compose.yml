@@ -38,6 +38,9 @@ services:
 
       # Entrypoints (solo HTTP interno, HTTPS lo maneja nginx)
       - "--entrypoints.web.address=:80"
+      # Confiar en los X-Forwarded-* que manda nginx desde la red interna
+      # de Docker (sin esto Traefik pisa X-Forwarded-Proto con "http")
+      - "--entrypoints.web.forwardedHeaders.trustedIPs=10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
 
       # Logs
       - "--log.level=INFO"

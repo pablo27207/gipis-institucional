@@ -31,99 +31,29 @@
 <!-- Research Lines -->
 <section class="py-24 bg-background-light dark:bg-slate-950 transition-colors duration-300">
     <div class="container mx-auto px-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12 max-w-5xl mx-auto">
             {% if lines %}
             {% for line in lines %}
-            <a href="{{ url_for('main.linea_detalle', line_id=line.id) }}"
-                class="bg-white dark:bg-slate-900 rounded-xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 dark:border-slate-800 group block">
-                <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
-                    <span class="material-symbols-outlined text-primary text-2xl">{{ line.icon or 'science' }}</span>
-                </div>
-                <h3
-                    class="font-display text-xl font-bold text-slate-900 dark:text-white mb-4 group-hover:text-primary transition-colors">
-                    {{ line.title }}</h3>
-                <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">{{ line.description or 'Lorem
-                    ipsum dolor sit amet, consectetur adipiscing elit.' }}</p>
-                <span
-                    class="text-primary font-semibold text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
-                    {{ _('Saber más') }} <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                </span>
-            </a>
+            <div class="border-l-4 border-primary pl-6">
+                <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-3">{{ line.title }}</h3>
+                <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{{ line.description }}</p>
+            </div>
             {% endfor %}
             {% else %}
-            <!-- Default lines from prototype -->
-            <div
-                class="bg-white dark:bg-slate-900 rounded-xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 dark:border-slate-800">
-                <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
-                    <span class="material-symbols-outlined text-primary text-2xl">analytics</span>
-                </div>
-                <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-4">{{ _('Procesamiento Digital de Señales') }}</h3>
-                <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">{{ _('Desarrollo de algoritmos avanzados para el análisis y mejora de señales en diversos contextos, con aplicaciones en biometría y reconocimiento de patrones.') }}</p>
-                <a href="#"
-                    class="text-primary font-semibold text-sm flex items-center gap-1 hover:gap-2 transition-all">
-                    {{ _('Saber más') }} <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                </a>
+            <!-- Líneas por defecto (hasta que se carguen en la base) -->
+            {% for title, description in [
+                ('Procesamiento Digital de Señales', 'Desarrollo de algoritmos avanzados para el análisis y mejora de señales en diversos contextos, con aplicaciones en biometría y reconocimiento de patrones.'),
+                ('Redes PLC y Comunicaciones', 'Investigación en Power Line Communications (PLC) para la optimización de la transmisión de datos sobre infraestructuras eléctricas existentes.'),
+                ('Espacios Inteligentes', 'Implementación de sistemas de sensores interactivos y eficientes en contextos urbanos e inteligentes.'),
+                ('Sensores Subacuáticos', 'Despliegue y procesamiento de redes de sensores para el monitoreo de entornos marinos y campañas oceanográficas en la Patagonia.'),
+                ('Sistemas Embebidos y FPGA', 'Diseño de hardware dedicado para el procesamiento de alta velocidad mediante dispositivos programables para aplicaciones críticas.'),
+                ('Smart Grids', 'Optimización y monitoreo de redes eléctricas inteligentes para mejorar la eficiencia energética y la integración de renovables.'),
+            ] %}
+            <div class="border-l-4 border-primary pl-6">
+                <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-3">{{ _(title) }}</h3>
+                <p class="text-slate-600 dark:text-slate-400 leading-relaxed">{{ _(description) }}</p>
             </div>
-            <div
-                class="bg-white dark:bg-slate-900 rounded-xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 dark:border-slate-800">
-                <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
-                    <span class="material-symbols-outlined text-primary text-2xl">bolt</span>
-                </div>
-                <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-4">{{ _('Redes PLC y Comunicaciones') }}</h3>
-                <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">{{ _('Investigación en Power Line Communications (PLC) para la optimización de la transmisión de datos sobre infraestructuras eléctricas existentes.') }}</p>
-                <a href="#"
-                    class="text-primary font-semibold text-sm flex items-center gap-1 hover:gap-2 transition-all">
-                    {{ _('Saber más') }} <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                </a>
-            </div>
-            <div
-                class="bg-white dark:bg-slate-900 rounded-xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 dark:border-slate-800">
-                <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
-                    <span class="material-symbols-outlined text-primary text-2xl">home</span>
-                </div>
-                <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-4">{{ _('Espacios Inteligentes') }}</h3>
-                <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">{{ _('Implementación de sistemas de sensores interactivos y eficientes en contextos urbanos e inteligentes.') }}</p>
-                <a href="#"
-                    class="text-primary font-semibold text-sm flex items-center gap-1 hover:gap-2 transition-all">
-                    {{ _('Saber más') }} <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                </a>
-            </div>
-            <div
-                class="bg-white dark:bg-slate-900 rounded-xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 dark:border-slate-800">
-                <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
-                    <span class="material-symbols-outlined text-primary text-2xl">waves</span>
-                </div>
-                <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-4">{{ _('Sensores Subacuáticos') }}</h3>
-                <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">{{ _('Despliegue y procesamiento de redes de sensores para el monitoreo de entornos marinos y campañas oceanográficas en la Patagonia.') }}</p>
-                <a href="#"
-                    class="text-primary font-semibold text-sm flex items-center gap-1 hover:gap-2 transition-all">
-                    {{ _('Saber más') }} <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                </a>
-            </div>
-            <div
-                class="bg-white dark:bg-slate-900 rounded-xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 dark:border-slate-800">
-                <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
-                    <span class="material-symbols-outlined text-primary text-2xl">memory</span>
-                </div>
-                <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-4">{{ _('Sistemas Embebidos y FPGA') }}</h3>
-                <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">{{ _('Diseño de hardware dedicado para el procesamiento de alta velocidad mediante dispositivos programables para aplicaciones críticas.') }}</p>
-                <a href="#"
-                    class="text-primary font-semibold text-sm flex items-center gap-1 hover:gap-2 transition-all">
-                    {{ _('Saber más') }} <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                </a>
-            </div>
-            <div
-                class="bg-white dark:bg-slate-900 rounded-xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 dark:border-slate-800">
-                <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
-                    <span class="material-symbols-outlined text-primary text-2xl">electrical_services</span>
-                </div>
-                <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-4">{{ _('Smart Grids') }}</h3>
-                <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">{{ _('Optimización y monitoreo de redes eléctricas inteligentes para mejorar la eficiencia energética y la integración de renovables.') }}</p>
-                <a href="#"
-                    class="text-primary font-semibold text-sm flex items-center gap-1 hover:gap-2 transition-all">
-                    {{ _('Saber más') }} <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                </a>
-            </div>
+            {% endfor %}
             {% endif %}
         </div>
     </div>

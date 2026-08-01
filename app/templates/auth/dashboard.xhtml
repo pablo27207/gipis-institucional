@@ -59,28 +59,6 @@
                         </a>
                     </div>
 
-                    <!-- Quick Links -->
-                    <div
-                        class="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-sm border border-slate-100 dark:border-slate-800 mt-6">
-                        <h3 class="font-semibold text-slate-900 dark:text-white mb-4">Acciones rápidas</h3>
-                        <ul class="space-y-3">
-                            <li>
-                                <a href="{{ url_for('auth.works') }}"
-                                    class="flex items-center gap-3 text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm">
-                                    <span class="material-symbols-outlined text-lg">library_books</span>
-                                    Mi producción / Importar SIGEVA
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ url_for('main.equipo') }}"
-                                    class="flex items-center gap-3 text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm">
-                                    <span class="material-symbols-outlined text-lg">group</span>
-                                    Ver todo el equipo
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
                     {% if current_user.is_admin %}
                     <!-- Administración -->
                     <div
@@ -212,11 +190,16 @@
                             </div>
                         </dl>
 
-                        <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
+                        <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex items-center gap-4 flex-wrap">
                             <a href="{{ url_for('auth.edit_profile') }}"
                                 class="inline-flex items-center gap-2 bg-primary hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-medium transition-all">
                                 <span class="material-symbols-outlined">edit</span>
                                 Editar mi perfil
+                            </a>
+                            <a href="{{ url_for('auth.works') }}"
+                                class="inline-flex items-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 px-6 py-3 rounded-lg font-medium transition-all">
+                                <span class="material-symbols-outlined">library_books</span>
+                                Mi Producción
                             </a>
                         </div>
                     </div>

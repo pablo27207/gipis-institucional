@@ -17,16 +17,22 @@ Ideas y funcionalidades a implementar en el futuro.
 
 ---
 
-## 🔄 Harvesting desde LinkedIn — DESCARTADO (2026-07-31)
+## 🔄 Harvesting de novedades desde redes sociales
 
-**Decisión**: Se descartó la sincronización automática desde LinkedIn. La API oficial
-(Community Management API) requiere una app aprobada por LinkedIn con proceso de revisión,
-y el scraping va contra los términos de servicio. En su lugar se implementó la
-**integración con ORCID** (ver abajo) y se ajustaron los textos de Novedades para no
-prometer una sincronización que no existe (LinkedIn queda como link a la página del grupo).
+**Prioridad**: Alta  
+**Descripción**: Alimentar automáticamente las tarjetas de Novedades con las publicaciones
+del grupo en redes sociales.
 
-Si en el futuro se quiere retomar: la alternativa razonable es carga semi-manual de
-novedades con link al post original de LinkedIn.
+**Estado (2026-07-31)**:
+- **LinkedIn descartado como fuente**: la API de páginas de empresa (Community Management
+  API) requiere una app aprobada por LinkedIn con proceso de revisión, y el scraping va
+  contra sus términos de servicio. Los textos de Novedades que prometían "sincronización
+  automática desde LinkedIn" se ajustaron; LinkedIn queda como link a la página del grupo.
+- **Facebook es la alternativa viable**: el grupo tiene página (facebook.com/GIPISUNPSJB) y
+  la Graph API permite a un administrador de la página leer sus propios posts
+  (`/{page-id}/posts` con un Page Access Token de larga duración) sin pasar por App Review,
+  usando una app propia en modo desarrollo. Requiere que un admin de la página genere el
+  token. Los posts traen texto, fecha, imagen (`full_picture`) y link (`permalink_url`).
 
 ---
 

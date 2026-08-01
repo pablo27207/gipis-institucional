@@ -131,8 +131,13 @@ def produccion():
 @bp.route('/investigacion/produccion/<int:item_id>/bibtex')
 def produccion_bibtex(item_id):
     """Cita BibTeX de un ítem (vía DOI si tiene; si no, generada básica)"""
-    from flask import Response
+    from flask import Response, abort
     from app.doi import normalize_doi, fetch_bibtex, DoiError
+    from app.security import rate_limited
+
+    # Este endpoint hace una consulta saliente a doi.org: limitar abuso
+    if rate_limited('bibtex', limit=30, window_seconds=300):
+        abort(429)
 
     item = ResearchItem.query.get_or_404(item_id)
     doi = normalize_doi(f"{item.abstract or ''} {item.links or ''}")
@@ -246,16 +251,27 @@ def contacto():
         if request.form.get('website', ''):
             flash('¡Mensaje enviado correctamente! Nos pondremos en contacto a la brevedad.', 'success')
             return redirect(url_for('main.contacto'))
-        
-        nombre = request.form.get('nombre', '').strip()
-        email = request.form.get('email', '').strip()
-        asunto = request.form.get('asunto', '').strip()
-        mensaje = request.form.get('mensaje', '').strip()
-        
+
+        from app.security import rate_limited
+        if rate_limited('contacto', limit=3, window_seconds=600):
+            flash('Enviaste varios mensajes seguidos. Esperá unos minutos '
+                  'antes de volver a intentar.', 'error')
+            return redirect(url_for('main.contacto'))
+
+        nombre = request.form.get('nombre', '').strip()[:100]
+        email = request.form.get('email', '').strip()[:150]
+        asunto = request.form.get('asunto', '').strip()[:150]
+        mensaje = request.form.get('mensaje', '').strip()[:5000]
+
         if not nombre or not email or not asunto or not mensaje:
             flash('Por favor, completá todos los campos.', 'error')
             return redirect(url_for('main.contacto'))
-        
+
+        import re as _re
+        if not _re.fullmatch(r'[^@\s]+@[^@\s]+\.[^@\s]+', email):
+            flash('El email ingresado no parece válido.', 'error')
+            return redirect(url_for('main.contacto'))
+
         try:
             from flask_mail import Message
             from app import mail
@@ -273,15 +289,16 @@ def contacto():
                 f"Asunto: {asunto}\n\n"
                 f"Mensaje:\n{mensaje}\n"
             )
+            from markupsafe import escape
             msg.html = (
                 f"<h2>Nuevo mensaje desde el sitio web GIPIS</h2>"
                 f"<hr>"
-                f"<p><strong>Nombre:</strong> {nombre}</p>"
-                f"<p><strong>Email:</strong> <a href='mailto:{email}'>{email}</a></p>"
-                f"<p><strong>Asunto:</strong> {asunto}</p>"
+                f"<p><strong>Nombre:</strong> {escape(nombre)}</p>"
+                f"<p><strong>Email:</strong> <a href='mailto:{escape(email)}'>{escape(email)}</a></p>"
+                f"<p><strong>Asunto:</strong> {escape(asunto)}</p>"
                 f"<hr>"
                 f"<p><strong>Mensaje:</strong></p>"
-                f"<p>{mensaje.replace(chr(10), '<br>')}</p>"
+                f"<p>{str(escape(mensaje)).replace(chr(10), '<br>')}</p>"
             )
             mail.send(msg)
             flash('¡Mensaje enviado correctamente! Nos pondremos en contacto a la brevedad.', 'success')

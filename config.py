@@ -5,6 +5,12 @@ class Config:
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///gipis.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     MAX_CONTENT_LENGTH = 10 * 1024 * 1024  # 10 MB max upload
+
+    # Cookies de sesión: SameSite mitiga CSRF en los POST; Secure solo
+    # fuera de desarrollo (en local no hay HTTPS)
+    SESSION_COOKIE_SAMESITE = 'Lax'
+    SESSION_COOKIE_HTTPONLY = True
+    SESSION_COOKIE_SECURE = os.environ.get('FLASK_DEBUG') != '1'
     
     # Email SMTP (Gmail)
     MAIL_SERVER = os.environ.get('MAIL_SERVER', 'smtp.gmail.com')

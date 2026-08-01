@@ -49,6 +49,13 @@ def create_app(config_class=Config):
             'loc': loc,
         }
 
+    @app.after_request
+    def security_headers(response):
+        response.headers.setdefault('X-Content-Type-Options', 'nosniff')
+        response.headers.setdefault('X-Frame-Options', 'SAMEORIGIN')
+        response.headers.setdefault('Referrer-Policy', 'strict-origin-when-cross-origin')
+        return response
+
     @app.errorhandler(413)
     def request_too_large(e):
         from flask import request, flash, redirect

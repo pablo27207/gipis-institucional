@@ -56,6 +56,12 @@ def login():
         return redirect(url_for('auth.dashboard'))
 
     if request.method == 'POST':
+        from app.security import rate_limited
+        if rate_limited('login', limit=10, window_seconds=300):
+            flash('Demasiados intentos de ingreso. Esperá unos minutos '
+                  'y probá de nuevo.', 'error')
+            return render_template('auth/login.xhtml'), 429
+
         email = request.form.get('email')
         password = request.form.get('password')
 
@@ -184,6 +190,12 @@ def forgot_password():
         return redirect(url_for('auth.dashboard'))
 
     if request.method == 'POST':
+        from app.security import rate_limited
+        if rate_limited('forgot', limit=3, window_seconds=900):
+            flash('Demasiados pedidos de restablecimiento. Esperá unos '
+                  'minutos y probá de nuevo.', 'error')
+            return render_template('auth/forgot.xhtml'), 429
+
         email = request.form.get('email', '').strip().lower()
         member = _member_by_login_email(email)
 
@@ -237,6 +249,11 @@ def reset_password(token):
         return redirect(url_for('auth.forgot_password'))
 
     if request.method == 'POST':
+        from app.security import rate_limited
+        if rate_limited('reset', limit=10, window_seconds=900):
+            flash('Demasiados intentos. Esperá unos minutos.', 'error')
+            return redirect(url_for('auth.forgot_password'))
+
         password = request.form.get('password', '')
         confirm = request.form.get('confirm', '')
         if len(password) < 8:
